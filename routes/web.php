@@ -26,3 +26,10 @@ Route::get('/dashboard/keuangan/kategori', function () {
     return view('umkm.keuangan.kategori.index');
 })->name('dashboard.keuangan.kategori');
 
+Route::get('/dashboard/keuangan/pembukuan', function () {
+    return view('umkm.keuangan.pembukuan.index');
+})->name('dashboard.keuangan.pembukuan');
+Route::get('/dashboard/keuangan/pembukuan/create', function () {
+    return view('umkm.keuangan.pembukuan.create');
+})->name('dashboard.keuangan.pembukuan.create');
+

@@ -77,7 +77,7 @@
 
                 <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
                     <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
+                    <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Laporan</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
                 </div>
