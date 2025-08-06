@@ -1,32 +1,27 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Kategori Produk</h1>
-    <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
-        <p>
-            Stok Kopi Bubuk tersisa 4 pcs dan 3 item lainnya juga menipis. Segera lakukan restok sebelum kehabisan.
-        </p>
-        <button 
-            @click="openNotification = false" 
-            class="text-gray-800 hover:text-dark cursor-pointer"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
+@php
+    $types = [
+        "pemasukan" => "Pemasukan",
+        "hutang" => "Hutang",
+        "pengeluaran" => "Pengeluaran",
+        "piutang" => "Piutang"
+    ]
+@endphp
+    <h1 class="text-3xl font-bold mb-4">Kategori Keuangan</h1>
     <div x-data="{
             formOpen: false,
             confirmDelete: false,
             editMode: false,
-            modalTitle: 'Tambah Kategori Produk',
+            modalTitle: 'Tambah Kategori Keuangan',
             categoryId: null,
-            categoryName: 'Kopi',
-            categoryType: 'Barang',
+            categoryName: 'Hutang Bank',
+            categoryType: 'hutang',
             editFormAction() {
                 const form = document.getElementById('form');
                 if (this.editMode && this.categoryId) {
-                    form.action = '/dashboard/product/kategori/' + this.categoryId;
+                    form.action = '/dashboard/keuangan/kategori/' + this.categoryId;
                     let methodInput = form.querySelector('input[name=_method]');
                     if (!methodInput) {
                         methodInput = document.createElement('input');
@@ -36,7 +31,7 @@
                     }
                     methodInput.value = 'PUT';
                 } else {
-                    form.action = '/dashboard/product/kategori';
+                    form.action = '/dashboard/keuangan/kategori';
                     const methodInput = form.querySelector('input[name=_method]');
                     if (methodInput) {
                         methodInput.remove();
@@ -51,82 +46,14 @@
 
         <div class="flex gap-4 justify-between items-center">
             <div class="flex gap-2 items-center">
-                <div x-data="{ openFilter: false }">
-                    <x-button.icon variant="accent" @click="openFilter = true">
-                        <x-slot:icon>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-light">
-                                <path fill-rule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clip-rule="evenodd" />
-                            </svg>
-                        </x-slot:icon>
-                        Filter
-                    </x-button.icon>
-    
-                    <!-- Modal -->
-                    <div 
-                        x-show="openFilter" 
-                        x-transition.opacity 
-                        x-cloak 
-                        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-                    >
-                        <div 
-                            x-show="openFilter" 
-                            x-transition 
-                            @click.away="openFilter = false" 
-                            class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
-                        >
-                            <!-- Modal Header -->
-                            <div class="flex justify-between items-center">
-                                <h2 class="text-xl font-semibold">Filter Kategori Produk</h2>
-                                <button 
-                                    @click="openFilter = false" 
-                                    class="text-gray-800 hover:text-dark cursor-pointer"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-    
-                            <div class="my-6 space-y-2">
-                                <div>
-                                    <x-label for="sort_by">Sorting Dari</x-label>
-                                    <x-input.select 
-                                        name="sort_by"
-                                        :options="[
-                                            'terbaru' => 'Terbaru',
-                                            'terlama' => 'Terlama',
-                                        ]"
-                                    />
-                                </div>
-                            </div>
-    
-                            <!-- Modal Footer -->
-                            <div class="grid grid-cols-2 gap-2">
-                                <x-button.default 
-                                    variant="danger"
-                                    @click="openFilter = false"
-                                    class="w-full"
-                                >
-                                    Batal
-                                </x-button.default>
-                                <x-button.default 
-                                    @click="openFilter = false"
-                                    class="w-full"
-                                >
-                                    Terapkan
-                                </x-button.default>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <x-form.search 
                     name="search"
-                    placeholder="Search kategori produk"
+                    placeholder="Search kategori keuangan"
                 />
             </div>
             <x-button.icon
                 @click="formOpen = true;
-                    modalTitle='Tambah Kategori Produk';
+                    modalTitle='Tambah Kategori Keuangan';
                     editMode=false;
                     categoryId=null;
                     categoryName = '';
@@ -153,7 +80,6 @@
                             <th class="px-4 py-2 text-left w-[50px]">No</th>
                             <th class="px-4 py-2 text-left">Nama</th>
                             <th class="px-4 py-2 text-left">Tipe</th>
-                            <th class="px-4 py-2 text-left">Banyak Produk</th>
                             <th class="px-4 py-2 text-left">Aksi</th>
                         </tr>
                     </thead>
@@ -163,18 +89,17 @@
                         @for ($i = 0; $i<10; $i++)
                             <tr class="border-b border-b-gray-300 even:bg-gray-50">
                                 <td class="px-4 py-2">{{ $i+1 }}</td>
-                                <td class="px-4 py-2">Kopi</td>
-                                <td class="px-4 py-2">Barang</td>
-                                <td class="px-4 py-2">12</td>
+                                <td class="px-4 py-2">Penjualan</td>
+                                <td class="px-4 py-2">{{ $types['pemasukan'] }}</td>
                                 <td class="px-4 py-2">
                                     <div class="flex gap-3 items-center">
                                         <button 
                                             @click="formOpen = true;
-                                                modalTitle='Edit Kategori Produk'; 
+                                                modalTitle='Edit Kategori Keuangan'; 
                                                 editMode=false;
                                                 categoryId = 21;
-                                                categoryName = 'Susu';
-                                                categoryType = 'barang';"
+                                                categoryName = 'Hutang Negara';
+                                                categoryType = 'hutang';"
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
@@ -183,7 +108,7 @@
                                         <button 
                                             @click="confirmDelete = true;
                                                 categoryId = 21;
-                                                categoryName = 'Susu';
+                                                categoryName = 'Hutang Negara';
                                                 deleteFormAction();"
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
@@ -240,17 +165,12 @@
                             @method("PUT")
                             
                             <div class="mb-4">
-                                <x-label :isRequired="true">Tipe</x-label>
-                                <div class="items-center flex gap-4">
-                                    <div class="items-center flex gap-2">
-                                        <input type="radio" class="cursor-pointer" name="type" id="type-barang" value="barang" x-model="categoryType">
-                                        <x-label class="!mb-0 cursor-pointer !font-normal" for="type-barang">Barang</x-label>
-                                    </div>
-                                    <div class="items-center flex gap-2">
-                                        <input type="radio" class="cursor-pointer" name="type" id="type-jasa" value="jasa" x-model="categoryType">
-                                        <x-label class="!mb-0 cursor-pointer !font-normal" for="type-jasa">Jasa</x-label>
-                                    </div>
-                                </div>
+                                <x-label for="type" :isRequired="true">Tipe</x-label>
+                                <x-input.select 
+                                    name="type"
+                                    :options="$types"
+                                    x-model="categoryType"
+                                />
                             </div>
     
                             <div class="mb-4">

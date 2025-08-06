@@ -40,12 +40,12 @@
 
             <div>
                 <button @click="openProduk = !openProduk, openBelajarBisnis = false, openKeuangan = false"
-                    class="flex items-center justify-between w-full @if(Route::is('dashboard.product*')) font-bold @endif hover:font-bold">
+                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.product*')) font-bold @endif hover:font-bold">
                     <div class="flex items-center space-x-2">
                         <img src="{{ asset('assets/icons/products.svg') }}" class="w-6">
                         <span>Produk</span>
                     </div>
-                    <svg :class="{ 'rotate-90': openProduk }" class="w-4 h-4 transition-transform transform cursor-pointer" fill="none"
+                    <svg :class="{ 'rotate-90': openProduk }" class="w-4 h-4 transition-transform transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -64,19 +64,19 @@
 
             <div>
                 <button @click="openKeuangan = !openKeuangan, openProduk = false, openBelajarBisnis = false"
-                    class="flex items-center justify-between w-full @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
+                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
                     <div class="flex items-center space-x-2">
                         <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
                         <span>Keuangan</span>
                     </div>
-                    <svg :class="{ 'rotate-90': openKeuangan }" class="w-4 h-4 transition-transform transform cursor-pointer" fill="none"
+                    <svg :class="{ 'rotate-90': openKeuangan }" class="w-4 h-4 transition-transform transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
 
                 <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
+                    <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Laporan</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
@@ -85,12 +85,12 @@
 
             <div>
                 <button @click="openBelajarBisnis = !openBelajarBisnis, openProduk = false, openKeuangan = false"
-                    class="flex items-center justify-between w-full @if(Route::is('dashboard.learning*')) font-bold @endif hover:font-bold">
+                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.learning*')) font-bold @endif hover:font-bold">
                     <div class="flex items-center space-x-2">
                         <img src="{{ asset('assets/icons/user_reading.svg') }}" class="w-6">
                         <span>Belajar Bisnis</span>
                     </div>
-                    <svg :class="{ 'rotate-90': openBelajarBisnis }" class="w-4 h-4 transition-transform transform cursor-pointer" fill="none"
+                    <svg :class="{ 'rotate-90': openBelajarBisnis }" class="w-4 h-4 transition-transform transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

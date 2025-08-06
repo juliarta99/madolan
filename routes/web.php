@@ -23,6 +23,6 @@ Route::get('/dashboard/product/kategori', function () {
 })->name('dashboard.product.kategori');
 
 Route::get('/dashboard/keuangan/kategori', function () {
-    return view('umkm.keuangan.kategori');
+    return view('umkm.keuangan.kategori.index');
 })->name('dashboard.keuangan.kategori');
 
