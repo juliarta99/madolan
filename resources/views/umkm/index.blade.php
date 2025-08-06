@@ -120,9 +120,9 @@
         <p class="mt-2">Penjualan cenderung turun setiap <span class="font-bold">hari Kamis</span>. Coba dorong diskon terbatas atau campaign tematik untuk menarik pelanggan.</p>
     </div>
 
-    <div class="w-full my-14">
-        <h1 class="font-semibold text-lg text-center mb-3">Grafik Laba Rugi</h1>
-        <canvas id="myChart"></canvas>
+    <div x-data="chartLabaRugi()" x-init="initChart()" class="my-10">
+        <h1 class="font-semibold text-lg text-center mb-5">Chart Laba Rugi</h1>
+        <canvas id="lineLabaRugi" height="150"></canvas>
     </div>
 
     <div class="mt-6">
@@ -165,41 +165,71 @@
 @endsection
 
 @section('scripts')
-    <script type="module">
-        const ctx = document.getElementById('myChart');
-        const myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['10/10/2025', '11/10/2025', '12/10/2025', '13/10/2025', '14/10/2025', '15/10/2025', '16/10/2025'],
-                datasets: [{
-                    label: 'Laba Rugi',
-                    data: [550000, 530000, 540000, 520000, 570000, 600000, 650000],
-                    borderColor: 'rgba(38, 82, 255, 1)',
-                    backgroundColor: 'rgba(38, 82, 255, 0.2)',
-                    pointBackgroundColor: 'rgba(38, 82, 255, 1)',
-                    pointBorderColor: 'rgba(38, 82, 255, 1)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                },
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString();
+    <script>
+        function chartLabaRugi() {
+            return {
+                labels: [
+                    '10/10/2025', '11/10/2025', '12/10/2025',
+                    '13/10/2025', '14/10/2025', '15/10/2025', '16/10/2025'
+                ],
+                labaRugiData: [
+                    470000, 540000, 510000, 520000,
+                    580000, 530000, 650000
+                ],
+
+                initChart() {
+                    const ctx = document.getElementById('lineLabaRugi').getContext('2d');
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: this.labels,
+                            datasets: [{
+                                label: 'Laba Rugi',
+                                data: this.labaRugiData,
+                                fill: false,
+                                borderColor: '#2563eb',
+                                backgroundColor: '#2563eb',
+                                pointBackgroundColor: '#2563eb',
+                                tension: 0.3,
+                                pointRadius: 6,
+                                pointHoverRadius: 7
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        font: {
+                                            size: 14
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const value = context.raw.toLocaleString('id-ID');
+                                            return `Rp ${value}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value.toLocaleString('id-ID');
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }
+                    });
                 }
             }
-        });
+        }
     </script>
 @endsection

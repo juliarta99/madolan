@@ -7,7 +7,7 @@
             <p>
                 Catat pengeluaran dan pemasukan sekarang, dan nikmati laporan keuangan otomatis kapan saja dibutuhkan.
             </p>
-            <a href="#">
+            <a href="{{ route('dashboard.keuangan.laporan') }}">
                 <x-button.default>
                     Lihat Laporan
                 </x-button.default>

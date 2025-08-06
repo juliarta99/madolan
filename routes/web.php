@@ -33,3 +33,15 @@ Route::get('/dashboard/keuangan/pembukuan/create', function () {
     return view('umkm.keuangan.pembukuan.create');
 })->name('dashboard.keuangan.pembukuan.create');
 
+Route::get('/dashboard/keuangan/laporan/laba-rugi', function () {
+    return view('umkm.keuangan.laporan.laba-rugi');
+})->name('dashboard.keuangan.laporan');
+Route::get('/dashboard/keuangan/laporan/arus-kas', function () {
+    return view('umkm.keuangan.laporan.arus-kas');
+})->name('dashboard.keuangan.laporan.arus-kas');
+Route::get('/dashboard/keuangan/laporan/hutang-piutang', function () {
+    return view('umkm.keuangan.laporan.hutang-piutang');
+})->name('dashboard.keuangan.laporan.hutang-piutang');
+Route::get('/dashboard/keuangan/laporan/penjualan', function () {
+    return view('umkm.keuangan.laporan.penjualan');
+})->name('dashboard.keuangan.laporan.penjualan');
