@@ -17,11 +17,11 @@
             <x-label :isRequired="true">Tipe</x-label>
             <div class="items-center flex gap-4">
                 <div class="items-center flex gap-2">
-                    <input type="radio" class="cursor-pointer" name="type" id="type-barang">
+                    <input type="radio" class="cursor-pointer" name="type" id="type-barang" value="barang">
                     <x-label class="!mb-0 cursor-pointer !font-normal" for="type-barang">Barang</x-label>
                 </div>
                 <div class="items-center flex gap-2">
-                    <input type="radio" class="cursor-pointer" name="type" id="type-jasa">
+                    <input type="radio" class="cursor-pointer" name="type" id="type-jasa" value="jasa">
                     <x-label class="!mb-0 cursor-pointer !font-normal" for="type-jasa">Jasa</x-label>
                 </div>
             </div>

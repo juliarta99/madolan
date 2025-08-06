@@ -457,9 +457,9 @@
                     class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
                 >
 
-                    <form action="" method="POST" id="form-edit-status" class="mt-6">
+                    <form action="" method="POST" id="form-delete" class="mt-6">
                         @csrf
-                        @method("PUT")
+                        @method("DELETE")
                         
                         <h1 class="text-base md:text-lg lg:text-xl font-bold text-center">Apakah anda yakin <span class="text-danger">menghapus (delete) produk <span x-text="productName"></span></span> ini?</h1>
 
