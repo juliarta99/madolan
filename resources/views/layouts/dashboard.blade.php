@@ -21,6 +21,9 @@
 </head>
 <body class="bg-light text-dark font-plus-jakarta-sans">
 
+  @php
+      $role = 'admin'
+  @endphp
   <!-- Wrapper -->
   <div class="flex h-screen overflow-hidden">
 
@@ -33,83 +36,199 @@
         <img src="{{ asset('assets/logo.svg') }}" alt="logo" class="inline-block w-10"> <span>Madolan</span>
       </div>
 
-      <nav class="mt-8 space-y-1 text-base flex flex-col justify-between h-full" x-data="{ openProduk: false, openKeuangan: false, openBelajarBisnis: false }">
-        <div class="space-y-6">
-            <a href="#" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
-              <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
-              <p>Dashboard</p>
-            </a>
+      <nav class="mt-8 space-y-1 text-base flex flex-col justify-between h-full" x-data="{ openProduk: false, openKeuangan: false, openBelajarBisnis: false, openPendanaan: false }">
+        @if($role == "umkm")
+          <div class="space-y-6">
+              <a href="{{ route('dashboard') }}" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
+                <p>Dashboard</p>
+              </a>
 
-            <div>
-                <button @click="openProduk = !openProduk, openBelajarBisnis = false, openKeuangan = false"
-                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.product*')) font-bold @endif hover:font-bold">
-                    <div class="flex items-center space-x-2">
-                        <img src="{{ asset('assets/icons/products.svg') }}" class="w-6">
-                        <span>Produk</span>
-                    </div>
-                    <svg :class="{ 'rotate-90': openProduk }" class="w-4 h-4 transition-transform transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+              <div>
+                  <button @click="openProduk = !openProduk, openBelajarBisnis = false, openKeuangan = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.product*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/products.svg') }}" class="w-6">
+                          <span>Produk</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openProduk }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
 
-                <div x-show="openProduk" x-collapse class="ml-6 mt-1 space-y-2">
-                    <a href="{{ route('dashboard.product.katalog') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.katalog*')) font-bold @endif hover:font-bold">Katalog Produk</a>
-                    <a href="{{ route('dashboard.product.kategori') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.kategori*')) font-bold @endif hover:font-bold">Kategori</a>
-                </div>
-            </div>
+                  <div x-show="openProduk" x-collapse class="ml-6 mt-1 space-y-2">
+                      <a href="{{ route('dashboard.product.katalog') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.katalog*')) font-bold @endif hover:font-bold">Katalog Produk</a>
+                      <a href="{{ route('dashboard.product.kategori') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.kategori*')) font-bold @endif hover:font-bold">Kategori</a>
+                  </div>
+              </div>
 
-            <a href="#" class="flex items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-x-2">
-              <img src="{{ asset('assets/icons/pos.svg') }}" class="inline-block w-6">
-              <p>Point of Sales</p>
-            </a>
+              <a href="#" class="flex items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/pos.svg') }}" class="inline-block w-6">
+                <p>Point of Sales</p>
+              </a>
 
-            <div>
-                <button @click="openKeuangan = !openKeuangan, openProduk = false, openBelajarBisnis = false"
-                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
-                    <div class="flex items-center space-x-2">
-                        <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
-                        <span>Keuangan</span>
-                    </div>
-                    <svg :class="{ 'rotate-90': openKeuangan }" class="w-4 h-4 transition-transform transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+              <div>
+                  <button @click="openKeuangan = !openKeuangan, openProduk = false, openBelajarBisnis = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
+                          <span>Keuangan</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openKeuangan }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
 
-                <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
+                  <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
+                      <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
+                      <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
+                      <a href="{{ route('dashboard.keuangan.laporan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Laporan</a>
+                      <a href="{{ route('dashboard.keuangan.pendanaan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
+                  </div>
+              </div>
+
+              <div>
+                  <button @click="openBelajarBisnis = !openBelajarBisnis, openProduk = false, openKeuangan = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.learning*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/user_reading.svg') }}" class="w-6">
+                          <span>Belajar Bisnis</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openBelajarBisnis }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
+
+                  <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
+                      <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
+                      <a href="#" class="block px-2 py-1 hover:font-bold">Pembelajaran</a>
+                      <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
+                  </div>
+              </div>
+
+              <a href="{{ route('dashboard.access') }}" class="flex items-center @if(Route::is('dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/employee.svg') }}" class="inline-block w-6">
+                <p>Manajemen Akses</p>
+              </a>
+          </div>
+        @elseif($role == "mentor")
+          <div class="space-y-6">
+              <a href="{{ route('mentor.dashboard') }}" class="flex items-center @if(Route::is('mentor.dashboard')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
+                <p>Dashboard</p>
+              </a>
+
+              <a href="{{ route('mentor.dashboard.forum') }}" class="flex items-center @if(Route::is('mentor.dashboard.forum*')) font-bold @endif hover:font-bold space-x-2">
+                <svg viewBox="0 0 56 55" class="size-6 fill-light" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M48.6257 47.2084C48.3201 47.2084 48.0336 47.1511 47.7663 47.0365C47.4989 46.9219 47.2507 46.75 47.0215 46.5209L41.7507 41.25H18.834C17.5736 41.25 16.495 40.8016 15.5982 39.9048C14.7013 39.008 14.2522 37.9287 14.2507 36.6667V34.375H39.459C40.7194 34.375 41.7988 33.9266 42.6971 33.0298C43.5954 32.133 44.0438 31.0537 44.0423 29.7917V13.75H46.334C47.5944 13.75 48.6738 14.1992 49.5721 15.0975C50.4704 15.9959 50.9188 17.0745 50.9173 18.3334V44.8594C50.9173 45.5469 50.6882 46.1107 50.2298 46.5507C49.7715 46.9907 49.2368 47.2099 48.6257 47.2084ZM9.66732 27.9011L12.36 25.2084H34.8757V9.16671H9.66732V27.9011ZM7.37565 35.75C6.76454 35.75 6.22982 35.5308 5.77148 35.0923C5.31315 34.6539 5.08398 34.0901 5.08398 33.4011V9.16671C5.08398 7.90629 5.53315 6.82768 6.43148 5.93087C7.32982 5.03407 8.40843 4.5849 9.66732 4.58337H34.8757C36.1361 4.58337 37.2154 5.03254 38.1138 5.93087C39.0121 6.82921 39.4605 7.90782 39.459 9.16671V25.2084C39.459 26.4688 39.0106 27.5482 38.1138 28.4465C37.217 29.3448 36.1376 29.7932 34.8757 29.7917H14.2507L8.97982 35.0625C8.75065 35.2917 8.50239 35.4636 8.23503 35.5782C7.96766 35.6927 7.68121 35.75 7.37565 35.75Z"/>
+                </svg>
+                <p>Forum</p>
+              </a>
+
+              <a href="{{ route('mentor.dashboard.pembelajaran') }}" class="flex items-center @if(Route::is('mentor.dashboard.pembelajaran*')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
+                <p>Pembelajaran</p>
+              </a>
+          </div>
+        @elseif($role == "admin")
+          <div class="space-y-6">
+              <a href="{{ route('dashboard') }}" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
+                <p>Dashboard</p>
+              </a>
+
+              <a href="{{ route('admin.dashboard.user') }}" class="flex items-center @if(Route::is('admin.dashboard.user*')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/users.svg') }}" class="inline-block w-6">
+                <p>User</p>
+              </a>
+
+              <div>
+                  <button @click="openProduk = !openProduk, openBelajarBisnis = false, openKeuangan = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.product*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/products.svg') }}" class="w-6">
+                          <span>Produk</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openProduk }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
+
+                  <div x-show="openProduk" x-collapse class="ml-6 mt-1 space-y-2">
+                      <a href="{{ route('dashboard.product.katalog') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.katalog*')) font-bold @endif hover:font-bold">Katalog Produk</a>
+                      <a href="{{ route('dashboard.product.kategori') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.kategori*')) font-bold @endif hover:font-bold">Kategori</a>
+                  </div>
+              </div>
+
+              <div>
+                  <button @click="openKeuangan = !openKeuangan, openProduk = false, openBelajarBisnis = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
+                          <span>Keuangan</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openKeuangan }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
+
+                  <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
+                    <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Tipe</a>
                     <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
-                    <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
-                    <a href="{{ route('dashboard.keuangan.laporan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Laporan</a>
-                    <a href="{{ route('dashboard.keuangan.pendanaan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
-                </div>
-            </div>
+                    <a href="{{ route('dashboard.keuangan.laporan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Jenis Laporan</a>
+                  </div>
+              </div>
 
-            <div>
-                <button @click="openBelajarBisnis = !openBelajarBisnis, openProduk = false, openKeuangan = false"
-                    class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.learning*')) font-bold @endif hover:font-bold">
-                    <div class="flex items-center space-x-2">
-                        <img src="{{ asset('assets/icons/user_reading.svg') }}" class="w-6">
-                        <span>Belajar Bisnis</span>
-                    </div>
-                    <svg :class="{ 'rotate-90': openBelajarBisnis }" class="w-4 h-4 transition-transform transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+              <div>
+                  <button @click="openPendanaan = !openPendanaan, openProduk = false, openBelajarBisnis = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/money_hand.svg') }}" class="w-6">
+                          <span>Pendanaan</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openPendanaan }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
 
-                <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
-                    <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
-                    <a href="{{ route('dashboard.learning.pembelajaran') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.pembelajaran*')) font-bold @endif">Pembelajaran</a>
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
-                </div>
-            </div>
+                  <div x-show="openPendanaan" x-collapse class="ml-6 mt-1 space-y-2">
+                    <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Tipe</a>
+                    <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Informasi Pendanaan</a>
+                  </div>
+              </div>
 
-            <a href="{{ route('dashboard.access') }}" class="flex items-center @if(Route::is('dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
-              <img src="{{ asset('assets/icons/employee.svg') }}" class="inline-block w-6">
-              <p>Manajemen Akses</p>
-            </a>
-        </div>
+              <div>
+                  <button @click="openBelajarBisnis = !openBelajarBisnis, openProduk = false, openKeuangan = false"
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.learning*')) font-bold @endif hover:font-bold">
+                      <div class="flex items-center space-x-2">
+                          <img src="{{ asset('assets/icons/user_reading.svg') }}" class="w-6">
+                          <span>Belajar Bisnis</span>
+                      </div>
+                      <svg :class="{ 'rotate-90': openBelajarBisnis }" class="w-4 h-4 transition-transform transform" fill="none"
+                          stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </button>
+
+                  <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
+                      <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Kategori</a>
+                      <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
+                      <a href="#" class="block px-2 py-1 hover:font-bold">Pembelajaran</a>
+                  </div>
+              </div>
+
+              <a href="{{ route('dashboard.access') }}" class="flex items-center @if(Route::is('dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
+                <img src="{{ asset('assets/icons/employee.svg') }}" class="inline-block w-6">
+                <p>Manajemen Akses</p>
+              </a>
+          </div>
+        @endif
         <a href="#" class="flex items-center hover:font-bold space-x-2 mt-4">
             <img src="{{ asset('assets/icons/logout.svg') }}" class="inline-block w-6">
             <p>Logout</p>
