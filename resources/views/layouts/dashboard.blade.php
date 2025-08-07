@@ -104,6 +104,11 @@
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
                 </div>
             </div>
+
+            <a href="{{ route('dashboard.access') }}" class="flex items-center @if(Route::is('dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
+              <img src="{{ asset('assets/icons/employee.svg') }}" class="inline-block w-6">
+              <p>Manajemen Akses</p>
+            </a>
         </div>
         <a href="#" class="flex items-center hover:font-bold space-x-2 mt-4">
             <img src="{{ asset('assets/icons/logout.svg') }}" class="inline-block w-6">

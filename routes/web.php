@@ -73,3 +73,13 @@ Route::get('/dashboard/learning/pembelajaran', function () {
 Route::get('/dashboard/learning/pembelajaran/create', function () {
     return view('dashboard.learning.pembelajaran.create');
 })->name('dashboard.learning.pembelajaran.create');
+
+Route::get('/dashboard/access', function () {
+    return view('dashboard.access.index');
+})->name('dashboard.access');
+Route::get('/dashboard/access/create', function () {
+    return view('dashboard.access.create');
+})->name('dashboard.access.create');
+Route::get('/dashboard/access/show', function () {
+    return view('dashboard.access.show');
+})->name('dashboard.access.show');

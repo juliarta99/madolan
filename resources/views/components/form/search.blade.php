@@ -9,7 +9,7 @@
     <x-input.default 
         type="text" 
         placeholder="{{ $placeholder }}" 
-        class="rounded-tl-md rounded-bl-md !rounded-tr-none !rounded-br-none w-max max-w-full {{ $styleInput }}"
+        class="rounded-tl-md rounded-bl-md !rounded-tr-none !rounded-br-none w-full max-w-full {{ $styleInput }}"
         {{ $attributes->only(['wire:model', 'wire:model.lazy', 'name', 'value', 'id']) }}
     />
 
