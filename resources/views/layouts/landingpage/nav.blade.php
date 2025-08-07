@@ -15,7 +15,7 @@
                 <a href="#" class="hover:text-primary @if(Route::is('landingpage')) text-primary @endif">Beranda</a>
             </li>
             <li class="relative" x-data="{ open: false }">
-                <button @click="open = !open" class="cursor-pointer flex items-center gap-1 hover:text-primary @if(Route::is('fitur*')) text-primary @endif">
+                <button @click="open = !open" class="cursor-pointer flex items-center gap-1 hover:text-accent @if(Route::is('fitur*')) text-accent @endif">
                     Fitur
                     <svg class="w-6 h-6 transition-transform duration-300" :class="{ 'rotate-180': open }" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.298l3.71-4.07a.75.75 0 011.08 1.04l-4.25 4.667a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
@@ -45,7 +45,7 @@
                 <a href="#" class="hover:text-primary @if(Route::is('faq')) text-primary @endif">FAQ</a>
             </li>
             <li>
-                <a href="#" class="hover:text-primary @if(Route::is('forum*')) text-primary @endif">Forum</a>
+                <a href="#" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>
             </li>
             <li>
                 <a href="#" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
@@ -120,7 +120,7 @@
                 <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('landingpage')) text-primary @endif">Beranda</a>
 
                 <div x-data="{ open: false }">
-                    <button @click="open = !open" class="flex items-center w-full justify-between hover:text-primary text-sm sm:text-base cursor-pointer @if(Route::is('fitur*')) text-primary @endif">
+                    <button @click="open = !open" class="flex items-center w-full justify-between hover:text-accent text-sm sm:text-base cursor-pointer @if(Route::is('fitur*')) text-accent @endif">
                         Fitur
                         <svg class="w-5 h-5" :class="{ 'rotate-180': open }" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.298l3.71-4.07a.75.75 0 011.08 1.04l-4.25 4.667a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
@@ -137,7 +137,7 @@
                 </div>
 
                 <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('faq')) text-primary @endif">FAQ</a>
-                <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('forum*')) text-primary @endif">Forum</a>
+                <a href="#" class="block hover:text-accent text-sm sm:text-base @if(Route::is('forum*')) text-accent @endif">Forum</a>
                 <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
 
                 <div class="pt-4 border-t border-gray-200 mt-4">

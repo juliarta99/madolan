@@ -16,12 +16,14 @@
     @livewireStyles
     <style>[x-cloak] { display: none !important; }</style>
 </head>
-<body class="bg-light text-dark font-plus-jakarta-sans">
-    @extends('layouts.landingpage.nav')
+<body class="bg-light text-dark font-plus-jakarta-sans relative overflow-x-hidden">
+    @include('layouts.landingpage.nav')
     
     @yield('content')
     
-    @extends('layouts.landingpage.footer')
+    @if (!Route::is('forum*'))
+        @include('layouts.landingpage.footer')
+    @endif
     
     @yield('scripts')
     @livewireScripts

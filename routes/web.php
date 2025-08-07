@@ -6,6 +6,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landingpage');
 
+Route::get('/forum', function () {
+    return view('forum.index');
+})->name('forum.index');
+Route::get('/forum/show', function () {
+    return view('forum.show');
+})->name('forum.show');
+
 Route::get('/dashboard', function () {
     return view('umkm.index');
 })->name('dashboard');
