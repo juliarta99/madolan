@@ -45,3 +45,10 @@ Route::get('/dashboard/keuangan/laporan/hutang-piutang', function () {
 Route::get('/dashboard/keuangan/laporan/penjualan', function () {
     return view('umkm.keuangan.laporan.penjualan');
 })->name('dashboard.keuangan.laporan.penjualan');
+
+Route::get('/dashboard/keuangan/pendanaan', function () {
+    return view('umkm.keuangan.pendanaan.index');
+})->name('dashboard.keuangan.pendanaan');
+Route::get('/dashboard/keuangan/pendanaan/result', function () {
+    return view('umkm.keuangan.pendanaan.result');
+})->name('dashboard.keuangan.pendanaan.result');

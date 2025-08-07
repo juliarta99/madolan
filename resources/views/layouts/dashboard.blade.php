@@ -79,7 +79,7 @@
                     <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
                     <a href="{{ route('dashboard.keuangan.pembukuan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pembukuan*')) font-bold @endif">Pembukuan</a>
                     <a href="{{ route('dashboard.keuangan.laporan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.laporan*')) font-bold @endif">Laporan</a>
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
+                    <a href="{{ route('dashboard.keuangan.pendanaan') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.pendanaan*')) font-bold @endif">Pendanaan</a>
                 </div>
             </div>
 

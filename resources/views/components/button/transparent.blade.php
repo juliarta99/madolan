@@ -11,6 +11,9 @@
         'accent' => "border-2 border-accent text-accent hover:bg-accent hover:text-light",
         'dark' => "border-2 border-dark text-dark hover:bg-dark hover:text-light",
         'light' => "border-2 border-light text-light hover:bg-light hover:text-dark",
+        'success' => 'border-2 border-success text-success hover:bg-success hover:text-light',
+        'danger' => 'border-2 border-danger text-danger hover:bg-danger hover:text-light',
+        'warning' => 'border-2 border-warning  text-warning hover:bg-warning hover:text-light',
         default => "border-2 border-primary text-primary hover:bg-primary hover:text-light",
     };
 
