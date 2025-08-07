@@ -4,7 +4,7 @@
 ])
 
 @php
-    $base = 'flex gap-2 items-center justify-center font-medium focus:outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer px-2 py-1 text-xs rounded-xs md:px-3 md:py-1.5 md:text-sm md:rounded-sm lg:px-6 lg:py-2 lg:text-base lg:rounded-md';
+    $base = 'flex gap-2 items-center justify-center font-medium focus:outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer px-2 py-1 text-xs md:px-3 md:py-1.5 md:text-sm rounded-sm lg:px-6 lg:py-2 lg:text-base lg:rounded-md';
 
     $variantBase = match($variant) {
         'secondary' => 'border-2 border-secondary bg-secondary text-light hover:bg-primary hover:border-primary',
