@@ -14,55 +14,62 @@ Route::get('/forum/show', function () {
 })->name('forum.show');
 
 Route::get('/dashboard', function () {
-    return view('umkm.index');
+    return view('dashboard.index');
 })->name('dashboard');
 
 Route::get('/dashboard/product/katalog', function () {
-    return view('umkm.product.katalog.index');
+    return view('dashboard.product.katalog.index');
 })->name('dashboard.product.katalog');
 
 Route::get('/dashboard/product/katalog/create', function () {
-    return view('umkm.product.katalog.create');
+    return view('dashboard.product.katalog.create');
 })->name('dashboard.product.katalog.create');
 
 Route::get('/dashboard/product/kategori', function () {
-    return view('umkm.product.kategori.index');
+    return view('dashboard.product.kategori.index');
 })->name('dashboard.product.kategori');
 
 Route::get('/dashboard/keuangan/kategori', function () {
-    return view('umkm.keuangan.kategori.index');
+    return view('dashboard.keuangan.kategori.index');
 })->name('dashboard.keuangan.kategori');
 
 Route::get('/dashboard/keuangan/pembukuan', function () {
-    return view('umkm.keuangan.pembukuan.index');
+    return view('dashboard.keuangan.pembukuan.index');
 })->name('dashboard.keuangan.pembukuan');
 Route::get('/dashboard/keuangan/pembukuan/create', function () {
-    return view('umkm.keuangan.pembukuan.create');
+    return view('dashboard.keuangan.pembukuan.create');
 })->name('dashboard.keuangan.pembukuan.create');
 
 Route::get('/dashboard/keuangan/laporan/laba-rugi', function () {
-    return view('umkm.keuangan.laporan.laba-rugi');
+    return view('dashboard.keuangan.laporan.laba-rugi');
 })->name('dashboard.keuangan.laporan');
 Route::get('/dashboard/keuangan/laporan/arus-kas', function () {
-    return view('umkm.keuangan.laporan.arus-kas');
+    return view('dashboard.keuangan.laporan.arus-kas');
 })->name('dashboard.keuangan.laporan.arus-kas');
 Route::get('/dashboard/keuangan/laporan/hutang-piutang', function () {
-    return view('umkm.keuangan.laporan.hutang-piutang');
+    return view('dashboard.keuangan.laporan.hutang-piutang');
 })->name('dashboard.keuangan.laporan.hutang-piutang');
 Route::get('/dashboard/keuangan/laporan/penjualan', function () {
-    return view('umkm.keuangan.laporan.penjualan');
+    return view('dashboard.keuangan.laporan.penjualan');
 })->name('dashboard.keuangan.laporan.penjualan');
 
 Route::get('/dashboard/keuangan/pendanaan', function () {
-    return view('umkm.keuangan.pendanaan.index');
+    return view('dashboard.keuangan.pendanaan.index');
 })->name('dashboard.keuangan.pendanaan');
 Route::get('/dashboard/keuangan/pendanaan/result', function () {
-    return view('umkm.keuangan.pendanaan.result');
+    return view('dashboard.keuangan.pendanaan.result');
 })->name('dashboard.keuangan.pendanaan.result');
 
 Route::get('/dashboard/learning/forum', function () {
-    return view('umkm.learning.forum.index');
+    return view('dashboard.learning.forum.index');
 })->name('dashboard.learning.forum');
 Route::get('/dashboard/learning/forum/create', function () {
-    return view('umkm.learning.forum.create');
+    return view('dashboard.learning.forum.create');
 })->name('dashboard.learning.forum.create');
+
+Route::get('/dashboard/learning/pembelajaran', function () {
+    return view('dashboard.learning.pembelajaran.index');
+})->name('dashboard.learning.pembelajaran');
+Route::get('/dashboard/learning/pembelajaran/create', function () {
+    return view('dashboard.learning.pembelajaran.create');
+})->name('dashboard.learning.pembelajaran.create');

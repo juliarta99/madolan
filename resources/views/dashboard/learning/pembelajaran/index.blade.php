@@ -1,15 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Forum Saya</h1>
+    <h1 class="text-3xl font-bold mb-4">My Pembelajaran</h1>
     <div class="bg-primary p-4 rounded-md mb-4">
-        <h2 class="font-semibold text-light">Lihat diskusi hari ini</h2>
-        <p class="text-light mt-1 mb-3">
-            Temukan insight baru, strategi jitu, dan obrolan hangat dari sesama pelaku usaha di komunitas Madolan
-        </p>
+        <h2 class="font-semibold text-light mb-2">Lihat pembelajaran?</h2>
         <a href="">
             <x-button.default variant="light" class="!text-primary">
-                Kunjungi Halaman Forum
+                Kunjungi Halaman Pembelajaran
             </x-button.default>
         </a>
     </div>
@@ -40,7 +37,7 @@
                     >
                         <!-- Modal Header -->
                         <div class="flex justify-between items-center">
-                            <h2 class="text-xl font-semibold">Filter Forum Saya</h2>
+                            <h2 class="text-xl font-semibold">Filter My Pembelajaran</h2>
                             <button 
                                 @click="openFilter = false" 
                                 class="text-gray-800 hover:text-dark cursor-pointer"
@@ -71,18 +68,6 @@
                                     :options="[
                                         'terbaru' => 'Terbaru',
                                         'terlama' => 'Terlama',
-                                    ]"
-                                />
-                            </div>
-
-                            <div>
-                                <x-label for="discussion">Diskusi</x-label>
-                                <x-input.select 
-                                    name="discussion"
-                                    :options="[
-                                        '' => 'Pilih...',
-                                        'belum-ada-diskusi' => 'Belum Ada Diskusi',
-                                        'ada-diskusi' => 'Ada Diskusi',
                                     ]"
                                 />
                             </div>
@@ -121,10 +106,10 @@
             </div>
             <x-form.search 
                 name="search"
-                placeholder="Search forum"
+                placeholder="Search pembelajaran"
             />
         </div>
-        <a href="{{ route('dashboard.learning.forum.create') }}">
+        <a href="{{ route('dashboard.learning.pembelajaran.create') }}">
             <x-button.icon>
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
@@ -140,30 +125,39 @@
         <div
             class="flex flex-col gap-6"
         >
-            <div class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6 flex gap-6">
-                <img src="{{ asset('assets/image-default.png') }}" class="h-30 aspect-square rounded-lg object-cover" alt="">
-                <div class="w-full">
-                    <div class="flex justify-between gap-3 flex-wrap">
+            <div class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6">
+                <div class="flex gap-6">
+                    <img src="{{ asset('assets/image-default.png') }}" class="h-40 aspect-video rounded-lg object-cover" alt="">
+                    <div>
+                        <div class="flex gap-2 items-center flex-wrap">
+                            <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                            <x-badge>Marketing</x-badge>
+                        </div>
                         <h1 class="text-base md:text-lg font-semibold">Cara Meningkatkan Omzet Tanpa Nambah Modal</h1>
-                        <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                        <p class="mt-1">Bagi dong strategi teman-teman buat naik omzet tanpa perlu tambahan dana. Kolaborasi? Efisiensi? Upselling?</p>
                     </div>
-                    <p class="mt-1">Bagi dong strategi teman-teman buat naik omzet tanpa perlu tambahan dana. Kolaborasi? Efisiensi? Upselling?</p>
-                    <div class="mt-4">
-                        <div class="flex justify-between gap-3 flex-wrap">
-                            <div class="flex gap-2">
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">omset</div>
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">efisiensi</div>
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">strategi</div>
-                                <div class="p-1 px-2 rounded-sm bg-accent/30">+2</div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <p class="text-gray-600">2 hari yang lalu</p>
-                            </div>
+                </div>
+                <div class="flex justify-between gap-4 mt-4">
+                    <div class="flex gap-2 flex-wrap">
+                        <div class="p-1 px-2 rounded-sm bg-primary/30">omset</div>
+                        <div class="p-1 px-2 rounded-sm bg-primary/30">efisiensi</div>
+                        <div class="p-1 px-2 rounded-sm bg-primary/30">strategi</div>
+                        <div class="p-1 px-2 rounded-sm bg-accent/30">+2</div>
+                    </div>
+                    <div class="flex justify-between gap-3 flex-wrap">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-6 fill-gray-600"><path d="M320 96C239.2 96 174.5 132.8 127.4 176.6C80.6 220.1 49.3 272 34.4 307.7C31.1 315.6 31.1 324.4 34.4 332.3C49.3 368 80.6 420 127.4 463.4C174.5 507.1 239.2 544 320 544C400.8 544 465.5 507.2 512.6 463.4C559.4 419.9 590.7 368 605.6 332.3C608.9 324.4 608.9 315.6 605.6 307.7C590.7 272 559.4 220 512.6 176.6C465.5 132.9 400.8 96 320 96zM176 320C176 240.5 240.5 176 320 176C399.5 176 464 240.5 464 320C464 399.5 399.5 464 320 464C240.5 464 176 399.5 176 320zM320 256C320 291.3 291.3 320 256 320C244.5 320 233.7 317 224.3 311.6C223.3 322.5 224.2 333.7 227.2 344.8C240.9 396 293.6 426.4 344.8 412.7C396 399 426.4 346.3 412.7 295.1C400.5 249.4 357.2 220.3 311.6 224.3C316.9 233.6 320 244.4 320 256z"/></svg>
+                            <span class="text-gray-600">2542 views</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <p class="text-gray-600">2 hari yang lalu</p>
                         </div>
                     </div>
+                </div>
+                <div class="w-full">
                     <div class="mt-4 rounded-md bg-danger text-light py-2 px-4">
                         <h3 class="font-semibold">Forum anda ditolak</h3>
-                        <a href="" class="flex w-max items-center">
+                        <a href="" class="flex w-max items-center gap-2">
                             <p>Baca pesan mengapa ditolak</p>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-6 fill-light"><path d="M354.4 83.8C359.4 71.8 371.1 64 384 64L544 64C561.7 64 576 78.3 576 96L576 256C576 268.9 568.2 280.6 556.2 285.6C544.2 290.6 530.5 287.8 521.3 278.7L464 221.3L310.6 374.6C298.1 387.1 277.8 387.1 265.3 374.6C252.8 362.1 252.8 341.8 265.3 329.3L418.7 176L361.4 118.6C352.2 109.4 349.5 95.7 354.5 83.7zM64 240C64 195.8 99.8 160 144 160L224 160C241.7 160 256 174.3 256 192C256 209.7 241.7 224 224 224L144 224C135.2 224 128 231.2 128 240L128 496C128 504.8 135.2 512 144 512L400 512C408.8 512 416 504.8 416 496L416 416C416 398.3 430.3 384 448 384C465.7 384 480 398.3 480 416L480 496C480 540.2 444.2 576 400 576L144 576C99.8 576 64 540.2 64 496L64 240z"/></svg>
                         </a>

@@ -100,7 +100,7 @@
 
                 <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
                     <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.pembelajaran*')) font-bold @endif">Pembelajaran</a>
+                    <a href="{{ route('dashboard.learning.pembelajaran') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.pembelajaran*')) font-bold @endif">Pembelajaran</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
                 </div>
             </div>

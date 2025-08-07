@@ -130,25 +130,25 @@
             <div class="mb-4">
                 <x-label>Pajak</x-label>
                 <div class="space-y-4">
-                    <template x-for="(item, index) in pajaks" :key="index">
+                    <template x-for="(pajak, index) in pajaks" :key="index">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 border border-gray-200 p-4 rounded-md relative">
                             <div class="mb-2">
-                                <x-label x-bind:for="`items[${index}][name]`">Nama</x-label>
+                                <x-label x-bind:for="`pajaks[${index}][name]`">Nama</x-label>
                                 <x-input.default
                                     type="text"
-                                    x-bind:name="`items[${index}][name]`"
-                                    placeholder="Masukkan nama item"
-                                    x-model="item.name"
+                                    x-bind:name="`pajaks[${index}][name]`"
+                                    placeholder="Masukkan nama pajak"
+                                    x-model="pajak.name"
                                 />
                             </div>
                             <div class="mb-2">
-                                <x-label x-bind:for="`items[${index}][total]`">Total Pajak</x-label>
+                                <x-label x-bind:for="`pajaks[${index}][total]`">Total Pajak</x-label>
                                 <x-input.default
                                     type="number"
                                     min="0"
-                                    x-bind:name="`items[${index}][total]`"
+                                    x-bind:name="`pajaks[${index}][total]`"
                                     placeholder="Masukkan harga"
-                                    x-model="item.total"
+                                    x-model="pajak.total"
                                 />
                             </div>
                             <button
