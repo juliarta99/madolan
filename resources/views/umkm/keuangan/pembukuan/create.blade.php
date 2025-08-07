@@ -210,11 +210,11 @@
                     this.items.splice(index, 1);
                 },
                 addPajak() {
-                    this.items.push({ name: '', total: 0 });
+                    this.pajaks.push({ name: '', total: 0 });
                 },
                 removePajak(index) {
                     if (index === 0) return;
-                    this.items.splice(index, 1);
+                    this.pajaks.splice(index, 1);
                 },
                 formatCurrency(value) {
                     return new Intl.NumberFormat('id-ID', {

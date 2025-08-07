@@ -59,3 +59,10 @@ Route::get('/dashboard/keuangan/pendanaan', function () {
 Route::get('/dashboard/keuangan/pendanaan/result', function () {
     return view('umkm.keuangan.pendanaan.result');
 })->name('dashboard.keuangan.pendanaan.result');
+
+Route::get('/dashboard/learning/forum', function () {
+    return view('umkm.learning.forum.index');
+})->name('dashboard.learning.forum');
+Route::get('/dashboard/learning/forum/create', function () {
+    return view('umkm.learning.forum.create');
+})->name('dashboard.learning.forum.create');

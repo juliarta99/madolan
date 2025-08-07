@@ -16,6 +16,8 @@
     @endif
     @livewireStyles
     <style>[x-cloak] { display: none !important; }</style>
+
+    @yield('styles')
 </head>
 <body class="bg-light text-dark font-plus-jakarta-sans">
 
@@ -97,7 +99,7 @@
                 </button>
 
                 <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
-                    <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
+                    <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.pembelajaran*')) font-bold @endif">Pembelajaran</a>
                     <a href="#" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
                 </div>
