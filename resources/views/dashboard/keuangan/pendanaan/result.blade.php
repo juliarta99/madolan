@@ -21,7 +21,7 @@
     <div class="h-70 w-70 bg-accent blur-[150px] fixed -z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] fixed -z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
     <main x-data="{berpotensi: false}"  
-        class="container max-w-4xl mx-auto py-10 z-10 relative"
+        class="container max-w-4xl mx-auto py-10 px-4 z-10 relative"
     >
         <x-header-with-back route="{{ route('dashboard.keuangan.pendanaan') }}" titleBeforeSpan="Cek" titleInSpan="Kelayakan" />
         <template x-if="berpotensi == true">
@@ -37,18 +37,18 @@
             </div>
         </template>
 
-        <div class="grid grid-cols-2 gap-6 my-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
             <div class="bg-light p-6 relative rounded-lg border border-gray-100 shadow-xl">
-                <x-badge class="w-max">Kredit Usaha Rakyat (KUR)</x-badge>
+                <x-badge class="w-max max-w-full">Kredit Usaha Rakyat (KUR)</x-badge>
                 <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
                 <div class="flex gap-2 items-center">
                     <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
-                    <p>Bank Rakyat Indonesia</p>
+                    <p class="text-sm md:text-base">Bank Rakyat Indonesia</p>
                 </div>
                 <div class="flex flex-col gap-1 mt-4">
-                    <h5 class="font-medium">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
-                    <h5 class="font-medium">Tenor: 3-5 Tahun</h5>
-                    <h5 class="font-medium">Bunga: 6%/tahun</h5>
+                    <h5 class="font-medium text-sm md:text-base">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
+                    <h5 class="font-medium text-sm md:text-base">Tenor: 3-5 Tahun</h5>
+                    <h5 class="font-medium text-sm md:text-base">Bunga: 6%/tahun</h5>
                 </div>
             </div>
             <div class="bg-light p-6 relative rounded-lg border border-gray-100 shadow-xl">
@@ -58,13 +58,13 @@
                         <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.61876 11.2788C2.37663 11.0366 2.2604 10.7541 2.27009 10.4313C2.27978 10.1085 2.40609 9.82598 2.64902 9.58385C2.89115 9.3619 3.17364 9.24568 3.49648 9.23519C3.81932 9.2247 4.1018 9.34092 4.34393 9.58385L8.64173 13.8817L9.06546 14.3054L9.48919 14.7291C9.73132 14.9712 9.84754 15.2537 9.83785 15.5766C9.82817 15.8994 9.70186 16.1819 9.45892 16.424C9.21679 16.646 8.93431 16.7622 8.61147 16.7727C8.28863 16.7832 8.00614 16.667 7.76401 16.424L2.61876 11.2788ZM15.4516 13.8514L25.7421 3.56088C25.9843 3.31875 26.2668 3.20293 26.5896 3.21342C26.9124 3.22391 27.1949 3.34982 27.437 3.59114C27.659 3.83327 27.7752 4.11576 27.7857 4.4386C27.7962 4.76144 27.68 5.04392 27.437 5.28605L16.2991 16.424C16.057 16.6661 15.7745 16.7872 15.4516 16.7872C15.1288 16.7872 14.8463 16.6661 14.6042 16.424L9.45892 11.2788C9.23697 11.0568 9.12599 10.7796 9.12599 10.447C9.12599 10.1145 9.23697 9.82679 9.45892 9.58385C9.70105 9.34172 9.98878 9.22066 10.3221 9.22066C10.6554 9.22066 10.9428 9.34172 11.1841 9.58385L15.4516 13.8514ZM20.5666 5.31632L16.2991 9.58385C16.0771 9.80581 15.7999 9.91678 15.4674 9.91678C15.1348 9.91678 14.8471 9.80581 14.6042 9.58385C14.362 9.34172 14.241 9.0544 14.241 8.72187C14.241 8.38935 14.362 8.10162 14.6042 7.85868L18.8717 3.59114C19.0937 3.36919 19.3713 3.25822 19.7046 3.25822C20.038 3.25822 20.3253 3.36919 20.5666 3.59114C20.8088 3.83327 20.9298 4.1206 20.9298 4.45313C20.9298 4.78565 20.8088 5.07338 20.5666 5.31632Z" fill="#27AE60"/>
                         </svg>
-                        <p class="text-success">Usaha minimal berumur 1 tahun <span class="font-bold">Usahamu berumur 2 tahun</span></p>
+                        <p class="text-success text-sm md:text-base">Usaha minimal berumur 1 tahun <span class="font-bold">Usahamu berumur 2 tahun</span></p>
                     </div>
                     <div class="flex gap-2 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
                         </svg>
-                        <p class="text-danger">Omzet minimal 200 juta/tahun <span class="font-bold">Omzet usahamu 20 juta/tahun</span></p>
+                        <p class="text-danger text-sm md:text-base">Omzet minimal 200 juta/tahun <span class="font-bold">Omzet usahamu 20 juta/tahun</span></p>
                     </div>
                 </div>
                 <h2 class="text-base mt-4 mb-1 sm:text-lg lg:text-xl font-semibold">Beberapa Syarat Lainnya dapat Anda Persiapkan</h2>
@@ -80,7 +80,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>Tidak bertentangan dengan hukum atau etika</p>
+                        <p class="text-sm md:text-base">Tidak bertentangan dengan hukum atau etika</p>
                     </div>
                     <div class="flex gap-2 items-center">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +93,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>Tidak bertentangan dengan hukum atau etika</p>
+                        <p class="text-sm md:text-base">Tidak bertentangan dengan hukum atau etika</p>
                     </div>
                     <div class="flex gap-2 items-center">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +106,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>Tidak bertentangan dengan hukum atau etika</p>
+                        <p class="text-sm md:text-base">Tidak bertentangan dengan hukum atau etika</p>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 </svg>
                 <p class="text-light font-semibold">Saran dari AI</p>
             </div>
-            <p class="mt-2 text-light">
+            <p class="mt-2 text-light text-sm md:text-base">
                 🔍 Saran untuk Memenuhi Syarat Lainnya
                 🛡️ Tidak Bertentangan dengan Hukum atau Etika
                 Saran:
@@ -144,7 +144,7 @@
         </div>
 
         <h1 class="text-lg font-semibold md:text-xl lg:text-2xl">Laporan yang mendukung anda dalam pendanaan ini</h1>
-        <div class="grid grid-cols-3 gap-6 mt-4 mb-10">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-4 mb-10">
             <div class="bg-light p-6 rounded-lg shadow-xl border border-gray-200">
                 <h5 class="font-semibold mb-2">Laporan Laba Rugi</h5>
                 <div class="grid grid-cols-2 gap-2">
@@ -236,7 +236,7 @@
 
         <div class="bg-light p-6 relative rounded-lg border border-gray-100 shadow-xl">
             <h1 class="text-lg font-semibold md:text-xl lg:text-2xl">Ingin Informasi Resminya?</h1>
-            <p>Berikut Link Informasi Pendanaan Ini dari Penyedia Dana</p>
+            <p class="text-sm md:text-base">Berikut Link Informasi Pendanaan Ini dari Penyedia Dana</p>
             <x-button.icon class="mt-2">
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-6 fill-light" viewBox="0 0 640 640">

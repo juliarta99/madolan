@@ -68,7 +68,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                     </a>
                                     <a href="">

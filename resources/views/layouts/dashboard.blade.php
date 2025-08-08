@@ -286,7 +286,7 @@
       </div>
 
       <!-- Content Area -->
-      <main class="flex-1 p-6 md:overflow-auto md:h-max pt-20 md:pt-6 pb-24 md:pb-6">
+      <main id="main" class="flex-1 p-6 md:overflow-auto md:h-max pt-20 md:pt-6 pb-24 md:pb-6">
         @yield('content')
       </main>
 

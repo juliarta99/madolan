@@ -63,7 +63,7 @@
                                 x-show="index !== 0"
                                 @click="removeKeyword(index)"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 min-w-4" alt="">
                                 <span>Hapus</span>
                             </button>
                         </div>
@@ -115,7 +115,7 @@
                                 x-show="index !== 0"
                                 @click="removeLink(index)"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 min-w-4" alt="">
                                 <span>Hapus</span>
                             </button>
                         </div>

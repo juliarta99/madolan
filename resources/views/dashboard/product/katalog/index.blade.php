@@ -177,93 +177,95 @@
                 }"
             class="overflow-x-auto md:bg-light md:shadow-xl md:rounded-lg"
         >
-            <!-- Table Header -->
-            <table class="hidden md:block w-full table-auto text-sm">
-                <thead class="bg-secondary text-light">
-                    <tr>
-                        <th class="px-4 py-2 text-left">Image</th>
-                        <th class="px-4 py-2 text-left">Name</th>
-                        <th class="px-4 py-2 text-left">Kategori</th>
-                        <th class="px-4 py-2 text-left">Harga</th>
-                        <th class="px-4 py-2 text-left">Status</th>
-                        <th class="px-4 py-2 text-left">Aksi</th>
-                    </tr>
-                </thead>
-
-                <!-- Table Body -->
-                <tbody class="text-gray-700">
-                    @for ($i = 0; $i<10; $i++)
-                        <tr class="border-b border-b-gray-300 even:bg-gray-50">
-                            <td class="px-4 py-2">
-                                <img src="{{ asset('assets/image-default.png') }}" alt="Product Image" class="w-[150px] min-w-[75px] min-h-[50px] h-[100px] object-cover rounded-lg">
-                            </td>
-                            <td class="px-4 py-2">Kopi Bubuk Arabika 250g</td>
-                            <td class="px-4 py-2">Kopi</td>
-                            <td class="px-4 py-2">Rp 40.000</td>
-                            <td class="px-4 py-2">
-                                <x-badge backgroundColor="bg-success">Aktif</x-badge>
-                            </td>
-                            <td class="px-4 py-2 w-max">
-                                <div class="flex gap-3 items-center">
-                                    <button 
-                                        @click="confirmEditStatus = true;
-                                            productName = 'Kopi Bubuk';
-                                            productId = 8;
-                                            productShow = 1;
-                                            editStatusFormAction();"
-                                        type="button" 
-                                        class="cursor-pointer h-full flex items-center"
-                                    >
-                                        <img src="{{ asset('assets/icons/eye_color.svg') }}" class="w-6 shrink-0" alt="">
-                                    </button>
-                                    <button
-                                        @click="editStock = true;
-                                            productName = 'Kopi Bubuk';
-                                            productStock = 3;
-                                            productUnit = 'Barang';
-                                            productId = 8;
-                                            editStockFormAction();"
-                                        type="button" 
-                                        class="cursor-pointer h-full flex items-center"
-                                    >
-                                        <img src="{{ asset('assets/icons/stockout.svg') }}" class="w-6 shrink-0" alt="">
-                                    </button>
-                                    <button 
-                                        @click="detailProduct = true;
-                                            productId = 21;
-                                            productStock = 10;
-                                            productUnit = 'pcs';
-                                            productName = 'Susu JAHE';
-                                            productImage = '{{ asset('assets/logo.svg') }}';
-                                            productType = 'Jasa';
-                                            productCategory = 'Makanan';
-                                            productPrice = 'Rp 90.000';
-                                            productBarcode = 84032432423;
-                                            productShow = 1;"
-                                        type="button" 
-                                        class="cursor-pointer h-full flex items-center"
-                                    >
-                                        <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 shrink-0" alt="">
-                                    </button>
-                                    <button type="button" class="cursor-pointer h-full flex items-center">
-                                        <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 shrink-0" alt="">
-                                    </button>
-                                    <button 
-                                        @click="confirmDelete = true;
-                                            productName = 'Kopi Bubuk';
-                                            productId = 8;
-                                            deleteFormAction();"
-                                        type="button" 
-                                        class="cursor-pointer h-full flex items-center"
-                                    >
-                                        <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 shrink-0" alt="">
-                                    </button>
-                                </div>
-                            </td>
+            <div class="hidden md:block">
+                <!-- Table Header -->
+                <table class="w-full table-auto text-sm">
+                    <thead class="bg-secondary text-light w-full">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Image</th>
+                            <th class="px-4 py-2 text-left">Name</th>
+                            <th class="px-4 py-2 text-left">Kategori</th>
+                            <th class="px-4 py-2 text-left">Harga</th>
+                            <th class="px-4 py-2 text-left">Status</th>
+                            <th class="px-4 py-2 text-left">Aksi</th>
                         </tr>
-                    @endfor
-                </tbody>
-            </table>
+                    </thead>
+    
+                    <!-- Table Body -->
+                    <tbody class="text-gray-700 w-full">
+                        @for ($i = 0; $i<10; $i++)
+                            <tr class="border-b border-b-gray-300 even:bg-gray-50">
+                                <td class="px-4 py-2">
+                                    <img src="{{ asset('assets/image-default.png') }}" alt="Product Image" class="w-[150px] min-w-[75px] min-h-[50px] h-[100px] object-cover rounded-lg">
+                                </td>
+                                <td class="px-4 py-2">Kopi Bubuk Arabika 250g</td>
+                                <td class="px-4 py-2">Kopi</td>
+                                <td class="px-4 py-2">Rp 40.000</td>
+                                <td class="px-4 py-2">
+                                    <x-badge backgroundColor="bg-success">Aktif</x-badge>
+                                </td>
+                                <td class="px-4 py-2 w-max">
+                                    <div class="flex gap-3 items-center">
+                                        <button 
+                                            @click="confirmEditStatus = true;
+                                                productName = 'Kopi Bubuk';
+                                                productId = 8;
+                                                productShow = 1;
+                                                editStatusFormAction();"
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/eye_color.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                        <button
+                                            @click="editStock = true;
+                                                productName = 'Kopi Bubuk';
+                                                productStock = 3;
+                                                productUnit = 'Barang';
+                                                productId = 8;
+                                                editStockFormAction();"
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/stockout.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                        <button 
+                                            @click="detailProduct = true;
+                                                productId = 21;
+                                                productStock = 10;
+                                                productUnit = 'pcs';
+                                                productName = 'Susu JAHE';
+                                                productImage = '{{ asset('assets/logo.svg') }}';
+                                                productType = 'Jasa';
+                                                productCategory = 'Makanan';
+                                                productPrice = 'Rp 90.000';
+                                                productBarcode = 84032432423;
+                                                productShow = 1;"
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                        <button type="button" class="cursor-pointer h-full flex items-center">
+                                            <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                        <button 
+                                            @click="confirmDelete = true;
+                                                productName = 'Kopi Bubuk';
+                                                productId = 8;
+                                                deleteFormAction();"
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            </div>
 
             <div class="hidden md:flex justify-between items-center bg-secondary text-light px-4 py-2">
                 <p class="text-sm">
@@ -278,7 +280,7 @@
             </div>
 
             {{-- mobile --}}
-            <div class="p-4 rounded-lg border border-gray-300 shadow-lg">
+            <div class="p-4 block md:hidden rounded-lg border border-gray-300 shadow-lg">
                 <div class="flex gap-4">
                     <img src="{{ asset('assets/image-default.png') }}" alt="Product Image" class="w-[150px] min-w-[75px] min-h-[50px] h-[100px] object-cover rounded-lg">
                     <div class="flex flex-col gap-2 w-full">
@@ -299,7 +301,7 @@
                                 type="button" 
                                 class="cursor-pointer h-full flex items-center"
                             >
-                                <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
                             </button>
                         </div>
                         <h2 class="text-base md:text-lg font-semibold">Rp 40.000</h2>
@@ -317,7 +319,7 @@
                                 type="button" 
                                 class="cursor-pointer h-full flex items-center"
                             >
-                                <img src="{{ asset('assets/icons/eye_color.svg') }}" class="w-6 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/eye_color.svg') }}" class="w-6 min-w-6" alt="">
                             </button>
                             <button
                                 @click="editStock = true;
@@ -329,10 +331,10 @@
                                 type="button" 
                                 class="cursor-pointer h-full flex items-center"
                             >
-                                <img src="{{ asset('assets/icons/stockout.svg') }}" class="w-6 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/stockout.svg') }}" class="w-6 min-w-6" alt="">
                             </button>
                             <button type="button" class="cursor-pointer h-full flex items-center">
-                                <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                             </button>
                             <button 
                                 @click="confirmDelete = true;
@@ -342,7 +344,7 @@
                                 type="button" 
                                 class="cursor-pointer h-full flex items-center"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
                             </button>
                         </div>
                     </div>

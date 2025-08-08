@@ -8,7 +8,7 @@
     'maxDate' => \Carbon\Carbon::now()->format('Y-m-d'),
 ])
 
-<div class="flex flex-col md:flex-row gap-2">
+<div {{ $attributes->merge(['class' => "flex flex-col md:flex-row gap-2"]) }}>
     <div class="flex flex-col w-full">
         <x-label for="{{ $startName }}" class="@if (!$bold) !font-normal @endif">Dari Tanggal</x-label>
         <input 

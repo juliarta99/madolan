@@ -13,6 +13,13 @@ Route::get('/forum/show', function () {
     return view('forum.show');
 })->name('forum.show');
 
+Route::get('/pembelajaran', function () {
+    return view('pembelajaran.index');
+})->name('pembelajaran.index');
+Route::get('/pembelajaran/show', function () {
+    return view('pembelajaran.show');
+})->name('pembelajaran.show');
+
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
