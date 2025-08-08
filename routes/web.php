@@ -28,6 +28,12 @@ Route::get('/umkm', function () {
 Route::get('/mentor', function () {
     return view('register.mentor.index');
 })->name('register.mentor.index');
+Route::get('/pembelajaran', function () {
+    return view('pembelajaran.index');
+})->name('pembelajaran.index');
+Route::get('/pembelajaran/show', function () {
+    return view('pembelajaran.show');
+})->name('pembelajaran.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
@@ -83,13 +89,6 @@ Route::get('/dashboard/learning/forum/create', function () {
     return view('dashboard.learning.forum.create');
 })->name('dashboard.learning.forum.create');
 
-Route::get('/dashboard/learning/pembelajaran', function () {
-    return view('dashboard.learning.pembelajaran.index');
-})->name('dashboard.learning.pembelajaran');
-Route::get('/dashboard/learning/pembelajaran/create', function () {
-    return view('dashboard.learning.pembelajaran.create');
-})->name('dashboard.learning.pembelajaran.create');
-
 Route::get('/dashboard/access', function () {
     return view('dashboard.access.index');
 })->name('dashboard.access');
@@ -99,3 +98,25 @@ Route::get('/dashboard/access/create', function () {
 Route::get('/dashboard/access/show', function () {
     return view('dashboard.access.show');
 })->name('dashboard.access.show');
+
+// mentor
+Route::get('/mentor/dashboard', function () {
+    return view('dashboard.mentor');
+})->name('mentor.dashboard');
+Route::get('/mentor/dashboard/forum', function () {
+    return view('dashboard.learning.forum.index');
+})->name('mentor.dashboard.forum');
+Route::get('/mentor/dashboard/pembelajaran', function () {
+    return view('dashboard.learning.pembelajaran.index');
+})->name('mentor.dashboard.pembelajaran');
+Route::get('/mentor/dashboard/pembelajaran/create', function () {
+    return view('dashboard.learning.pembelajaran.create');
+})->name('mentor.dashboard.pembelajaran.create');
+
+// admin
+Route::get('/admin/dashboard', function () {
+    return view('dashboard.admin');
+})->name('admin.dashboard');
+Route::get('/admin/dashboard/user', function () {
+    return view('dashboard.user.index');
+})->name('admin.dashboard.user');

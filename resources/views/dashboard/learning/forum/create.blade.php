@@ -38,8 +38,8 @@
         </div>
         
         <div class="mb-4">
-            <x-label :isRequired="true" for="image">Image</x-label>
-            <x-input.file name="image" />
+            <x-label :isRequired="true" for="cover">Cover</x-label>
+            <x-input.file name="cover" />
         </div>
 
         <div x-data="keywordForm()" class="mb-4">
@@ -63,7 +63,7 @@
                                 x-show="index !== 0"
                                 @click="removeKeyword(index)"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 min-w-4" alt="">
                                 <span>Hapus</span>
                             </button>
                         </div>

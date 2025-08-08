@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Forum Saya</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Forum Saya</h1>
     <div class="bg-primary p-4 rounded-md mb-4">
         <h2 class="font-semibold text-light">Lihat diskusi hari ini</h2>
-        <p class="text-light mt-1 mb-3">
+        <p class="text-light mt-1 mb-3 text-sm md:text-base">
             Temukan insight baru, strategi jitu, dan obrolan hangat dari sesama pelaku usaha di komunitas Madolan
         </p>
         <a href="">
@@ -13,8 +13,8 @@
             </x-button.default>
         </a>
     </div>
-    <div class="flex gap-4 justify-between items-center">
-        <div class="flex gap-2 items-center">
+    <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div class="flex gap-2 items-center w-full md:w-max">
             <div x-data="{ openFilter: false }">
                 <x-button.icon variant="accent" @click="openFilter = true">
                     <x-slot:icon>
@@ -122,10 +122,11 @@
             <x-form.search 
                 name="search"
                 placeholder="Search forum"
+                class="w-full"
             />
         </div>
-        <a href="{{ route('dashboard.learning.forum.create') }}">
-            <x-button.icon>
+        <a href="{{ route('dashboard.learning.forum.create') }}" class="w-full md:w-max max-w-full">
+            <x-button.icon class="w-full">
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
                         <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
@@ -140,36 +141,36 @@
         <div
             class="flex flex-col gap-6"
         >
-            <div class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6 flex gap-6">
-                <img src="{{ asset('assets/image-default.png') }}" class="h-30 aspect-square rounded-lg object-cover" alt="">
+            <div class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6 flex flex-col lg:flex-row gap-6">
+                <img src="{{ asset('assets/image-default.png') }}" class="h-40 lg:h-30 aspect-square rounded-lg object-cover" alt="">
                 <div class="w-full">
                     <div class="flex justify-between gap-3 flex-wrap">
-                        <h1 class="text-base md:text-lg font-semibold">Cara Meningkatkan Omzet Tanpa Nambah Modal</h1>
-                        <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                        <h1 class="text-base md:text-lg font-semibold order-2 md:order-1">Cara Meningkatkan Omzet Tanpa Nambah Modal</h1>
+                        <x-badge backgroundColor="bg-danger" class="order-1 md:order-2">Ditolak</x-badge>
                     </div>
                     <p class="mt-1">Bagi dong strategi teman-teman buat naik omzet tanpa perlu tambahan dana. Kolaborasi? Efisiensi? Upselling?</p>
                     <div class="mt-4">
                         <div class="flex justify-between gap-3 flex-wrap">
                             <div class="flex gap-2">
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">omset</div>
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">efisiensi</div>
-                                <div class="p-1 px-2 rounded-sm bg-primary/30">strategi</div>
-                                <div class="p-1 px-2 rounded-sm bg-accent/30">+2</div>
+                                <div class="p-1 px-2 text-xs md:text-sm rounded-sm bg-primary/30">omset</div>
+                                <div class="p-1 px-2 text-xs md:text-sm rounded-sm bg-primary/30">efisiensi</div>
+                                <div class="p-1 px-2 text-xs md:text-sm rounded-sm bg-primary/30">strategi</div>
+                                <div class="p-1 px-2 text-xs md:text-sm rounded-sm bg-accent/30">+2</div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <p class="text-gray-600">2 hari yang lalu</p>
+                                <p class="text-gray-600 text-sm md:text-base">2 hari yang lalu</p>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 rounded-md bg-danger text-light py-2 px-4">
                         <h3 class="font-semibold">Forum anda ditolak</h3>
-                        <a href="" class="flex w-max items-center gap-2">
+                        <a href="" class="flex w-max max-w-full items-center gap-2">
                             <p>Baca pesan mengapa ditolak</p>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-6 fill-light"><path d="M354.4 83.8C359.4 71.8 371.1 64 384 64L544 64C561.7 64 576 78.3 576 96L576 256C576 268.9 568.2 280.6 556.2 285.6C544.2 290.6 530.5 287.8 521.3 278.7L464 221.3L310.6 374.6C298.1 387.1 277.8 387.1 265.3 374.6C252.8 362.1 252.8 341.8 265.3 329.3L418.7 176L361.4 118.6C352.2 109.4 349.5 95.7 354.5 83.7zM64 240C64 195.8 99.8 160 144 160L224 160C241.7 160 256 174.3 256 192C256 209.7 241.7 224 224 224L144 224C135.2 224 128 231.2 128 240L128 496C128 504.8 135.2 512 144 512L400 512C408.8 512 416 504.8 416 496L416 416C416 398.3 430.3 384 448 384C465.7 384 480 398.3 480 416L480 496C480 540.2 444.2 576 400 576L144 576C99.8 576 64 540.2 64 496L64 240z"/></svg>
                         </a>
                     </div>
                     <div class="mt-4">
-                        <div class="flex justify-end gap-4">
+                        <div class="flex lg:justify-end gap-4 flex-wrap">
                             <x-button.icon>
                                 <x-slot:icon>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="fill-light size-6" xmlns="http://www.w3.org/2000/svg">

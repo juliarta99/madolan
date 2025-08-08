@@ -9,7 +9,7 @@
         "piutang" => "Piutang"
     ]
 @endphp
-    <h1 class="text-3xl font-bold mb-4">Kategori Keuangan</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Keuangan</h1>
     <div x-data="{
             formOpen: false,
             confirmDelete: false,
@@ -44,11 +44,12 @@
             },
         }">
 
-        <div class="flex gap-4 justify-between items-center">
-            <div class="flex gap-2 items-center">
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="flex gap-2 items-center w-full">
                 <x-form.search 
                     name="search"
                     placeholder="Search kategori keuangan"
+                    class="w-full"
                 />
             </div>
             <x-button.icon
@@ -59,6 +60,7 @@
                     categoryName = '';
                     categoryType = '';
                     editFormAction()"
+                class="w-full md:w-max"
             >
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
@@ -103,7 +105,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                         <button 
                                             @click="confirmDelete = true;
@@ -113,7 +115,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                     </div>
                                 </td>

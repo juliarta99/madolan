@@ -63,7 +63,7 @@
                 <div class="space-y-4">
                     <template x-for="(item, index) in items" :key="index">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-2 border border-gray-200 p-4 rounded-md relative">
-                            <div class="mb-2">
+                            <div class="mb-2 w-full">
                                 <x-label :isRequired="true" x-bind:for="`items[${index}][name]`">Nama</x-label>
                                 <x-input.default
                                     type="text"
@@ -72,7 +72,7 @@
                                     x-model="item.name"
                                 />
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 w-full">
                                 <x-label :isRequired="true" x-bind:for="`items[${index}][price]`">Harga Satuan</x-label>
                                 <x-input.default
                                     type="number"
@@ -82,7 +82,7 @@
                                     x-model="item.price"
                                 />
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 w-full">
                                 <x-label :isRequired="true" x-bind:for="`items[${index}][unit]`">Unit Satuan</x-label>
                                 <x-input.default
                                     type="text"
@@ -91,7 +91,7 @@
                                     x-model="item.unit"
                                 />
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 w-full">
                                 <x-label :isRequired="true" x-bind:for="`items[${index}][quantity]`">Kuantitas</x-label>
                                 <x-input.default
                                     type="number"
@@ -101,7 +101,7 @@
                                     x-model="item.quantity"
                                 />
                             </div>
-                            <div class="col-span-4 font-semibold">
+                            <div class="col-span-1 md:col-span-4 font-semibold">
                                 Total Item <span x-text="index + 1"></span>: <span x-text="formatCurrency(item.price * item.quantity)"></span>
                             </div>
                             <button
@@ -110,7 +110,7 @@
                                 x-show="index !== 0"
                                 @click="removeItem(index)"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 min-w-4" alt="">
                                 <span>Hapus</span>
                             </button>
                         </div>
@@ -157,7 +157,7 @@
                                 x-show="index !== 0"
                                 @click="removePajak(index)"
                             >
-                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 shrink-0" alt="">
+                                <img src="{{ asset('assets/icons/trash.svg') }}" class="w-4 min-w-4" alt="">
                                 <span>Hapus</span>
                             </button>
                         </div>

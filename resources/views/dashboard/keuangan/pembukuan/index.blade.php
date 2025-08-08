@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Pembukuan</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Pembukuan</h1>
     <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
         <div class="space-y-2">
-            <p>
+            <p class="text-sm md:text-base">
                 Catat pengeluaran dan pemasukan sekarang, dan nikmati laporan keuangan otomatis kapan saja dibutuhkan.
             </p>
             <a href="{{ route('dashboard.keuangan.laporan') }}">
@@ -32,8 +32,8 @@
             },
         }">
 
-        <div class="flex gap-4 justify-between items-center">
-            <div class="flex gap-2 items-center">
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="flex gap-2 items-center w-full">
                 <div x-data="{ openFilter: false }">
                     <x-button.icon variant="accent" @click="openFilter = true">
                         <x-slot:icon>
@@ -132,10 +132,11 @@
                 <x-form.search 
                     name="search"
                     placeholder="Search pembukuan"
+                    class="w-full"
                 />
             </div>
-            <a href="{{ route('dashboard.keuangan.pembukuan.create') }}">
-                <x-button.icon>
+            <a href="{{ route('dashboard.keuangan.pembukuan.create') }}" class="w-full md:w-max">
+                <x-button.icon class="w-full md:w-max">
                     <x-slot:icon>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
                             <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
@@ -179,7 +180,7 @@
                                                 type="button" 
                                                 class="cursor-pointer h-full flex items-center"
                                             >
-                                                <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 shrink-0" alt="">
+                                                <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
                                             </button>
                                         </a>
                                         <a href="">
@@ -187,7 +188,7 @@
                                                 type="button" 
                                                 class="cursor-pointer h-full flex items-center"
                                             >
-                                                <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 shrink-0" alt="">
+                                                <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                                             </button>
                                         </a>
                                         <button 
@@ -198,7 +199,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                     </div>
                                 </td>

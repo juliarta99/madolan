@@ -20,6 +20,7 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             }"
+            x-init="init()"
             class="container px-2 md:px-8 max-w-6xl mx-auto flex flex-col gap-6 my-24"
     >
         <div class="fixed top-18 left-0 w-full shadow-lg bg-light transition-transform duration-700"
