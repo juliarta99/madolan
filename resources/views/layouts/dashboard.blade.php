@@ -22,7 +22,7 @@
 <body class="bg-light text-dark font-plus-jakarta-sans">
 
   @php
-      $role = 'umkm'
+      $role = 'admin'
   @endphp
   <!-- Wrapper -->
   <div class="md:flex h-screen md:overflow-hidden">
@@ -135,7 +135,7 @@
           </div>
         @elseif($role == "admin")
           <div class="space-y-6">
-              <a href="{{ route('dashboard') }}" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('admin.dashboard') }}" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                 <p>Dashboard</p>
               </a>

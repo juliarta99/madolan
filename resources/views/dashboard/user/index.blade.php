@@ -3,14 +3,14 @@
 @section('content')
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">User</h1>
     <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
-        <p>
+        <p class="text-sm md:text-base">
             Terdapat <span class="font-bold">10 user pending</span>!
         </p>
         <button 
             @click="openNotification = false" 
             class="text-gray-800 hover:text-dark cursor-pointer"
         >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 md:size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>
         </button>
@@ -23,7 +23,7 @@
             'email' => 'andi@example.com',
             'no_handphone' => '081234567890',
             'picture' => 'profile_pictures/andi.jpg',
-            'gender' => 'L',
+            'gender' => 'l',
             'role' => 'umkm',
 
             'umkm' => [
@@ -36,7 +36,7 @@
                 'business_cash' => 150000000.00,
                 'regency' => 'Bandung',
                 'province' => 'Jawa Barat',
-                'is_approve' => true,
+                'is_approve' => null,
                 'reject_message' => null,
                 'logo' => 'umkm_logos/kopi_nusantara_logo.png',
             ]
@@ -47,6 +47,7 @@
             confirmDelete: false,
             confirmApprove: false,
             showFormReject: false,
+            detailUser: false,
             userId: null,
             userName: '',
             user: {},
@@ -194,7 +195,9 @@
                                     <x-badge>UMKM</x-badge>
                                 </td>
                                 <td class="px-4 py-2">
-                                    <x-badge backgroundColor="bg-warning">Pending</x-badge>
+                                    <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                    {{-- <x-badge backgroundColor="bg-success">Approve</x-badge> --}}
+                                    {{-- <x-badge backgroundColor="bg-danger">Ditolak</x-badge> --}}
                                 </td>
                                 <td class="px-4 py-2">
                                     <div class="flex gap-3 items-center">
@@ -274,7 +277,7 @@
                     </div>
                 </div>
     
-                {{-- Modal Form --}}
+                {{-- Modal Form Reject --}}
                 <div 
                     x-show="showFormReject" 
                     x-transition.opacity 
@@ -330,6 +333,200 @@
                         </form>
                     </div>
                 </div>
+                {{-- Modal Detail --}}
+                <div 
+                    x-show="detailUser" 
+                    x-transition.opacity 
+                    x-cloak 
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                >
+                    <div 
+                        x-show="detailUser" 
+                        x-transition 
+                        @click.away="detailUser = false" 
+                        class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen md:w-150 md:h-max max-h-screen shadow-lg overflow-auto"
+                    >
+                        <!-- Modal Header -->
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold">Detail User</h2>
+                            <button 
+                                @click="detailUser = false" 
+                                class="text-gray-800 hover:text-dark cursor-pointer"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mt-4 flex flex-col gap-1">
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == null" >
+                                <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == 1" >
+                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == 0" >
+                                <x-badge backgroundColor="bg-warning">Ditolak</x-badge>
+                                <div class="p-2 rounded-md mt-2 bg-danger" x-text="user.umkm.reject_message"></div>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == 1" >
+                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == null" >
+                                <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == 0" >
+                                <x-badge backgroundColor="bg-warning">Ditolak</x-badge>
+                                <div class="p-2 rounded-md mt-2 bg-danger" x-text="user.mentor.reject_message"></div>
+                            </template>
+                            <template x-if="user.role == 'umkm'" >
+                                <x-badge>UMKM</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor'" >
+                                <x-badge backgroundColor="bg-accent">Mentor</x-badge>
+                            </template>
+                            <h1 class="text-base lg:text-lg font-semibold" x-text="user.name"></h1>
+                            <p class="text-sm lg:text-base" x-text="user.email"></p>
+                            <template x-if="user.no_handphone" >
+                                <div class="flex items-center gap-1">
+                                    <p>No Handphone:</p>
+                                    <p x-text="user.no_handphone"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.picture" >
+                                <div class="flex flex-col gap-1">
+                                    <img :src="user.picture" alt=""> 
+                                    <a :href="user.picture" class="text-primary">Lihat Foto Lebih Detail</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.gender == 'l'" >
+                                <p>Jenis Kelamin: Laki Laki</p>
+                            </template>
+                            <template x-if="user.gender == 'p'" >
+                                <p>Jenis Kelamin: Perempuan</p>
+                            </template>
+                            <template x-if="user.role == 'umkm'" >
+                                <h2 class="text-base font-semibold mt-4">Data UMKM</h2>
+                            </template>
+                             <template x-if="user.role == 'umkm' && user.umkm.name" >
+                                <div class="flex items-center gap-1">
+                                    <p>Nama UMKM: </p>
+                                    <p x-text="user.umkm.name"></p>
+                                </div>
+                             </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.no_npwp" >
+                                <div class="flex items-center gap-1">
+                                    <p>No NPWP: </p>
+                                    <p x-text="user.umkm.no_npwp"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.location" >
+                                <div class="flex items-center gap-1">
+                                    <p>Lokasi : </p>
+                                    <p x-text="user.umkm.location"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.since" >
+                                <div class="flex items-center gap-1">
+                                    <p>Berdiri Sejak : </p>
+                                    <p x-text="user.umkm.since"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.umkm_photo" >
+                                <div class="flex flex-col gap-1">
+                                    <p>Foto : </p>
+                                    <img :src="user.umkm.umkm_photo" alt="">
+                                    <a :href="user.umkm.umkm_photo" class="text-primary">Lihat Foto Lebih Detail</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.regency" >
+                                <template x-if="user.umkm.regency" >
+                                    <div class="flex items-center gap-1">
+                                        <p>Kabupaten:</p>
+                                        <p x-text="user.umkm.regency"></p>
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.province" >
+                                <template x-if="user.umkm.province" >
+                                    <div class="flex items-center gap-1">
+                                        <p>Provinsi:</p>
+                                        <p x-text="user.umkm.province"></p>
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.logo" >
+                                <template x-if="user.umkm.logo" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Logo : </p>
+                                        <img :src="user.umkm.logo" alt="">
+                                        <a :href="user.umkm.logo" class="text-primary">Lihat Logo Lebih Detail</a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor'" >
+                                <h2 class="text-base font-semibold mt-4">Data Mentor</h2>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.portfolio" >
+                                <div class="flex flex-col gap-1">
+                                    <p>Portfolio : </p>
+                                    <a :href="user.mentor.portfolio" class="text-primary">Lihat Portfolio</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.ig_url" >
+                                <template x-if="user.mentor.ig_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Instagram : </p>
+                                        <a :href="user.mentor.ig_url" class="text-primary" x-text="user.mentor.ig_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.fb_url" >
+                                <template x-if="user.mentor.fb_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Facebook : </p>
+                                        <a :href="user.mentor.fb_url" class="text-primary" x-text="user.mentor.fb_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.tiktok_url" >
+                                <template x-if="user.mentor.tiktok_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Tiktok : </p>
+                                        <a :href="user.mentor.tiktok_url" class="text-primary" x-text="user.mentor.tiktok_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.yt_url" >
+                                <template x-if="user.mentor.yt_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Youtube : </p>
+                                        <a :href="user.mentor.yt_url" class="text-primary" x-text="user.mentor.yt_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.linkedin_url" >
+                                <template x-if="user.mentor.linkedin_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Linkedin : </p>
+                                        <a :href="user.mentor.linkedin_url" class="text-primary" x-text="user.mentor.linkedin_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Modal Approve --}}
                 <div 
                     x-show="confirmApprove" 
