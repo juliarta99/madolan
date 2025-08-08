@@ -45,10 +45,10 @@
                 <a href="#" class="hover:text-primary @if(Route::is('faq')) text-primary @endif">FAQ</a>
             </li>
             <li>
-                <a href="#" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>
+                <a href="{{ route('forum.index')}}" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>
             </li>
             <li>
-                <a href="#" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
+                <a href="login.blade.php" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
             </li>
         </ul>
 
@@ -78,12 +78,12 @@
     
             @guest
                 <div class="flex space-x-3">
-                    <a href="" class="hidden lg:block">
+                    <a href="{{ route('register.index')}}" class="hidden lg:block">
                         <x-button.default>
                             Register
                         </x-button.default>
                     </a>
-                    <a href="">
+                    <a href="{{ route('login.index')}}">
                         <x-button.default variant="accent">
                             Login
                         </x-button.default>

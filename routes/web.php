@@ -13,6 +13,22 @@ Route::get('/forum/show', function () {
     return view('forum.show');
 })->name('forum.show');
 
+Route::get('/login', function () {
+    return view('login.index');
+})->name('login.index');
+
+Route::get('/register', function () {
+    return view('register.index');
+})->name('register.index');
+
+Route::get('/umkm', function () {
+    return view('register.umkm.index');
+})->name('register.umkm.index');
+
+Route::get('/mentor', function () {
+    return view('register.mentor.index');
+})->name('register.mentor.index');
+
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
