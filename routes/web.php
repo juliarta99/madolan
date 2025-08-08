@@ -27,11 +27,9 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/product/katalog', function () {
     return view('dashboard.product.katalog.index');
 })->name('dashboard.product.katalog');
-
 Route::get('/dashboard/product/katalog/create', function () {
     return view('dashboard.product.katalog.create');
 })->name('dashboard.product.katalog.create');
-
 Route::get('/dashboard/product/kategori', function () {
     return view('dashboard.product.kategori.index');
 })->name('dashboard.product.kategori');
@@ -39,7 +37,6 @@ Route::get('/dashboard/product/kategori', function () {
 Route::get('/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('dashboard.keuangan.kategori');
-
 Route::get('/dashboard/keuangan/pembukuan', function () {
     return view('dashboard.keuangan.pembukuan.index');
 })->name('dashboard.keuangan.pembukuan');
@@ -102,6 +99,51 @@ Route::get('/mentor/dashboard/pembelajaran/create', function () {
 Route::get('/admin/dashboard', function () {
     return view('dashboard.admin');
 })->name('admin.dashboard');
+
 Route::get('/admin/dashboard/user', function () {
     return view('dashboard.user.index');
 })->name('admin.dashboard.user');
+
+Route::get('/admin/dashboard/product/katalog', function () {
+    return view('dashboard.product.katalog.index');
+})->name('admin.dashboard.product.katalog');
+Route::get('/admin/dashboard/product/katalog/create', function () {
+    return view('dashboard.product.katalog.create');
+})->name('admin.dashboard.product.katalog.create');
+Route::get('/admin/dashboard/product/kategori', function () {
+    return view('dashboard.product.kategori.index');
+})->name('admin.dashboard.product.kategori');
+Route::get('/admin/dashboard/keuangan/kategori', function () {
+    return view('dashboard.keuangan.kategori.index');
+})->name('admin.dashboard.keuangan.kategori');
+
+Route::get('/admin/dashboard/keuangan/type', function () {
+    return view('dashboard.keuangan.type.index');
+})->name('admin.dashboard.keuangan.type');
+Route::get('/admin/dashboard/keuangan/kategori', function () {
+    return view('dashboard.keuangan.kategori.index');
+})->name('admin.dashboard.keuangan.kategori');
+
+Route::get('/admin/dashboard/pendanaan/type', function () {
+    return view('dashboard.pendanaan.type.index');
+})->name('admin.dashboard.pendanaan.type');
+Route::get('/admin/dashboard/pendanaan/information', function () {
+    return view('dashboard.pendanaan.information.index');
+})->name('admin.dashboard.pendanaan.information');
+Route::get('/admin/dashboard/pendanaan/information/create', function () {
+    return view('dashboard.pendanaan.information.create');
+})->name('admin.dashboard.pendanaan.information.create');
+
+Route::get('/admin/dashboard/learning/category', function () {
+    return view('dashboard.learning.category.index');
+})->name('admin.dashboard.learning.category');
+Route::get('/admin/dashboard/learning/forum', function () {
+    return view('dashboard.learning.forum.admin');
+})->name('admin.dashboard.learning.forum');
+Route::get('/admin/dashboard/learning/pembelajaran', function () {
+    return view('dashboard.learning.pembelajaran.admin');
+})->name('admin.dashboard.learning.pembelajaran');
+
+Route::get('/admin/dashboard/access', function () {
+    return view('dashboard.access.index');
+})->name('admin.dashboard.access');

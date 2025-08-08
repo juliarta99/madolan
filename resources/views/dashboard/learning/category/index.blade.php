@@ -1,37 +1,18 @@
 @extends('layouts.dashboard')
 
 @section('content')
-@php
-    $role = 'admin'
-@endphp
-    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Produk</h1>
-    @if ($role == 'umkm')
-        <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
-            <p class="text-sm md:text-base">
-                Stok Kopi Bubuk tersisa 4 pcs dan 3 item lainnya juga menipis. Segera lakukan restok sebelum kehabisan.
-            </p>
-            <button 
-                @click="openNotification = false" 
-                class="text-gray-800 hover:text-dark cursor-pointer"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-    @endif
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Belajar</h1>
     <div x-data="{
             formOpen: false,
             confirmDelete: false,
             editMode: false,
-            modalTitle: 'Tambah Kategori Produk',
+            modalTitle: 'Tambah Kategori Belajar',
             categoryId: null,
-            categoryName: 'Kopi',
-            categoryType: 'Barang',
+            categoryName: null,
             editFormAction() {
                 const form = document.getElementById('form');
                 if (this.editMode && this.categoryId) {
-                    form.action = '/dashboard/product/kategori/' + this.categoryId;
+                    form.action = '/admin/dashboard/learning/kategori/' + this.categoryId;
                     let methodInput = form.querySelector('input[name=_method]');
                     if (!methodInput) {
                         methodInput = document.createElement('input');
@@ -41,7 +22,7 @@
                     }
                     methodInput.value = 'PUT';
                 } else {
-                    form.action = '/dashboard/product/kategori';
+                    form.action = '/admin/dashboard/learning/kategori';
                     const methodInput = form.querySelector('input[name=_method]');
                     if (methodInput) {
                         methodInput.remove();
@@ -50,7 +31,7 @@
             },
             deleteFormAction() {
                 const formDelete = document.getElementById('form-delete');
-                formDelete.action = '/dashboard/product/kategori/' + this.categoryId;
+                formDelete.action = '/admin/dashboard/learning/kategori/' + this.categoryId;
             },
         }">
 
@@ -126,17 +107,16 @@
                 </div>
                 <x-form.search 
                     name="search"
-                    placeholder="Search kategori produk"
+                    placeholder="Search kategori belajar"
                     class="w-full"
                 />
             </div>
             <x-button.icon
                 @click="formOpen = true;
-                    modalTitle='Tambah Kategori Produk';
+                    modalTitle='Tambah Kategori Belajar';
                     editMode=false;
                     categoryId=null;
-                    categoryName = '';
-                    categoryType = '';
+                    category=null;
                     editFormAction()"
                 class="w-full md:w-max"
             >
@@ -159,8 +139,8 @@
                         <tr>
                             <th class="px-4 py-2 text-left w-[50px]">No</th>
                             <th class="px-4 py-2 text-left">Nama</th>
-                            <th class="px-4 py-2 text-left">Tipe</th>
-                            <th class="px-4 py-2 text-left">Banyak Produk</th>
+                            <th class="px-4 py-2 text-left">Banyak Forum</th>
+                            <th class="px-4 py-2 text-left">Banyak Pembelajaran</th>
                             <th class="px-4 py-2 text-left">Aksi</th>
                         </tr>
                     </thead>
@@ -170,18 +150,17 @@
                         @for ($i = 0; $i<10; $i++)
                             <tr class="border-b border-b-gray-300 even:bg-gray-50">
                                 <td class="px-4 py-2">{{ $i+1 }}</td>
-                                <td class="px-4 py-2">Kopi</td>
-                                <td class="px-4 py-2">Barang</td>
+                                <td class="px-4 py-2">Manajemen Bisnis</td>
+                                <td class="px-4 py-2">32</td>
                                 <td class="px-4 py-2">12</td>
                                 <td class="px-4 py-2">
                                     <div class="flex gap-3 items-center">
                                         <button 
                                             @click="formOpen = true;
-                                                modalTitle='Edit Kategori Produk'; 
-                                                editMode=false;
+                                                modalTitle='Edit Kategori Belajar'; 
+                                                editMode=true;
                                                 categoryId = 21;
-                                                categoryName = 'Susu';
-                                                categoryType = 'barang';"
+                                                categoryName = 'Manajemen Bisnis';"
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
@@ -190,7 +169,7 @@
                                         <button 
                                             @click="confirmDelete = true;
                                                 categoryId = 21;
-                                                categoryName = 'Susu';
+                                                categoryName = 'Manajemen Bisnis';
                                                 deleteFormAction();"
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
@@ -245,20 +224,6 @@
                         <form action="" method="POST" id="form" class="mt-6">
                             @csrf
                             @method("PUT")
-                            
-                            <div class="mb-4">
-                                <x-label :isRequired="true">Tipe</x-label>
-                                <div class="items-center flex gap-4">
-                                    <div class="items-center flex gap-2">
-                                        <input type="radio" class="cursor-pointer" name="type" id="type-barang" value="barang" x-model="categoryType">
-                                        <x-label class="!mb-0 cursor-pointer !font-normal" for="type-barang">Barang</x-label>
-                                    </div>
-                                    <div class="items-center flex gap-2">
-                                        <input type="radio" class="cursor-pointer" name="type" id="type-jasa" value="jasa" x-model="categoryType">
-                                        <x-label class="!mb-0 cursor-pointer !font-normal" for="type-jasa">Jasa</x-label>
-                                    </div>
-                                </div>
-                            </div>
     
                             <div class="mb-4">
                                 <x-label :isRequired="true" for="name">Nama</x-label>

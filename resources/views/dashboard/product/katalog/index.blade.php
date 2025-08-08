@@ -1,20 +1,25 @@
 @extends('layouts.dashboard')
 
 @section('content')
+@php
+    $role = 'admin'
+@endphp
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">Katalog Produk</h1>
-    <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
-        <p class="text-sm md:text-base">
-            Stok Kopi Bubuk tersisa 4 pcs dan 3 item lainnya juga menipis. Segera lakukan restok sebelum kehabisan.
-        </p>
-        <button 
-            @click="openNotification = false" 
-            class="text-gray-800 hover:text-dark cursor-pointer"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
+    @if ($role == 'umkm')
+        <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
+            <p class="text-sm md:text-base">
+                Stok Kopi Bubuk tersisa 4 pcs dan 3 item lainnya juga menipis. Segera lakukan restok sebelum kehabisan.
+            </p>
+            <button 
+                @click="openNotification = false" 
+                class="text-gray-800 hover:text-dark cursor-pointer"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    @endif
     <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
         <div class="flex gap-2 items-center">
             <div x-data="{ openFilter: false }">
