@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Manajemen Akses</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Manajemen Akses</h1>
     <div x-data="{
             confirmDelete: false,
             accessId: null,

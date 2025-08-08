@@ -4,7 +4,7 @@
     <div class="h-70 w-70 bg-accent blur-[150px] fixed -z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] fixed -z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
     <div class="relative z-0">
-        <h1 class="text-3xl font-bold mb-4">Selamat Datang, Sanjaya Putra</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold mb-4">Selamat Datang, Sanjaya Putra</h1>
         <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
             <p>
                 Terdapat <span class="font-bold">10 user</span> dan <span class="font-bold">34 forum</span> menunggu persetujuan. Yuk, cek dan tindak lanjuti sekarang!

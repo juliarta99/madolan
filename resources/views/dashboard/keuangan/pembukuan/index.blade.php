@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Pembukuan</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Pembukuan</h1>
     <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
         <div class="space-y-2">
             <p>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ sidebarOpen: true, dropdownOpen: false }" class="h-full" x-cloak>
+<html lang="en" x-data="{ sidebarOpen: true, dropdownOpen: false, searchOpen: false }" class="h-full" x-cloak>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,14 +22,14 @@
 <body class="bg-light text-dark font-plus-jakarta-sans">
 
   @php
-      $role = 'admin'
+      $role = 'umkm'
   @endphp
   <!-- Wrapper -->
-  <div class="flex h-screen overflow-hidden">
+  <div class="md:flex h-screen md:overflow-hidden">
 
     <!-- Sidebar -->
     <aside 
-      class="bg-secondary text-light w-64 py-4 px-6 flex flex-col transition-all duration-300 ease-in-out h-full max-h-screen relative"
+      class="bg-secondary text-light w-64 py-4 px-6 md:flex flex-col transition-all duration-300 ease-in-out h-full max-h-screen relative hidden"
       :class="{ '-ml-64': !sidebarOpen }"
     >
       <div class="text-xl font-bold flex items-center space-x-2">
@@ -240,8 +240,8 @@
     <div class="flex-1 flex flex-col transition-all duration-300 ease-in-out ml-0">
 
       <!-- Header -->
-      <header class="bg-secondary text-light h-16 flex items-center justify-between px-4 shadow z-10">
-        <div class="flex gap-4">
+      <header class="bg-secondary text-light h-16 flex items-center justify-between px-4 shadow z-10 py-3 fixed w-full top-0 md:relative">
+        <div class="gap-4 hidden md:flex">
           <!-- Hamburger -->
           <button @click="sidebarOpen = !sidebarOpen" class="text-light focus:outline-none cursor-pointer">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
@@ -257,17 +257,61 @@
         </div>
 
         <!-- Profile / User -->
-        <a href="#" class="flex items-center space-x-2">
-            <img src="{{ asset('assets/icons/profile.svg') }}" class="inline-block w-6">
-            <span class="truncate max-w-[100px]">Sanjaya Putra</span>
+        <a href="#" class="hidden md:flex items-center space-x-2">
+            <img src="{{ asset('assets/icons/profile.svg') }}" class="inline-block w-4 lg:w-6">
+            <span class="truncate max-w-[100px] text-sm lg:text-base">Sanjaya Putra</span>
         </a>
+
+        {{-- mobile --}}
+        <div class="md:hidden text-sm sm:text-base font-bold flex items-center space-x-2">
+          <img src="{{ asset('assets/logo.svg') }}" alt="logo" class="inline-block w-6 sm:w-8"> <span>Madolan</span>
+        </div>
+        <button type="button" class="px-4 md:hidden" @click="searchOpen = !searchOpen">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 lg:size-6 fill-light">
+            <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+          </svg>
+        </button>
       </header>
+      <div 
+        x-cloak 
+        x-show="searchOpen" 
+        x-transition 
+        @click.away="searchOpen = false"
+        class="w-full fixed md:hidden bg-secondary p-4 shadow-xl pt-20 z-1 top-0 left-0"
+      >
+        <x-form.search
+          name="search"
+          class="w-full"
+        />
+      </div>
 
       <!-- Content Area -->
-      <main class="flex-1 p-6 overflow-auto h-max">
+      <main class="flex-1 p-6 md:overflow-auto md:h-max pt-20 md:pt-6 pb-24 md:pb-6">
         @yield('content')
       </main>
 
+      <div class="fixed md:hidden bottom-0 px-4 py-3 grid grid-cols-5 items-center justify-center bg-secondary w-full">
+        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+          <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-5 sm:w-6">
+          <p class="text-sm sm:text-base text-light text-center">Dashboard</p>
+        </a>
+        <a href="#" class="flex flex-col items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-y-1">
+          <img src="{{ asset('assets/icons/pos.svg') }}" class="inline-block w-6">
+          <p class="text-sm sm:text-base text-light text-center">POS</p>
+        </a>
+        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+          <img src="{{ asset('assets/icons/moneys.svg') }}" class="inline-block w-5 sm:w-6">
+          <p class="text-sm sm:text-base text-light text-center">Laporan</p>
+        </a>
+        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+          <img src="{{ asset('assets/icons/forum.svg') }}" class="inline-block w-5 sm:w-6">
+          <p class="text-sm sm:text-base text-light text-center">Forum</p>
+        </a>
+        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+          <img src="{{ asset('assets/icons/profile.svg') }}" class="inline-block w-5 sm:w-6">
+          <p class="text-sm sm:text-base text-light text-center">Profil</p>
+        </a>
+      </div>
     </div>
   </div>
 

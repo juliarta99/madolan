@@ -4,7 +4,7 @@
     <div class="h-70 w-70 bg-accent blur-[150px] fixed -z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] fixed -z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
     <div class="relative z-0">
-        <h1 class="text-3xl font-bold mb-4">Selamat Datang, Sanjaya Putra</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold mb-4">Selamat Datang, Sanjaya Putra</h1>
         <div class="grid md:grid-cols-4 gap-6">
             <div class="bg-light shadow-xl p-5 rounded-lg flex col-span-2 gap-4 items-center border border-b-6 border-gray-50 !border-b-primary">
                 <div class="p-3 rounded-xl bg-primary">

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Forum Saya</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Forum Saya</h1>
     <div class="bg-primary p-4 rounded-md mb-4">
         <h2 class="font-semibold text-light">Lihat diskusi hari ini</h2>
         <p class="text-light mt-1 mb-3">

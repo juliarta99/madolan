@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Kategori Produk</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Produk</h1>
     <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
-        <p>
+        <p class="text-sm md:text-base">
             Stok Kopi Bubuk tersisa 4 pcs dan 3 item lainnya juga menipis. Segera lakukan restok sebelum kehabisan.
         </p>
         <button 
@@ -49,7 +49,7 @@
             },
         }">
 
-        <div class="flex gap-4 justify-between items-center">
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
             <div class="flex gap-2 items-center">
                 <div x-data="{ openFilter: false }">
                     <x-button.icon variant="accent" @click="openFilter = true">
@@ -122,6 +122,7 @@
                 <x-form.search 
                     name="search"
                     placeholder="Search kategori produk"
+                    class="w-full"
                 />
             </div>
             <x-button.icon
@@ -132,6 +133,7 @@
                     categoryName = '';
                     categoryType = '';
                     editFormAction()"
+                class="w-full"
             >
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
@@ -178,7 +180,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                         <button 
                                             @click="confirmDelete = true;
@@ -188,7 +190,7 @@
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
-                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 shrink-0" alt="">
+                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
                                     </div>
                                 </td>

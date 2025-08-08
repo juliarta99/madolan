@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Laporan Arus Kas</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Laporan Arus Kas</h1>
     <div class="flex gap-4 justify-between items-center">
         <div class="flex gap-2">
             <x-input.daterange />

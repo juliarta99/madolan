@@ -47,9 +47,9 @@
     >
 
     <label for="{{ $name }}" class="flex items-center cursor-pointer">
-        <div class="h-full w-full md:px-3 md:py-1.5 lg:px-4 lg:py-2 px-2 py-1 text-xs md:text-sm lg:text-base rounded-l-md rounded-r-none border border-r-0 bg-light text-black border-gray-300" x-text="fileName"></div>
+        <div class="h-full w-full px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base rounded-l-md rounded-r-none border border-r-0 bg-light text-black border-gray-300" x-text="fileName"></div>
         <div class="h-full p-1 rounded-r-md border border-l-0 bg-light border-gray-300">
-            <div class="cursor-pointer px-4 py-1 bg-primary text-white rounded-md hover:bg-primary/90 transition">
+            <div class="text-sm lg:text-base cursor-pointer px-4 py-1 bg-primary text-white rounded-md hover:bg-primary/90 transition">
                 Choose
             </div>
         </div>

@@ -9,7 +9,7 @@
         "piutang" => "Piutang"
     ]
 @endphp
-    <h1 class="text-3xl font-bold mb-4">Kategori Keuangan</h1>
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Keuangan</h1>
     <div x-data="{
             formOpen: false,
             confirmDelete: false,
