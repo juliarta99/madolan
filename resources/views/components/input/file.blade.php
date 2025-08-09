@@ -54,7 +54,7 @@
             </div>
         </div>
     </label>
-
+    
     {{-- Note --}}
     <p class="text-xs text-gray-500 mt-1">{{ $note }}</p>
 </div>

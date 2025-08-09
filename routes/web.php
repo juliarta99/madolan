@@ -4,8 +4,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('landingpage');
+})->name('landingpage');;
 
+// pos
+Route::get('/pos', function () {
+    return view('pos.pos');
+});
+Route::get('/pos-scan', function () {
+    return view('pos.pos-scan');
+});
+Route::get('/pos-confirm', function () {
+    return view('pos.pos-confirm');
+});
+Route::get('/pos-succes', function () {
+    return view('pos.pos-succes');
+});
+
+Route::get('/pending', function () {
+    return view('user-validation.pending');
+});
+Route::get('/reject', function () {
+    return view('user-validation.reject');
+});
+
+Route::get('/riwayat', function () {
+    return view('dashboard.pos.riwayat-transaksi');
+});
+
+Route::get('/list-preorder', function () {
+    return view('dashboard.pos.list-preorder');
+});
+
+//juli
 Route::get('/forum', function () {
     return view('forum.index');
 })->name('forum.index');
