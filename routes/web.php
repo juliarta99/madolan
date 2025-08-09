@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -147,9 +148,14 @@ Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
 
-Route::get('/admin/dashboard/keuangan/type', function () {
-    return view('dashboard.keuangan.type.index');
-})->name('admin.dashboard.keuangan.type');
+
+Route::prefix('admin/dashboard/keuangan/type')->group(function () {
+    Route::get('/', [TransactionTypeController::class, 'index'])->name('admin.dashboard.keuangan.type');
+    Route::post('/', [TransactionTypeController::class, 'store'])->name('admin.dashboard.keuangan.type.store');
+    Route::put('/{id}', [TransactionTypeController::class, 'update'])->name('admin.dashboard.keuangan.type.update');
+    Route::delete('/{id}', [TransactionTypeController::class, 'destroy'])->name('admin.dashboard.keuangan.type.destroy');
+});
+
 Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
