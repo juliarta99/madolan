@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundingTypeController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
@@ -149,24 +150,10 @@ Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
 
-
-Route::prefix('admin/dashboard/keuangan/type')->group(function () {
-    Route::get('/', [TransactionTypeController::class, 'index'])->name('admin.dashboard.keuangan.type');
-    Route::post('/', [TransactionTypeController::class, 'store'])->name('admin.dashboard.keuangan.type.store');
-    Route::put('/{id}', [TransactionTypeController::class, 'update'])->name('admin.dashboard.keuangan.type.update');
-    Route::delete('/{id}', [TransactionTypeController::class, 'destroy'])->name('admin.dashboard.keuangan.type.destroy');
-});
-
 Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
 
-Route::prefix('admin/dashboard/pendanaan/type')->group(function () {
-    Route::get('/', [FundingTypeController::class, 'index'])->name('admin.dashboard.pendanaan.type');
-    Route::post('/', [FundingTypeController::class, 'store'])->name('admin.dashboard.pendanaan.type.store');
-    Route::put('/{id}', [FundingTypeController::class, 'update'])->name('admin.dashboard.pendanaan.type.update');
-    Route::delete('/{id}', [FundingTypeController::class, 'destroy'])->name('admin.dashboard.pendanaan.type.destroy');
-});
 Route::get('/admin/dashboard/pendanaan/information', function () {
     return view('dashboard.pendanaan.information.index');
 })->name('admin.dashboard.pendanaan.information');
@@ -174,9 +161,42 @@ Route::get('/admin/dashboard/pendanaan/information/create', function () {
     return view('dashboard.pendanaan.information.create');
 })->name('admin.dashboard.pendanaan.information.create');
 
-Route::get('/admin/dashboard/learning/category', function () {
-    return view('dashboard.learning.category.index');
-})->name('admin.dashboard.learning.category');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::prefix('keuangan')->name('keuangan.')->group(function () {
+            Route::get('/type', [TransactionTypeController::class, 'index'])
+                ->name('type');
+            Route::post('/type', [TransactionTypeController::class, 'store'])
+                ->name('type.store');
+            Route::put('/type/{id}', [TransactionTypeController::class, 'update'])
+                ->name('type.update');
+            Route::delete('/type/{id}', [TransactionTypeController::class, 'destroy'])
+                ->name('type.destroy');
+        });
+
+        Route::prefix('pendanaan')->name('pendanaan.')->group(function () {
+            Route::get('/type', [FundingTypeController::class, 'index'])
+                ->name('type');
+            Route::post('/type', [FundingTypeController::class, 'store'])
+                ->name('type.store');
+            Route::put('/type/{id}', [FundingTypeController::class, 'update'])
+                ->name('type.update');
+            Route::delete('/type/{id}', [FundingTypeController::class, 'destroy'])
+                ->name('type.destroy');
+        });
+
+        Route::prefix('learning')->name('learning.')->group(function () {
+            Route::get('/category', [CategoryController::class, 'index'])
+                ->name('category');
+            Route::post('/category', [CategoryController::class, 'store'])
+                ->name('category.store');
+            Route::put('/category/{id}', [CategoryController::class, 'update'])
+                ->name('category.update');
+            Route::delete('/category/{id}', [CategoryController::class, 'destroy'])
+                ->name('category.destroy');
+        });
+    });
+});
 Route::get('/admin/dashboard/learning/forum', function () {
     return view('dashboard.learning.forum.admin');
 })->name('admin.dashboard.learning.forum');
