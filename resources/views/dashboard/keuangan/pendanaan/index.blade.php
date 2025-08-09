@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">Pendanaan</h1>
-    <div class="flex gap-2">
+    <div class="flex flex-col md:flex-row gap-2">
         <div class="">
             <x-label>Rentang Nominal</x-label>
             <div class="flex gap-2 items-center">
@@ -27,58 +27,22 @@
 
     <div 
         x-data="informasiPendanaan()"
-        class="my-10 grid grid-cols-3 gap-4"
+        class="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
     >
         <div class="px-6 py-10 relative rounded-lg border border-gray-100 shadow-xl">
             <div class="px-4 py-2 rounded-tr-md absolute top-0 right-0 text-sm font-semibold text-center text-light bg-accent">
                 Rekomendasi
             </div>
-            <x-badge class="w-max">Kredit Usaha Rakyat (KUR)</x-badge>
+            <x-badge class="w-max max-w-full">Kredit Usaha Rakyat (KUR)</x-badge>
             <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
             <div class="flex gap-2 items-center">
                 <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
-                <p>Bank Rakyat Indonesia</p>
+                <p class="text-sm md:text-base">Bank Rakyat Indonesia</p>
             </div>
             <div class="flex flex-col gap-1 mt-4">
-                <h5 class="font-medium">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
-                <h5 class="font-medium">Tenor: 3-5 Tahun</h5>
-                <h5 class="font-medium">Bunga: 6%/tahun</h5>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 mt-5">
-                <x-button.transparent>Cek Syarat</x-button.transparent>
-                <x-button.default>Cek Kelayakan</x-button.default>
-            </div>
-        </div>
-        <div class="px-6 py-10 relative rounded-lg border border-gray-100 shadow-xl">
-            <x-badge class="w-max">Kredit Usaha Rakyat (KUR)</x-badge>
-            <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
-            <div class="flex gap-2 items-center">
-                <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
-                <p>Bank Rakyat Indonesia</p>
-            </div>
-            <div class="flex flex-col gap-1 mt-4">
-                <h5 class="font-medium">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
-                <h5 class="font-medium">Tenor: 3-5 Tahun</h5>
-                <h5 class="font-medium">Bunga: 6%/tahun</h5>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 mt-5">
-                <x-button.transparent>Cek Syarat</x-button.transparent>
-                <x-button.default>Cek Kelayakan</x-button.default>
-            </div>
-        </div>
-        <div class="px-6 py-10 relative rounded-lg border border-gray-100 shadow-xl">
-            <x-badge class="w-max">Kredit Usaha Rakyat (KUR)</x-badge>
-            <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
-            <div class="flex gap-2 items-center">
-                <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
-                <p>Bank Rakyat Indonesia</p>
-            </div>
-            <div class="flex flex-col gap-1 mt-4">
-                <h5 class="font-medium">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
-                <h5 class="font-medium">Tenor: 3-5 Tahun</h5>
-                <h5 class="font-medium">Bunga: 6%/tahun</h5>
+                <h5 class="font-medium text-sm md:text-base">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
+                <h5 class="font-medium text-sm md:text-base">Tenor: 3-5 Tahun</h5>
+                <h5 class="font-medium text-sm md:text-base">Bunga: 6%/tahun</h5>
             </div>
 
             <div class="grid grid-cols-2 gap-2 mt-5">
@@ -101,8 +65,84 @@
                 >
                     Cek Syarat
                 </x-button.transparent>
-                <a href="{{ route('dashboard.keuangan.pendanaan.result') }}">
-                    <x-button.default>Cek Kelayakan</x-button.default>
+                <a href="{{ route('dashboard.keuangan.pendanaan.result') }}" class="w-full">
+                    <x-button.default class="w-full">Cek Kelayakan</x-button.default>
+                </a>
+            </div>
+        </div>
+        <div class="px-6 py-10 relative rounded-lg border border-gray-100 shadow-xl">
+            <x-badge class="w-max max-w-full">Kredit Usaha Rakyat (KUR)</x-badge>
+            <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
+            <div class="flex gap-2 items-center">
+                <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
+                <p class="text-sm md:text-base">Bank Rakyat Indonesia</p>
+            </div>
+            <div class="flex flex-col gap-1 mt-4">
+                <h5 class="font-medium text-sm md:text-base">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
+                <h5 class="font-medium text-sm md:text-base">Tenor: 3-5 Tahun</h5>
+                <h5 class="font-medium text-sm md:text-base">Bunga: 6%/tahun</h5>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mt-5">
+                <x-button.transparent
+                    @click="detailFunding = true;
+                            fundingType ='Hibah';
+                            fundingName ='Bantuan Desa Asri';
+                            funderName ='Kepala Badan Desa';
+                            funderLogo =null;
+                            fundingPlafon =80000000;
+                            fundingTenor =5,
+                            fundingBunga =3;
+                            requirements = [
+                                {
+                                    id: 131,
+                                    syarat: 'Usaha minimal berumur 1 tahun'
+                                }
+                            ];
+                    "
+                >
+                    Cek Syarat
+                </x-button.transparent>
+                <a href="{{ route('dashboard.keuangan.pendanaan.result') }}" class="w-full">
+                    <x-button.default class="w-full">Cek Kelayakan</x-button.default>
+                </a>
+            </div>
+        </div>
+        <div class="px-6 py-10 relative rounded-lg border border-gray-100 shadow-xl">
+            <x-badge class="w-max max-w-full">Kredit Usaha Rakyat (KUR)</x-badge>
+            <h2 class="text-base my-1 sm:text-lg lg:text-xl font-semibold">Kredit Usaha Rakyat Mikro BRI</h2>
+            <div class="flex gap-2 items-center">
+                <img src="{{ asset('assets/image-default.png') }}" class="w-10 h-10 rounded-full object-cover" alt="">
+                <p class="text-sm md:text-base">Bank Rakyat Indonesia</p>
+            </div>
+            <div class="flex flex-col gap-1 mt-4">
+                <h5 class="font-medium text-sm md:text-base">Plafon: Rp 50.000.000 - Rp 500.000.000</h5>
+                <h5 class="font-medium text-sm md:text-base">Tenor: 3-5 Tahun</h5>
+                <h5 class="font-medium text-sm md:text-base">Bunga: 6%/tahun</h5>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mt-5">
+                <x-button.transparent
+                    @click="detailFunding = true;
+                            fundingType ='Hibah';
+                            fundingName ='Bantuan Desa Asri';
+                            funderName ='Kepala Badan Desa';
+                            funderLogo =null;
+                            fundingPlafon =80000000;
+                            fundingTenor =5,
+                            fundingBunga =3;
+                            requirements = [
+                                {
+                                    id: 131,
+                                    syarat: 'Usaha minimal berumur 1 tahun'
+                                }
+                            ];
+                    "
+                >
+                    Cek Syarat
+                </x-button.transparent>
+                <a href="{{ route('dashboard.keuangan.pendanaan.result') }}" class="w-full">
+                    <x-button.default class="w-full">Cek Kelayakan</x-button.default>
                 </a>
             </div>
         </div>
@@ -130,7 +170,7 @@
                 </div>
 
                 <!-- Badge + Title -->
-                <x-badge x-text="fundingType" class="w-max"></x-badge>
+                <x-badge x-text="fundingType" class="w-max max-w-full"></x-badge>
                 <h1 class="text-base sm:text-lg lg:text-xl font-semibold my-1" x-text="fundingName"></h1>
 
                 <!-- Funder Info -->
@@ -146,9 +186,9 @@
 
                 <!-- Info -->
                 <div class="flex flex-col gap-1 mt-4 text-sm">
-                    <h5 class="font-medium">Plafon: Rp <span x-text="formatRupiah(fundingPlafon)"></span></h5>
-                    <h5 class="font-medium">Tenor: <span x-text="fundingTenor"></span> Tahun</h5>
-                    <h5 class="font-medium">Bunga: <span x-text="fundingBunga"></span>%/tahun</h5>
+                    <h5 class="font-medium text-sm md:text-base">Plafon: Rp <span x-text="formatRupiah(fundingPlafon)"></span></h5>
+                    <h5 class="font-medium text-sm md:text-base">Tenor: <span x-text="fundingTenor"></span> Tahun</h5>
+                    <h5 class="font-medium text-sm md:text-base">Bunga: <span x-text="fundingBunga"></span>%/tahun</h5>
                 </div>
 
                 <!-- Requirements -->
