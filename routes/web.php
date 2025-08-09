@@ -48,6 +48,13 @@ Route::get('/forum/show', function () {
     return view('forum.show');
 })->name('forum.show');
 
+Route::get('/consultation', function () {
+    return view('consultation.chat');
+})->name('consultation');
+Route::get('/consultation/choose', function () {
+    return view('consultation.choose');
+})->name('consultation.choose');
+
 Route::get('/pembelajaran', function () {
     return view('pembelajaran.index');
 })->name('pembelajaran.index');
