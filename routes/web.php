@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundingTypeController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\TransactionCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -184,6 +185,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->name('type.update');
             Route::delete('/type/{id}', [TransactionTypeController::class, 'destroy'])
                 ->name('type.destroy');
+
+            Route::get('/kategori', [TransactionCategoryController::class, 'index'])->name('kategori');
+            Route::post('/kategori', [TransactionCategoryController::class, 'store'])->name('kategori.store');
+            Route::put('/kategori/{category}', [TransactionCategoryController::class, 'update'])->name('kategori.update');
+            Route::delete('/kategori/{category}', [TransactionCategoryController::class, 'destroy'])->name('kategori.destroy');
         });
 
         Route::prefix('pendanaan')->name('pendanaan.')->group(function () {
