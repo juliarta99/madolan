@@ -119,7 +119,7 @@
 
                 <div class="flex justify-between items-center bg-secondary text-light px-4 py-2">
                     <p class="text-sm">
-                        Showing {{ $types->firstItem() }} to {{ $types->lastItem() }} of {{ $types->total() }} results
+                        Menampilkan {{ $types->firstItem() }} sampai {{ $types->lastItem() }} dari {{ $types->total() }} data
                     </p>
                     {{ $types->links() }}
                 </div>

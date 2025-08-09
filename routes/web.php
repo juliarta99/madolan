@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FundingTypeController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -160,9 +161,12 @@ Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
 
-Route::get('/admin/dashboard/pendanaan/type', function () {
-    return view('dashboard.pendanaan.type.index');
-})->name('admin.dashboard.pendanaan.type');
+Route::prefix('admin/dashboard/pendanaan/type')->group(function () {
+    Route::get('/', [FundingTypeController::class, 'index'])->name('admin.dashboard.pendanaan.type');
+    Route::post('/', [FundingTypeController::class, 'store'])->name('admin.dashboard.pendanaan.type.store');
+    Route::put('/{id}', [FundingTypeController::class, 'update'])->name('admin.dashboard.pendanaan.type.update');
+    Route::delete('/{id}', [FundingTypeController::class, 'destroy'])->name('admin.dashboard.pendanaan.type.destroy');
+});
 Route::get('/admin/dashboard/pendanaan/information', function () {
     return view('dashboard.pendanaan.information.index');
 })->name('admin.dashboard.pendanaan.information');
