@@ -13,4 +13,15 @@
     --color-primary: #2563EB;
     --color-secondary: #211C84;
     --color-accent: #F97316;
+    --color-success: #27AE60;
+    --color-danger: #EB5757;
+    --color-warning: #F7CE52;
+}
+
+[x-cloak] { 
+    display: none !important; 
+}
+
+.sidebar-transition {
+    transition: width 0.3s ease, transform 0.3s ease;
 }

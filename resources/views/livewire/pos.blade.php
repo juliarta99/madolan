@@ -3,12 +3,12 @@
         <nav class="shadow-md py-3">
             <div class="flex justify-between items-center md:px-10 px-3">
                 <div class="hidden lg:flex gap-x-4 ">
-                    <button class="bg-blue-500 items-center rounded-xl w-12 h-12 flex justify-center ">
+                    <button class="bg-primary items-center rounded-xl w-12 h-12 flex justify-center ">
                         <svg xmlns="http://www.w3.org/2000/svg"  width="18" height="20" viewBox="0 0 18 20" fill="none" >
                         <path d="M8.99609 0.5C9.35252 0.5 9.66266 0.603787 9.94238 0.816406V0.817383L16.8652 6.11719L16.8721 6.12207C17.0656 6.26551 17.2178 6.4475 17.3301 6.67578L17.3311 6.67773C17.4441 6.90564 17.5 7.14456 17.5 7.40039V18.7002C17.5 18.9103 17.4282 19.0895 17.2598 19.2598C17.0914 19.4299 16.9165 19.5 16.7139 19.5H11.7207C11.553 19.5 11.4355 19.4483 11.335 19.3467C11.2338 19.2435 11.1816 19.1217 11.1816 18.9492V11.8506H6.81836V18.9492C6.81836 19.1236 6.76491 19.2447 6.66406 19.3467C6.56324 19.4485 6.44654 19.5 6.28027 19.5H1.28613C1.08353 19.5 0.908573 19.4299 0.740234 19.2598C0.571824 19.0895 0.500037 18.9103 0.5 18.7002V7.40039C0.500047 7.14456 0.555916 6.90563 0.668945 6.67773C0.782362 6.44905 0.935237 6.26601 1.12891 6.12207L1.13477 6.11816L8.05859 0.816406L8.05957 0.81543C8.33309 0.60427 8.63935 0.500009 8.99609 0.5ZM9 0.800781C8.71322 0.800781 8.44844 0.893678 8.22754 1.07812L1.30371 6.35254L1.28418 6.36816C1.14066 6.48931 1.02222 6.63363 0.932617 6.79883C0.855745 6.94064 0.810936 7.09164 0.793945 7.24707L0.786133 7.40039V19.2002H6.53223V12.1006C6.53223 11.9283 6.58494 11.8074 6.68652 11.7051L6.68848 11.7031C6.78942 11.6007 6.90581 11.5498 7.07129 11.5498H10.9287C11.0943 11.5498 11.2114 11.6009 11.3135 11.7041C11.4146 11.8064 11.4678 11.9275 11.4678 12.1006V19.2002H17.2139V7.40039C17.2138 7.19274 17.1685 6.99036 17.0703 6.80371C16.9805 6.63306 16.8587 6.48619 16.71 6.36426L16.7031 6.3584L16.6963 6.35352L9.77344 1.07812C9.55205 0.89401 9.28719 0.800781 9 0.800781Z" fill="#FCFDFD" stroke="#FCFDFD"/>
                         </svg>
                     </button>
-                    <div class="bg-blue-500 items-center flex text-white px-5 py-3 rounded-xl gap-2">
+                    <div class="bg-primary items-center flex text-white px-5 py-3 rounded-xl gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M19 19H5V8H19M16 1V3H8V1H6V3H5C3.89 3 3 3.89 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H18V1M17 12H12V17H17V12Z" fill="#FCFDFD"/>
                         </svg>
@@ -21,16 +21,16 @@
                 </div>
                 <div class="flex justify-center items-center gap-3">
                     <button wire:click="toggleScan()" x-data="{ scan: @entangle('scan') }"
-                        x-bind:class="scan ? 'bg-orange-500' : 'bg-blue-500 text-black'"
+                        x-bind:class="scan ? 'bg-accent' : 'bg-primary text-black'"
                         class="cursor-pointer transition duration-300 items-center flex justify-center w-7 h-7 md:h-12 md:w-12 md:rounded-xl rounded-[8px]">
                         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-6 md:h-6 h-4 w-4" viewBox="0 0 24 24" fill="none">
                         <path d="M4 8V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8M4 16V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H8M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V8M16 20H18C18.5304 20 19.0391 19.7893 19.4142 19.4142C19.7893 19.0391 20 18.5304 20 18V16M7 12H17" stroke="#FCFDFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <button class="cursor-pointer bg-blue-500 items-center flex justify-center w-7 h-7 md:h-12 md:w-12 md:rounded-xl rounded-[8px]">
+                    <button class="cursor-pointer bg-primary items-center flex justify-center w-7 h-7 md:h-12 md:w-12 md:rounded-xl rounded-[8px]">
                         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-6 md:h-6 h-4 w-4" fill="white" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 128C426 128 512 214 512 320C512 426 426 512 320 512C254.8 512 197.1 479.5 162.4 429.7C152.3 415.2 132.3 411.7 117.8 421.8C103.3 431.9 99.8 451.9 109.9 466.4C156.1 532.6 233 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C234.3 64 158.5 106.1 112 170.7L112 144C112 126.3 97.7 112 80 112C62.3 112 48 126.3 48 144L48 256C48 273.7 62.3 288 80 288L104.6 288C105.1 288 105.6 288 106.1 288L192.1 288C209.8 288 224.1 273.7 224.1 256C224.1 238.3 209.8 224 192.1 224L153.8 224C186.9 166.6 249 128 320 128zM344 216C344 202.7 333.3 192 320 192C306.7 192 296 202.7 296 216L296 320C296 326.4 298.5 332.5 303 337L375 409C384.4 418.4 399.6 418.4 408.9 409C418.2 399.6 418.3 384.4 408.9 375.1L343.9 310.1L343.9 216z"/></svg>
                     </button>
-                    <button class="cursor-pointer bg-blue-500 items-center flex justify-center text-white w-7 h-7 md:w-12 md:h-12 lg:w-40   gap-2 md:rounded-xl rounded-[8px]">
+                    <button class="cursor-pointer bg-primary items-center flex justify-center text-white w-7 h-7 md:w-12 md:h-12 lg:w-40   gap-2 md:rounded-xl rounded-[8px]">
                         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-6 md:h-6 h-4 w-4" viewBox="0 0 24 24" fill="none">
                         <path d="M9 3.75H5.25V21.75H18.75V3.75H15M7.5 17.25H16.5M9 5.25H15L15.75 2.25H8.25L9 5.25ZM9 15L11.25 14.25L15.75 9.75L14.25 8.25L9.75 12.75L9 15Z" stroke="#FCFDFD" stroke-width="1.5" stroke-linejoin="round"/>
                         </svg>
@@ -111,7 +111,7 @@
                             harga = 0;
                             satuan = '';" 
                             popovertarget="custom-produk"
-                            class="cursor-pointer text-base rounded-2xl flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 transition-colors">
+                            class="cursor-pointer text-base rounded-2xl flex-1 bg-primary hover:bg-blue-600 text-white font-semibold py-3 transition-colors">
                             Terapkan
                         </button>
                     </div>
@@ -155,7 +155,7 @@
                         </div>
 
 
-                        <button popovertarget="custom-produk" class="cursor-pointer mt-6 py-2 bg-blue-500 text-white flex items-center justify-center gap-2 rounded-xl w-full px-5">
+                        <button popovertarget="custom-produk" class="cursor-pointer mt-6 py-2 bg-primary text-white flex items-center justify-center gap-2 rounded-xl w-full px-5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                             <path d="M8.5 15.3819V9.33861L1.83333 6.12092V14.9696L7.5 17.7147L7.17708 18.9917L0.5 15.774V4.67295L9.16667 0.5L17.8333 4.67295V7.38788C17.3472 7.46162 16.9028 7.61245 16.5 7.84037V6.12092L9.83333 9.33861V14.0948L8.5 15.3819ZM7.02083 2.96355L13.1042 6.32202L15.6771 5.07516L9.16667 1.92785L7.02083 2.96355ZM9.16667 8.22247L11.6667 7.01584L5.58333 3.65737L2.65625 5.07516L9.16667 8.22247ZM18.4167 8.9364C18.7083 8.9364 18.9792 8.98668 19.2292 9.08723C19.4792 9.18778 19.7014 9.32521 19.8958 9.4995C20.0903 9.67379 20.2361 9.88495 20.3333 10.133C20.4306 10.381 20.4861 10.6458 20.5 10.9274C20.5 11.1888 20.4479 11.4435 20.3438 11.6916C20.2396 11.9396 20.0903 12.1574 19.8958 12.3451L12.4271 19.5548L8.5 20.5L9.47917 16.7092L16.9479 9.50955C17.1493 9.31515 17.375 9.17102 17.625 9.07718C17.875 8.98333 18.1389 8.9364 18.4167 8.9364ZM18.9479 11.4402C19.0938 11.2994 19.1667 11.1285 19.1667 10.9274C19.1667 10.7195 19.0972 10.552 18.9583 10.4246C18.8194 10.2972 18.6389 10.2302 18.4167 10.2235C18.3194 10.2235 18.2257 10.2369 18.1354 10.2637C18.0451 10.2905 17.9653 10.3408 17.8958 10.4145L10.6875 17.3728L10.3333 18.7303L11.7396 18.3884L18.9479 11.4402Z" fill="#FCFDFD"/>
                             </svg>
@@ -210,7 +210,7 @@
             @else 
                 <section class="pt-3 lg:w-[70%] overflow-y-scroll bg-gray-100 pb-50 ">
                     <div class="flex flex-col mx-3 md:mx-10">
-                        <button wire:click="toggleScan()" class="bg-orange-500 text-white flex items-center gap-2 justify-center my-2 cursor-pointer rounded-xl p-3">
+                        <button wire:click="toggleScan()" class="bg-accent text-white flex items-center gap-2 justify-center my-2 cursor-pointer rounded-xl p-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                             <path d="M4.49994 9.99997L3.79294 10.707L3.08594 9.99997L3.79294 9.29297L4.49994 9.99997ZM21.4999 18C21.4999 18.2652 21.3946 18.5195 21.207 18.7071C21.0195 18.8946 20.7652 19 20.4999 19C20.2347 19 19.9804 18.8946 19.7928 18.7071C19.6053 18.5195 19.4999 18.2652 19.4999 18H21.4999ZM8.79294 15.707L3.79294 10.707L5.20694 9.29297L10.2069 14.293L8.79294 15.707ZM3.79294 9.29297L8.79294 4.29297L10.2069 5.70697L5.20694 10.707L3.79294 9.29297ZM4.49994 8.99997H14.4999V11H4.49994V8.99997ZM21.4999 16V18H19.4999V16H21.4999ZM14.4999 8.99997C16.3565 8.99997 18.1369 9.73747 19.4497 11.0502C20.7624 12.363 21.4999 14.1435 21.4999 16H19.4999C19.4999 14.6739 18.9732 13.4021 18.0355 12.4644C17.0978 11.5268 15.826 11 14.4999 11V8.99997Z" fill="#FCFDFD"/>
                             </svg>
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <div class="flex md:mx-10 mx-3 my-4 gap-3 text-white text-[18px] font-semibold">
-                        <button class=" bg-blue-500 w-1/2 py-3 rounded-2xl cursor-pointer">
+                        <button class=" bg-primary w-1/2 py-3 rounded-2xl cursor-pointer">
                             Sambungkan Kamera
                         </button>
                         <button class="bg-red-400 w-1/2 py-3 rounded-2xl cursor-pointer">
@@ -277,7 +277,7 @@
                         <button class=" bg-red-400 w-1/2 py-3 rounded-2xl">
                             Batal
                         </button>
-                        <button class="bg-blue-500 w-1/2 py-3 rounded-2xl">
+                        <button class="bg-primary w-1/2 py-3 rounded-2xl">
                             Tambahkan
                         </button>
                     </div>
@@ -329,7 +329,7 @@
                 <div class=" items-center border-t-1 border-gray-300 fixed bottom-0 lg:w-[30%] w-full pb-8 pt-6 px-6 bg-white">
                     <div class="flex items-center justify-between">
                         <p class="text-[14px] font-medium ">{{ $totalItem }} items</p>
-                        <button popovertarget="detai-cart" class="bg-blue-500 text-white flex items-center justify-center gap-2 px-2 py-1 rounded-[6px] lg:hidden ">
+                        <button popovertarget="detai-cart" class="bg-primary text-white flex items-center justify-center gap-2 px-2 py-1 rounded-[6px] lg:hidden ">
                             <p>Detail Cart</p>
                             <svg class="fill-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/></svg>
                         </button>
@@ -339,12 +339,12 @@
                         <p class="md:text-2xl text-base font-semibold">Rp {{ $total }}</p>
                     </div>
                     <div class="flex items-center justify-center gap-3">
-                        <button wire:click="resetCart"
-                            class="border-2 border-amber-500 rounded-[6px] md:rounded-xl w-[50%] h-8 md:h-12 cursor-pointer">
-                            <p class="text-amber-500 text-center text-base md:text-xl font-semibold">Reset</p>
+                        <button wire:click="resetcart()"
+                            class="border-2 border-accent rounded-[6px] md:rounded-xl w-[50%] h-8 md:h-12 cursor-pointer">
+                            <p class="text-accent text-center text-base md:text-xl font-semibold">Reset</p>
                         </button>
                         <button wire:click="nextStepTwo()"
-                            class="bg-blue-500 rounded-[6px] md:rounded-xl w-[50%] h-8 md:h-12 cursor-pointer">
+                            class="bg-primary rounded-[6px] md:rounded-xl w-[50%] h-8 md:h-12 cursor-pointer">
                             <p class="text-white text-base text-center md:text-xl font-semibold">Lanjutkan</p>
                         </button>
                     </div>
@@ -374,8 +374,8 @@
                             <div>
                                 <h3 class="font-medium">{{$item['nama']}}</h3>
                                 <p>
-                                    <span class="text-orange-500 font-semibold">Rp {{$item['harga']}}</span>
-                                    <span class="text-blue-600 font-semibold ml-2">x{{$item['qty']}} pcs</span>
+                                    <span class="text-accent font-semibold">Rp {{$item['harga']}}</span>
+                                    <span class="text-primary font-semibold ml-2">x{{$item['qty']}} pcs</span>
                                 </p>
                                 <p class="text-2xl font-semibold mt-2 text-black">Rp {{$item['harga'] * $item['qty']}}</p>
                             </div>
@@ -397,10 +397,11 @@
             <div class="w-full mx-auto p-4">
                 <!-- Bagian Form Ringkasan & Pembayaran -->
                 <div class="p-4 mt-6">
+                    <h2 class="text-2xl  font-semibold text-center">
                     <h2 class="text-2xl font-semibold text-center">
-                        <span class="text-orange-500">Ringkasan</span>
+                        <span class="">Ringkasan</span>
                         <span class="text-black">&</span>
-                        <span class="text-blue-600">Pembayaran</span>
+                        <span class="text-primary">Pembayaran</span>
                     </h2>
                     <hr class="mt-4 text-gray-300">
 
@@ -440,7 +441,7 @@
                 <div class="p-4">
                     <div class="flex items-center justify-between mb-1">
                         <p class="text-[14px] font-medium">{{$totalItem}} items</p>
-                        <button type="button" popovertarget="detail" id="openDetail" class="bg-blue-500 text-white flex items-center justify-center gap-2 px-2 py-1 rounded-[6px] md:hidden">
+                        <button type="button" popovertarget="detail" id="openDetail" class="bg-primary text-white flex items-center justify-center gap-2 px-2 py-1 rounded-[6px] md:hidden">
                             <p class="text-sm">Detail Cart</p>
                             <svg class="fill-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                 <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
@@ -448,12 +449,12 @@
                         </button>
                     </div>
                     <p class="text-sm font-semibold">Subtotal: <span class="text-xl font-semibold text-black">Rp {{ $total }}</span></p>
-                    <p class="text-sm font-semibold text-orange-500">Pembayaran: <span class="text-xl font-semibold">Rp </span><span x-text="money" class="text-xl font-semibold">Rp </span></p>
-                    <p  class="text-sm font-semibold text-blue-600">Kembalian: <span class="text-xl font-semibold">Rp </span><span x-text="isNaN(money - total) ? 0 : money - total" class="text-xl font-semibold"></span></p>
+                    <p class="text-sm font-semibold text-accent">Pembayaran: <span class="text-xl font-semibold">Rp </span><span x-text="money" class="text-xl font-semibold">Rp </span></p>
+                    <p  class="text-sm font-semibold text-primary">Kembalian: <span class="text-xl font-semibold">Rp </span><span x-text="isNaN(money - total) ? 0 : money - total" class="text-xl font-semibold"></span></p>
 
                     <!-- Tombol -->
                     <div class="flex justify-between mt-6 gap-3">
-                        <button wire:click="nextStepOne()" class="border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
+                        <button wire:click="nextStepOne()" class="border border-accent text-accent px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
                             Kembali
                         </button>
                         <button 
@@ -476,7 +477,7 @@
                 <h2 class="md:text-3xl text-xl font-bold">Transaksi Berhasil Diselesaikan</h2>
                 <p class="mt-3">Data transaksi telah disimpan. Anda dapat mencetak struk atau kembali ke halaman POS untuk transaksi berikutnya.</p>
                 <div class="flex gap-4 mt-4">
-                    <button class="cursor-pointer flex gap-2 items-center justify-center text-white text-base font-semibold bg-blue-500 py-3 px-4 rounded-2xl">
+                    <button class="cursor-pointer flex gap-2 items-center justify-center text-white text-base font-semibold bg-primary py-3 px-4 rounded-2xl">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M3.99994 9.99997L3.29294 10.707L2.58594 9.99997L3.29294 9.29297L3.99994 9.99997ZM20.9999 18C20.9999 18.2652 20.8946 18.5195 20.707 18.7071C20.5195 18.8946 20.2652 19 19.9999 19C19.7347 19 19.4804 18.8946 19.2928 18.7071C19.1053 18.5195 18.9999 18.2652 18.9999 18H20.9999ZM8.29294 15.707L3.29294 10.707L4.70694 9.29297L9.70694 14.293L8.29294 15.707ZM3.29294 9.29297L8.29294 4.29297L9.70694 5.70697L4.70694 10.707L3.29294 9.29297ZM3.99994 8.99997H13.9999V11H3.99994V8.99997ZM20.9999 16V18H18.9999V16H20.9999ZM13.9999 8.99997C15.8565 8.99997 17.6369 9.73747 18.9497 11.0502C20.2624 12.363 20.9999 14.1435 20.9999 16H18.9999C18.9999 14.6739 18.4732 13.4021 17.5355 12.4644C16.5978 11.5268 15.326 11 13.9999 11V8.99997Z" fill="#FCFDFD"/>
                         </svg>
