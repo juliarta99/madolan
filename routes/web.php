@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundingTypeController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -143,9 +144,9 @@ Route::get('/admin/dashboard/product/katalog', function () {
 Route::get('/admin/dashboard/product/katalog/create', function () {
     return view('dashboard.product.katalog.create');
 })->name('admin.dashboard.product.katalog.create');
-Route::get('/admin/dashboard/product/kategori', function () {
-    return view('dashboard.product.kategori.index');
-})->name('admin.dashboard.product.kategori');
+// Route::get('/admin/dashboard/product/kategori', function () {
+//     return view('dashboard.product.kategori.index');
+// })->name('admin.dashboard.product.kategori');
 Route::get('/admin/dashboard/keuangan/kategori', function () {
     return view('dashboard.keuangan.kategori.index');
 })->name('admin.dashboard.keuangan.kategori');
@@ -163,6 +164,17 @@ Route::get('/admin/dashboard/pendanaan/information/create', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::prefix('product')->name('product.')->group(function () {
+            Route::get('/kategori', [ProductCategoryController::class, 'index'])
+                ->name('kategori');
+            Route::post('/kategori', [ProductCategoryController::class, 'store'])
+                ->name('kategori.store');
+            Route::put('/kategori/{id}', [ProductCategoryController::class, 'update'])
+                ->name('kategori.update');
+            Route::delete('/kategori/{id}', [ProductCategoryController::class, 'destroy'])
+                ->name('kategori.destroy');
+        });
+
         Route::prefix('keuangan')->name('keuangan.')->group(function () {
             Route::get('/type', [TransactionTypeController::class, 'index'])
                 ->name('type');
