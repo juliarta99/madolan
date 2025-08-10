@@ -9,12 +9,16 @@ class Umkm extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'email',
-        'no_handphone',
-        'picture',
-        'gender',
-        'role',
-        'password',
+        'no_npwp',
+        'location',
+        'umkm_photo',
+        'since',
+        'logo',
+        'business_cash',
+        'regency',
+        'province',
+        'is_approve',
+        'reject_message',
     ];
 
     public function user()

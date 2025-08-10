@@ -36,75 +36,75 @@
             </div>
 
             <!-- Form -->
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('registration.umkm') }}" enctype="multipart/form-data">
                 @csrf
                 
                 <h1 class="font-black text-lg tracking-wide">Data Pribadi</h1>
                 <div class="mt-3" >
                     <x-label :isRequired="true">Email</x-label>
-                    <input type="text" id="email" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan email anda">
+                    <input type="text" id="email" name="email" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan email anda">
                 </div>
                 
                 <div class="mt-5">
                     <x-label :isRequired="true">Nama</x-label>
-                    <input type="nama" id="nama" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+                    <input type="nama" id="nama" name="name" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
                 </div>
 
                 <div class="mt-5">
                 <x-label :isRequired="true">Jenis Kelamin</x-label>
                 <div class="items-center flex gap-4">
                     <div class="items-center flex gap-2">
-                        <input type="radio" class="cursor-pointer" name="type" id="type-kelamin" value="kelamin">
+                        <input type="radio" class="cursor-pointer" name="gender" value="l" id="type-kelamin" value="kelamin">
                         <x-label class="!mb-0 cursor-pointer !font-normal" for="type-kelamin">Laki-laki</x-label>
                     </div>
                     <div class="items-center flex gap-2">
-                        <input type="radio" class="cursor-pointer" name="type" id="type-kelamin" value="kelamin">
+                        <input type="radio" class="cursor-pointer" name="gender" value="p" id="type-kelamin" value="kelamin">
                         <x-label class="!mb-0 cursor-pointer !font-normal" for="type-kelamin">Perempuan</x-label>
                     </div>
                 </div>
                 
                 <div class="mt-5">
                     <x-label :isRequired="true">Password</x-label>
-                    <input type="password" id="password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan password anda">
+                    <input type="password" id="password" name="password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan password anda">
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="true">Konfirmasi Password</x-label>
-                    <input type="password" id="password_konfir" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan konfirmasi password">
+                    <input type="password" id="password_konfir" name="konfirm_password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan konfirmasi password">
                 </div>
 
                 <h1 class="font-black text-lg tracking-wide mt-5">Data Usaha</h1>
                                 
                 <div class="mt-5">
                     <x-label :isRequired="true">Nama Usaha</x-label>
-                    <input type="nama" id="nama_usaha" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+                    <input type="nama" id="nama_usaha" name="name_umkm" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama usaha anda">
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="false">No.NPWP</x-label>
-                    <input type="number" id="npwp" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+                    <input type="text" id="npwp" name="no_npwp" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama No NPWM">
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="true">Berdiri Sejak</x-label>
-                    <input type="number" id="berdiri_sejak" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+                    <input type="number" id="berdiri_sejak" name="since" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan tahun berdirinya usaha">
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="true">Lokasi</x-label>
-                    <input type="text" id="berdiri_sejak" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+                    <input type="text" id="berdiri_sejak" name="location" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan lokasi usaha">
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="true">Foto Usaha Anda</x-label>
-                    <x-input.file/>
+                    <x-input.file name="umkm_photo" />
                     <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Contoh foto <i class="fa-solid fa-up-right-from-square ml-2" ></i></a>
                 </div>
 
 
                 <div class="mt-5">
                 <div class="flex items-center">
-                    <input type="checkbox" id="remember" class="mr-3 w-5 h-5">
+                    <input type="checkbox" id="remember" name="privaci" class="mr-3 w-5 h-5">
                     <label for="remember">Saya menyetujui Syarat & Ketentuan Madolan, serta data saya aman dan digunakan sesuai kebijakan privasi</label>
                 </div>
                 

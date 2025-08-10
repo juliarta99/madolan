@@ -2,29 +2,27 @@
 
 namespace App\Livewire;
 
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Transaction;
+use GuzzleHttp\Psr7\Request;
 use Livewire\Component;
+use phpDocumentor\Reflection\Types\True_;
 
 class Pos extends Component
 {
     public $scan = false;
     public $currentStep = 1;
-    public $success = false;
+
+
+    public $search = '';
+    public $filter;
 
     public $total = 0;
     public $totalItem = 0;
 
-    public $datas = [
-        [
-            "nama" => "ayam",
-            "harga" => 1300,
-            "stok" => 12
-        ],
-        [
-            "nama" => "babi",
-            "harga" => 1900,
-            "stok" => 3
-        ],
-    ];
+    public $products;
+    public $categories;
     
     public $cart = [];
 
@@ -41,32 +39,103 @@ class Pos extends Component
     public $money = 0;
     public $change = 0;
 
+    public function mount()
+    {
+        $this->findProduct();
+        $this->allcategory();
+    }
+
+    public function updatedSearch()
+    {
+        $this->findProduct();
+    }
+
+    public function updatedFilter()
+    {
+        $this->findProduct();
+    }
 
     public function countTotal() {
         $a = 0;
         $b = 0;
         foreach ($this->cart as $item) {
-            $a += ($item['qty'] * $item['harga']);
+            $a += ($item['qty'] * $item['price']);
             $b += $item['qty'];
         }
         $this->total = $a;
         $this->totalItem = $b;
     }
 
+
+    public function findProduct() {
+        $umkmId = session('umkm_id');
+
+        $this->products = Product::where('umkm_id', $umkmId)
+            ->where('status', 1)
+            ->when($this->search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('slug', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->when($this->filter != 0, function ($query) {
+                $query->where('category_id', $this->filter);
+            })
+            ->get();
+    }
+
+    public function allcategory() {
+        $umkmId = session('umkm_id');
+        $this->categories = ProductCategory::where('umkm_id', $umkmId)->get();
+    }
+
+
+
+    // public function tambahKeCart($namaProduk)
+    // {
+    //     $produk = collect($this->cart)->firstWhere('name', $namaProduk);
+        
+    //     if ($produk) {
+    //         if (isset($this->cart[$namaProduk])) {
+    //             if (($this->cart[$namaProduk]['qty'] < $produk['stok'] && $produk['is_unlimited'] == false) || $produk['is_unlimited'] == true) {
+    //                 $this->cart[$namaProduk]['qty'] += 1;
+    //                 $this->countTotal();
+    //             }
+    //         } else {
+    //             $this->cart[$namaProduk] = [
+    //                 'name' => $produk['name'],
+    //                 'price' => $produk['price'],
+    //                 'unit' => $produk['unit'],
+    //                 'qty' => 1,
+    //             ];
+    //             $this->countTotal();
+    //         }
+    //     } else {
+    //         $this->cart[$namaProduk]['qty'] += 1;
+    //         $this->countTotal();
+    //     }
+    // }
+
     public function tambahKeCart($namaProduk)
     {
-        $produk = collect($this->datas)->firstWhere('nama', $namaProduk);
+        $produk = collect($this->products)->firstWhere('name', $namaProduk);
         
         if ($produk) {
-            if (isset($this->cart[$namaProduk])) {
-                if ($this->cart[$namaProduk]['qty'] < $produk['stok']) {
-                    $this->cart[$namaProduk]['qty'] += 1;
+            $key = $produk->name; 
+
+            if (isset($this->cart[$key])) {
+                if (
+                    ($this->cart[$key]['qty'] < $produk->stock && $produk->is_unlimited == false)
+                    || $produk['is_unlimited'] == true
+                ) {
+                    $this->cart[$key]['qty'] += 1;
                     $this->countTotal();
                 }
             } else {
-                $this->cart[$namaProduk] = [
-                    'nama' => $produk['nama'],
-                    'harga' => $produk['harga'],
+                $this->cart[$key] = [
+                    'name' => $produk['name'],
+                    'price' => $produk['price'],
+                    'unit' => $produk['unit'],
                     'qty' => 1,
                 ];
                 $this->countTotal();
@@ -76,6 +145,7 @@ class Pos extends Component
             $this->countTotal();
         }
     }
+
 
     public function kurangDariCart($namaProduk)
     {
@@ -102,8 +172,9 @@ class Pos extends Component
         }
 
         $this->cart[$nama] = [
-            'nama' => $nama,
-            'harga' => $harga,
+            'name' => $nama,
+            'price' => $harga,
+            'unit' => $satuan,
             'qty' => 1,
         ];
         $this->countTotal();
@@ -129,14 +200,23 @@ class Pos extends Component
     }
 
     public function nextStepTree() {
-        // if (!$this->customerName && !$this->typePayment && !$this->money ) {
-        //     session()->flash('error', 'Data Customer kosong!');
-        //     return;
-        // } else {
-        //     $this->currentStep = 3;
-        // }
+        try {
+            if (!$this->customerName && !$this->typePayment && !$this->money ) {
+                session()->flash('error', 'Data Customer kosong!');
+                return;
+            } else {
+                DB::beginTransaction()
+                $transaction = Transaction::create([
 
-        $this->currentStep = 3;
+                ]); 
+    
+                $this->currentStep = 3;
+                DB:com
+            }
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function nextStepOne() {
