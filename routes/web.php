@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -13,15 +15,12 @@ Route::get('/', function () {
 Route::get('/pos', function () {
     return view('pos.pos');
 });
-Route::get('/pos-scan', function () {
-    return view('pos.pos-scan');
+Route::get('/pos/transaction', [TransactionController::class, 'showTransactionPOS'])
+->name('pos.transaktion');
+Route::get('/pos/transaction/detail', function () {
+    return view('dashboard.pos.detail');
 });
-Route::get('/pos-confirm', function () {
-    return view('pos.pos-confirm');
-});
-Route::get('/pos-succes', function () {
-    return view('pos.pos-succes');
-});
+
 
 Route::get('/pending', function () {
     return view('user-validation.pending');
