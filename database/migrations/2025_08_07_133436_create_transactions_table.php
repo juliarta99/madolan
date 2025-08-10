@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 50)->unique();
             $table->foreignId('umkm_id')->constrained()->onDelete('restrict');
-            $table->foreignId('category_id')->constrained()->onDelete('restrict');
+            $table->foreignId('category_id')->constrained('transaction_categories')->onDelete('restrict');
             $table->enum('order_type', ['preorder', 'ready stock']);
             $table->date('transaction_date');
             $table->string('customer_name', 100);
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->dateTime('pickup_date')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->string('payment_proof')->nullable();
-            $table->foreignId('created_by')->nullabel()->constrained('employers')->onDelete('restrict');
+            $table->foreignId('created_by')->nullable()->constrained('employers')->onDelete('restrict');
             $table->timestamps();
         });
     }

@@ -45,9 +45,10 @@
             @if(!$scan)
                 <div 
                     x-data="{ 
+                        search: @entangle('search').live,
                         nama: @entangle('customProduk.nama').defer, 
                         harga: @entangle('customProduk.harga').defer, 
-                        satuan: @entangle('customProduk.satuan').defer 
+                        satuan: @entangle('customProduk.satuan').defer, 
                     }"
                     popover
                     id="custom-produk"
@@ -117,17 +118,20 @@
                     </div>
                 </div>
                 <section class="pt-6 lg:w-[70%] overflow-y-scroll bg-gray-100 pb-50 ">
-                    <div class="md:mx-10">
+                    <div x-data="{ 
+                            search: @entangle('search').live,
+                            filter: @entangle('filter').live,
+                        }"class="md:mx-10">
                         <div class="bg-white md:p-4 p-2 rounded-xl shadow flex items-center gap-2 md:gap-4 w-full">
                         <!-- Dropdown Kategori -->
-                            <form class="flex flex-col w-1/3">
+                            <div class="flex flex-col w-1/3">
                                 <label class="text-[12px] sm:text-sm font-semibold mb-1">Kategori Produk</label>
                                 <div class="relative">
-                                    <select class="w-full border border-gray-300 rounded-lg px-3 h-8 text-sm text-gray-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        <option selected disabled>Pilih...</option>
-                                        <option value="elektronik">Elektronik</option>
-                                        <option value="pakaian">Pakaian</option>
-                                        <option value="minuman">Makanan</option>
+                                    <select x-model="filter" class="w-full border border-gray-300 rounded-lg px-3 h-8 text-sm text-gray-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value='0'>Semua</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{$category->name}}</option>
+                                    @endforeach
                                     </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
@@ -136,13 +140,14 @@
                                     </svg>
                                 </div>
                                 </div>
-                            </form>
+                            </div>
 
                         <!-- Input Cari Produk -->
-                            <form class="flex flex-col w-2/3">
+                            <div class="flex flex-col w-2/3">
                                 <label class="text-[12px] sm:text-sm font-semibold mb-1">Cari Produk</label>
                                 <div class="flex rounded-lg overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500">
-                                <input type="text" name="produk" placeholder="Cari Produk" class="w-full px-3  text-sm text-gray-600 focus:outline-none">
+                                <input type="text" name="produk" x-model="search" placeholder="Cari Produk" class="w-full px-3  text-sm text-gray-600 focus:outline-none">
+                            
                                 <button type="submit" class="bg-blue-600 p-2 flex items-center justify-center cursor-pointer">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
@@ -151,7 +156,7 @@
                                     </svg>
                                 </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
 
@@ -167,7 +172,7 @@
                     <!-- grid produk -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mx-4">
                         <!-- Card 1 -->
-                        @foreach ($datas as $data)
+                        @foreach ($products as $data)
                             <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
                                 <img src="{{ asset('assets/logo.svg')}}" alt="Siomay" class="rounded-lg w-full h-36 object-cover mb-3">
 
@@ -175,15 +180,15 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                                         <path d="M1.48047 5.12501L9.50172 1.47876L17.523 5.12501M1.48047 5.12501L9.50172 8.77126M1.48047 5.12501V13.1463L9.50172 17.5213M17.523 5.12501L9.50172 8.77126M17.523 5.12501V13.1463L9.50172 17.5213M9.50172 8.77126V17.5213M12.6267 15.75V11.375M15.1267 14.5V10.125" stroke="#282828" stroke-width="1.5" stroke-linejoin="round"/>
                                     </svg>
-                                    <span>{{ $data['stok'] }}</span>
+                                    <span>{{ $data->stock }}</span>
                                 </div>
 
-                                <p class="font-medium mb-1">{{ $data['nama'] }}</p>
-                                <p class="text-lg font-bold text-black mb-3">Rp {{ number_format($data['harga'], 0, ',', '.') }}</p>
+                                <p class="font-medium mb-1">{{ $data->name }}</p>
+                                <p class="text-lg font-bold text-black mb-3">Rp {{ $data->price }}</p>
 
                                 <div class="flex items-center gap-4">
                                     <button 
-                                        wire:click="kurangDariCart('{{ $data['nama'] }}')" 
+                                        wire:click="kurangDariCart('{{ $data->name }}')" 
                                         class="bg-blue-600 cursor-pointer text-white w-8 h-8 rounded-full flex items-center justify-center text-2xl"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 11 11" fill="none">
@@ -192,11 +197,11 @@
                                     </button>
 
                                     <span class="text-lg font-semibold">
-                                        {{ $cart[$data['nama']]['qty'] ?? 0 }}
+                                        {{ $cart[$data->name]['qty'] ?? 0 }}
                                     </span>
 
                                     <button 
-                                        wire:click="tambahKeCart('{{ $data['nama'] }}')" 
+                                        wire:click="tambahKeCart('{{ $data->name }}')" 
                                         class="bg-blue-600 cursor-pointer text-white w-8 h-8 rounded-full flex items-center justify-center text-2xl"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
@@ -299,16 +304,17 @@
                             <div class="flex gap-4">
                                 <img src="{{ asset('assets/logo.svg')}}" alt="Siomay" class="w-30 h-20 rounded-lg object-cover">
                                 <div class="flex-1">
-                                    <h3 class="font-medium text-sm md:text-base">{{ $item['nama'] }}</h3>
-                                    <p class="font-bold text-sm md:text-xl text-black">Rp {{ $item['harga'] }}</p>
+                                    <h3 class="font-medium text-sm md:text-base">{{ $item['name'] }}</h3>
+                                    <p class="font-bold text-sm md:text-xl text-black">Rp {{ $item['price'] }}</p>
                                     <div class="flex items-center gap-4 mt-2">
-                                        <button wire:click="kurangDariCart('{{ $item['nama'] }}')" class="bg-blue-600 cursor-pointer text-white w-6 h-6 rounded-full items-center text-center flex justify-center text-2xl">
+                                        <button wire:click="kurangDariCart('{{ $item['name'] }}')" 
+                                            class="bg-blue-600 cursor-pointer text-white w-6 h-6 rounded-full items-center text-center flex justify-center text-2xl">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                                             <path d="M9.875 6.125H1.125V4.875H9.875V6.125Z" fill="#FCFDFD"/>
                                             </svg>
                                         </button>
                                         <span  class="text-lg font-semibold">{{ $item['qty'] }}</span>
-                                        <button wire:click="tambahKeCart('{{ $item['nama'] }}')" class="bg-blue-600 cursor-pointer text-white w-6 h-6 rounded-full items-center text-center flex justify-center text-2xl">
+                                        <button wire:click="tambahKeCart('{{ $item['name'] }}')" class="bg-blue-600 cursor-pointer text-white w-6 h-6 rounded-full items-center text-center flex justify-center text-2xl">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 15 14" fill="none">
                                             <path d="M14.3359 7.92857H8.33594V13.5H6.33594V7.92857H0.335938V6.07143H6.33594V0.5H8.33594V6.07143H14.3359V7.92857Z" fill="#FCFDFD"/>
                                             </svg>
@@ -318,7 +324,7 @@
                             </div>
                             <div class="flex items-center justify-between">
                                 <p class="text-md font-semibold">Total:</p>
-                                <p class="text-lg font-bold text-black">{{ $item['qty'] * $item['harga'] }}</p>
+                                <p class="text-lg font-bold text-black">{{ $item['qty'] * $item['price'] }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -372,12 +378,12 @@
                         <div class="lg:flex-row flex flex-col items-center gap-4 bg-white p-4 rounded-xl shadow-md">
                             <img src="resource/dimsum.png" alt="Siomay" class="lg:w-24 h-24 rounded-lg object-cover">
                             <div>
-                                <h3 class="font-medium">{{$item['nama']}}</h3>
+                                <h3 class="font-medium">{{$item['name']}}</h3>
                                 <p>
-                                    <span class="text-accent font-semibold">Rp {{$item['harga']}}</span>
+                                    <span class="text-accent font-semibold">Rp {{$item['price']}}</span>
                                     <span class="text-primary font-semibold ml-2">x{{$item['qty']}} pcs</span>
                                 </p>
-                                <p class="text-2xl font-semibold mt-2 text-black">Rp {{$item['harga'] * $item['qty']}}</p>
+                                <p class="text-2xl font-semibold mt-2 text-black">Rp {{$item['price'] * $item['qty']}}</p>
                             </div>
                         </div>
                     @endforeach
@@ -387,9 +393,9 @@
         </section>
 
         <aside x-data="{ 
-                        customerName: @entangle('customerName').defer, 
-                        typePayment: @entangle('typePayment').defer, 
-                        money: @entangle('money').defer,
+                        customerName: @entangle('customerName').live, 
+                        typePayment: @entangle('typePayment').live, 
+                        money: @entangle('money').live,
                         total: {{$total}},
                         kembalian: 0
                     }"
@@ -454,12 +460,12 @@
 
                     <!-- Tombol -->
                     <div class="flex justify-between mt-6 gap-3">
-                        <button wire:click="nextStepOne()" class="border border-accent text-accent px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
+                        <button wire:click="nextStepOne()" class="cursor-pointer border border-accent text-accent px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
                             Kembali
                         </button>
                         <button 
                             wire:click="nextStepTree()"
-                            type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-[50%]">
+                            type="button" class="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-[50%]">
                             Selesaikan
                         </button>
                     </div>

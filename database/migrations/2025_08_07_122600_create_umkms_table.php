@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->string('name', 100);
-            $table->string('no_npwp', 50);
+            $table->string('no_npwp', 50)->nullable();
             $table->string('location', 100);
             $table->string('umkm_photo');
             $table->year('since');

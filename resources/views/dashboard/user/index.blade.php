@@ -4,7 +4,7 @@
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">User</h1>
     <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
         <p class="text-sm md:text-base">
-            Terdapat <span class="font-bold">10 user pending</span>!
+            Terdapat <span class="font-bold">{{ $pending }} user pending</span>!
         </p>
         <button 
             @click="openNotification = false" 
@@ -79,7 +79,7 @@
                     </x-button.icon>
     
                     <!-- Modal -->
-                    <div 
+                    <form 
                         x-show="openFilter" 
                         x-transition.opacity 
                         x-cloak 
@@ -130,7 +130,7 @@
                                 <div>
                                     <x-label for="type">Tipe</x-label>
                                     <x-input.select 
-                                        name="type"
+                                        name="role"
                                         :options="[
                                             'semua' => 'semua',
                                             'mentor' => 'mentor',
@@ -152,12 +152,13 @@
                                 <x-button.default 
                                     @click="openFilter = false"
                                     class="w-full"
+                                    type="submit"
                                 >
                                     Terapkan
                                 </x-button.default>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <x-form.search 
                     name="search"
@@ -186,16 +187,43 @@
     
                     <!-- Table Body -->
                     <tbody class="text-gray-700">
-                        @for ($i = 0; $i<10; $i++)
+                        {{--  --}}
+                        @foreach ($users as $user)
                             <tr class="border-b border-b-gray-300 even:bg-gray-50">
-                                <td class="px-4 py-2">{{ $i+1 }}</td>
-                                <td class="px-4 py-2">Nyoman Baguss</td>
-                                <td class="px-4 py-2">nyomanbagus9238@gmail.com</td>
+                                <td class="px-4 py-2">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
+                                <td class="px-4 py-2">{{$user->name}}</td>
+                                <td class="px-4 py-2">{{$user->email}}</td>
                                 <td class="px-4 py-2">
-                                    <x-badge>UMKM</x-badge>
+                                    @if ($user->role == 'umkm')
+                                        <x-badge>{{$user->role}}</x-badge>
+                                    @elseif ($user->role == 'mentor')
+                                        <x-badge class="!bg-accent">{{$user->role}}</x-badge>
+                                    @endif
                                 </td>
                                 <td class="px-4 py-2">
-                                    <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                    {{-- @if ($user->mentor)
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                    @endif --}}
+                                    
+
+                                    @if ($user->umkm)
+                                        @if ($user->umkm->is_approve == false && empty($user->umkm->reject_message))
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                        @elseif ($user->umkm->is_approve )
+                                            <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                        @elseif ($user->umkm->is_approve == false && !empty($user->umkm->reject_message))
+                                            <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                        @endif
+                                    @elseif ($user->mentor)
+                                        @if ($user->mentor->is_approve == false && empty($user->mentor->reject_message))
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                        @elseif ($user->mentor->is_approve )
+                                            <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                        @elseif ($user->mentor->is_approve == false && !empty($user->mentor->reject_message))
+                                            <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                        @endif
+                                    @endif
+                                    {{-- <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge> --}}
                                     {{-- <x-badge backgroundColor="bg-success">Approve</x-badge> --}}
                                     {{-- <x-badge backgroundColor="bg-danger">Ditolak</x-badge> --}}
                                 </td>
@@ -204,8 +232,12 @@
                                         {{-- Tombol Info --}}
                                         <button 
                                             @click="
-                                                user = @js($data);
+                                                {{-- user = @js($data);
                                                 userId = user.id;
+                                                detailUser = true; --}}
+                                                user = {{ $user }};
+                                                userId = {{ $user->id }};
+                                               
                                                 detailUser = true;
                                             "
                                             type="button" 
@@ -214,43 +246,96 @@
                                             <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
                                         </button>
 
-                                        {{-- Tombol Approve --}}
-                                        <button 
-                                            @click="
-                                                user = @js($data);
-                                                userId = user.id;
-                                                confirmApprove = true;
-                                                approveFormAction();
-                                            "
-                                            type="button" 
-                                            class="cursor-pointer h-full flex items-center"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-success">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                            </svg>
-                                        </button>
+                                        @if ($user->umkm)
+                                            @if ($user->umkm->is_approve == false && empty($user->umkm->reject_message))
+                                                {{-- Tombol Approve --}}
+                                                <button 
+                                                    @click="
+                                                        {{-- user = @js($data);
+                                                        userId = user.id;
+                                                        confirmApprove = true; --}}
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        confirmApprove = true;
+                                                        approveFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-success">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                </button>
+                                                {{-- Tombol Reject --}}
+                                                <button 
+                                                    @click="
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        showFormReject = true;
+                                                        rejectFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            @elseif ($user->umkm->is_approve )
+                                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                            @elseif ($user->umkm->is_approve == false && !empty($user->umkm->reject_message))
+                                                <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                            @endif
+                                        @elseif ($user->mentor)
+                                            @if ($user->mentor->is_approve == false && empty($user->mentor->reject_message))
+                                                {{-- Tombol Approve --}}
+                                                <button 
+                                                    @click="
+                                                        {{-- user = @js($data);
+                                                        userId = user.id;
+                                                        confirmApprove = true; --}}
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        confirmApprove = true;
+                                                        approveFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-success">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                </button>
 
-                                        {{-- Tombol Reject --}}
-                                        <button 
-                                            @click="
-                                                user = @js($data);
-                                                userId = user.id;
-                                                showFormReject = true;
-                                                rejectFormAction();
-                                            "
-                                            type="button" 
-                                            class="cursor-pointer h-full flex items-center"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
+                                                {{-- Tombol Reject --}}
+                                                <button 
+                                                    @click="
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        showFormReject = true;
+                                                        rejectFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            
+                                            @endif
+                                        @endif
 
                                         {{-- Tombol Delete --}}
                                         <button 
                                             @click="
-                                                user = @js($data);
-                                                userId = user.id;
+                                                user = {{ $user }};
+                                                userId = {{ $user->id }};
+                                                {{-- user = @js($data);
+                                                userId = user.id; --}}
                                                 confirmDelete = true;
                                             "
                                             type="button" 
@@ -261,7 +346,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
     

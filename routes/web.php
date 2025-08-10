@@ -7,6 +7,9 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionCategoryController;
 use App\Http\Controllers\TransactionTypeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +45,23 @@ Route::get('/list-preorder', function () {
     return view('dashboard.pos.list-preorder');
 });
 
+//register
+Route::get('/register-umkm', function () {
+    return view('register.umkm.index');
+});
+Route::post('/register-umkm', [AuthController::class, 'registrationUmkm'])->name('registration.umkm');
+Route::get('/register-mentor', function () {
+    return view('register.mentor.index');
+});
+Route::post('/register-mentor', [AuthController::class, 'registrationMentor'])->name('registration.mentor');
+
+//login user
+Route::get('/login', function () {
+    return view('login.index');
+});
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
 //juli
 Route::get('/forum', function () {
     return view('forum.index');
@@ -61,6 +81,21 @@ Route::get('/consultation/choose', function () {
     return view('consultation.choose');
 })->name('consultation.choose');
 
+Route::get('/login', function () {
+    return view('login.index');
+})->name('login.index');
+
+Route::get('/register', function () {
+    return view('register.index');
+})->name('register.index');
+
+Route::get('/umkm', function () {
+    return view('register.umkm.index');
+})->name('register.umkm.index');
+
+Route::get('/mentor', function () {
+    return view('register.mentor.index');
+})->name('register.mentor.index');
 Route::get('/pembelajaran', function () {
     return view('pembelajaran.index');
 })->name('pembelajaran.index');
@@ -255,3 +290,6 @@ Route::get('/admin/dashboard/learning/pembelajaran', function () {
 Route::get('/admin/dashboard/access', function () {
     return view('dashboard.access.index');
 })->name('admin.dashboard.access');
+Route::get('/admin/dashboard/user', [UserController::class, 'show'] )->name('admin.dashboard.user');
+Route::put('/admin/dashboard/user/approve/{id}', [UserController::class, 'accept']);
+Route::put('/admin/dashboard/user/reject/{id}', [UserController::class, 'reject']);

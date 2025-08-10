@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategory extends Model
 {
-    use Sluggable;
+    
 
     protected $fillable = [
         'umkm_id',
