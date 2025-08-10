@@ -1,4 +1,4 @@
-<footer class="relative overflow-hidden">
+<footer class="relative overflow-hidden pt-20">
     <div class="h-70 w-70 bg-accent blur-[150px] absolute -z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] absolute -z-10 -bottom-[20%] right-[20%] translate-x-1/2 translate-y-1/2"></div>
     <div class="px-2 py-10 md:px-8 container mx-auto">

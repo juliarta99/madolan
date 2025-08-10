@@ -21,7 +21,7 @@
     <div class="h-70 w-70 bg-accent blur-[150px] fixed -z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] fixed -z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
     <form class="flex justify-center items-center h-screen">
-        <div class="w-96 p-6 shadow-l">
+        <div class="w-96 p-6 shadow-l"> 
             <div class="text-center mb-8">
                 <div class="flex items-center justify-center gap-3 mb-6">
                     <img src="{{ asset('assets/logo.svg') }}" alt="Logo" class="lg:w-10 lg:h-10 w-8 h-8">
@@ -57,10 +57,11 @@
             <div class="text-center mt-2">
                 <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
             </div>
+            
         </div>
     </form>
 
-
+    
 
   @yield('scripts')
   @livewireScripts

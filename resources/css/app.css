@@ -25,3 +25,14 @@
 .sidebar-transition {
     transition: width 0.3s ease, transform 0.3s ease;
 }
+
+@keyframes myCustomAnimation {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@layer utilities {
+  .animate-my-custom {
+    animation: myCustomAnimation 3s ease-in-out infinite;
+  }
+}
