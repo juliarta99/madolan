@@ -3,7 +3,7 @@
 @section('content')
     <div class="h-70 w-70 bg-accent blur-[150px] fixed -z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
     <div class="h-70 w-70 bg-primary blur-[150px] fixed -z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
-    <div class="relative z-0">
+    <div x-data="{ openSaranAI: false  }" class="relative">
         <h1 class="text-2xl lg:text-3xl font-bold mb-4">Selamat Datang, Sanjaya Putra</h1>
         <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
             <p class="text-sm md:text-base">
@@ -17,6 +17,115 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
             </button>
+        </div>
+        <div class="bg-primary text-light p-4 rounded-md mb-3">
+            <p>Penjualan kemarin <span class="font-bold">turun dibanding dua hari lalu</span>, dan penjualan bulan ini <span class="font-bold">lebih rendah dari bulan sebelumnya</span></p>
+            <x-button.default variant="light" @click="openSaranAI = true" class="mt-3">
+                Lihat Saran Strategi dari AI
+            </x-button.default>
+
+            <div 
+                x-show="openSaranAI" 
+                x-transition.opacity 
+                x-cloak 
+                class="fixed inset-0 z-999 flex items-center justify-center bg-black/50"
+            >
+                <div 
+                    x-show="openSaranAI" 
+                    x-transition 
+                    @click.away="openSaranAI = false" 
+                    class="bg-light text-dark p-6 rounded-none md:rounded-lg w-full md:w-150 md:h-max max-h-screen shadow-lg overflow-auto"
+                >
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold">Saran Strategi dari AI</h2>
+                        <button 
+                            @click="openSaranAI = false" 
+                            class="text-gray-800 hover:text-dark cursor-pointer"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Immediate (0–48 jam) — Stop-gap & Investigasi cepat</h3>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>Verifikasi data & root cause quick check
+                                <ul class="list-disc ml-5">
+                                    <li>Cek logs: site uptime, error checkout, payment gateway, stock sync.</li>
+                                    <li>Target: temukan akar masalah dalam 24 jam.</li>
+                                </ul>
+                            </li>
+                            <li>Segmentasi dampak — pisahkan per produk/kategori/kanal.</li>
+                            <li>Pause & reallocate budget iklan yang tidak efisien.</li>
+                            <li>Quick promo 48 jam: Diskon 10% + Gratis Ongkir untuk best-seller.</li>
+                            <li>Customer outreach: kirim pesan ke VIP & abandoned carts.</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold">Short term (3–14 hari) — Stabilisasi & Eksperimen</h3>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>A/B test landing page & checkout (1-step vs 3-step).</li>
+                            <li>Retargeting & win-back funnel untuk abandoned cart & churned user.</li>
+                            <li>Promo tersegmentasi & bundling produk pelengkap.</li>
+                            <li>Optimasi iklan & kreatif baru.</li>
+                            <li>Flash sale & live engagement di media sosial.</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold">Medium term (2–8 minggu) — Scale & Perbaikan</h3>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>Analisis unit economics per SKU, stop promosi SKU rugi.</li>
+                            <li>Implementasi program loyalitas & retention.</li>
+                            <li>Perkuat direct channel jika marketplace menurun.</li>
+                            <li>Dynamic pricing & promosi terjadwal.</li>
+                            <li>Push review pelanggan dengan insentif kecil.</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold">Long term (2–6 bulan) — Structural improvements</h3>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>Evaluasi katalog produk: fokus best-seller.</li>
+                            <li>Invest di personalisasi AI & automasi.</li>
+                            <li>Bangun brand & content marketing.</li>
+                            <li>Jajaki partnership B2B.</li>
+                            <li>Perkuat rantai pasok & stok aman.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg p-6 space-y-4">
+                        <h3 class="font-semibold">Rencana Aksi 30 Hari</h3>
+                        <ul class="list-disc ml-5 text-sm space-y-1">
+                            <li><strong>Hari 0–2:</strong> Verifikasi data, pause iklan bermasalah, quick promo, outreach VIP.</li>
+                            <li><strong>Hari 3–10:</strong> A/B test, retargeting funnels, flash sale akhir minggu.</li>
+                            <li><strong>Hari 11–21:</strong> Evaluasi A/B, scale pemenang, bundling, influencer mikro, push review.</li>
+                            <li><strong>Hari 22–30:</strong> Analisa unit economics, mulai loyalty program, automasi personalisasi.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg p-6 space-y-3">
+                        <h3 class="font-semibold">Contoh Copy & Template</h3>
+                        <div class="text-sm space-y-2">
+                            <p><strong>Email abandoned cart:</strong> <code class="bg-gray-100 px-1 rounded">"{nama}, barangmu hampir habis — ambil diskon 12% sekarang"</code></p>
+                            <p><strong>Push notif:</strong> <code class="bg-gray-100 px-1 rounded">"Diskon 10% untuk produk favoritmu — hanya 24 jam!"</code></p>
+                            <p><strong>Iklan headline:</strong> <code class="bg-gray-100 px-1 rounded">"Sering dicari — Diskon 10% + Gratis Ongkir. Cek Sekarang!"</code></p>
+                            <p><strong>SMS VIP:</strong> <code class="bg-gray-100 px-1 rounded">"{nama}, terima kasih! Nikmati potongan 10% untuk pembelian hari ini: VIP10"</code></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h3 class="font-semibold">Monitoring & KPI</h3>
+                        <ul class="list-disc ml-5 text-sm space-y-1">
+                            <li>Harian: revenue/day, orders/day, CR, AOV, cart abandonment.</li>
+                            <li>Mingguan: ROAS per channel, retention 7/30d, top 10 SKU, margin.</li>
+                            <li>Reporting: dashboard pagi & review meeting mingguan.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="mb-4 block md:hidden px-5 py-7 overflow-hidden bg-light rounded-xl border border-gray-300 shadow-xl">
