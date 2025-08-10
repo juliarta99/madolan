@@ -33,16 +33,16 @@
                     class="absolute mt-2 w-60 bg-light shadow-xl rounded-lg overflow-hidden z-50"
                     style="display: none;"
                 >
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Dashboard Analisis</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Forum</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Pembelajaran</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Point of Sales</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Pembukuan & Laporan Otomatis</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Informasi Pendanaan</a>
+                    <a href="{{ route('fitur.ds.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Dashboard Analisis</a>
+                    <a href="{{ route('fitur.fiturforum.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Forum</a>
+                    <a href="{{ route('fitur.fiturpembelajaran.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Pembelajaran</a>
+                    <a href="{{ route('fitur.fiturPOS.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Point of Sales</a>
+                    <a href="{{ route('fitur.fiturlaporan.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Pembukuan & Laporan Otomatis</a>
+                    <a href="{{ route('fitur.fiturpendanaan.index')}}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-50">Informasi Pendanaan</a>
                 </div>
             </li>
             <li>
-                <a href="#" class="hover:text-primary @if(Route::is('faq')) text-primary @endif">FAQ</a>
+                <a href="{{ route('faq.index')}}" class="hover:text-primary @if(Route::is('faq')) text-primary @endif">FAQ</a>
             </li>
             <li>
                 <a href="{{ route('forum.index')}}" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>

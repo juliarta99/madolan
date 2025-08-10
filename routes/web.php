@@ -9,7 +9,6 @@ use App\Http\Controllers\TransactionCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -63,9 +62,42 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 
 //juli
+Route::get('/fitur', function () {
+    return view('fitur.index');
+})->name('fitur.index');
+
+Route::get('/ds', function () {
+    return view('fitur.ds.index');
+})->name('fitur.ds.index');
+
+Route::get('/fiturforum', function () {
+    return view('fitur.fiturforum.index');
+})->name('fitur.fiturforum.index');
+
+Route::get('/fiturpembelajaran', function () {
+    return view('fitur.fiturpembelajaran.index');
+})->name('fitur.fiturpembelajaran.index');
+
+Route::get('/fiturPOS', function () {
+    return view('fitur.fiturPOS.index');
+})->name('fitur.fiturPOS.index');
+
+Route::get('/fiturlaporan', function () {
+    return view('fitur.fiturlaporan.index');
+})->name('fitur.fiturlaporan.index');
+
+Route::get('/fiturpendanaan', function () {
+    return view('fitur.fiturpendanaan.index');
+})->name('fitur.fiturpendanaan.index');
+
+Route::get('/faq', function () {
+    return view('faq.index');
+})->name('faq.index');
+
 Route::get('/forum', function () {
     return view('forum.index');
 })->name('forum.index');
+
 Route::get('/forum/show', function () {
     return view('forum.show');
 })->name('forum.show');
