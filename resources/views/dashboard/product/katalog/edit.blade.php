@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <x-header-with-back route="{{ route('admin.dashboard.product.katalog') }}" titleInSpan="Produk" />
+    <x-header-with-back route="{{ route('admin.dashboard.product.katalog') }}" titleInSpan="Edit Produk" />
 
     @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -13,8 +13,9 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.dashboard.product.katalog.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.dashboard.product.katalog.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         
         {{-- Product Type --}}
         <div class="mb-4">
@@ -27,7 +28,7 @@
                         name="type" 
                         id="type-barang" 
                         value="barang"
-                        {{ old('type') == 'barang' ? 'checked' : '' }}
+                        {{ old('type', $productType) == 'barang' ? 'checked' : '' }}
                     >
                     <x-label class="!mb-0 cursor-pointer !font-normal" for="type-barang">Barang</x-label>
                 </div>
@@ -38,7 +39,7 @@
                         name="type" 
                         id="type-jasa" 
                         value="jasa"
-                        {{ old('type') == 'jasa' ? 'checked' : '' }}
+                        {{ old('type', $productType) == 'jasa' ? 'checked' : '' }}
                     >
                     <x-label class="!mb-0 cursor-pointer !font-normal" for="type-jasa">Jasa</x-label>
                 </div>
@@ -60,7 +61,7 @@
                 @foreach($categories as $category)
                     <option 
                         value="{{ $category->id }}" 
-                        {{ old('category') == $category->id ? 'selected' : '' }}
+                        {{ old('category', $product->category_id) == $category->id ? 'selected' : '' }}
                     >
                         {{ $category->name }}
                     </option>
@@ -78,7 +79,7 @@
                 placeholder="Masukkan nama produk" 
                 name="name"
                 id="name"
-                value="{{ old('name') }}"
+                value="{{ old('name', $product->name) }}"
             />
             @error('name')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -92,7 +93,7 @@
                 placeholder="Masukkan no barcode produk" 
                 name="no_barcode"
                 id="no_barcode"
-                value="{{ old('no_barcode') }}"
+                value="{{ old('no_barcode', $product->barcode) }}"
             />
             @error('no_barcode')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -109,7 +110,7 @@
                 placeholder="Masukkan harga produk" 
                 name="price"
                 id="price"
-                value="{{ old('price') }}"
+                value="{{ old('price', $product->price) }}"
             />
             @error('price')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -124,7 +125,7 @@
                 placeholder="Masukkan unit produk (contoh: pcs, kg, liter)" 
                 name="unit"
                 id="unit"
-                value="{{ old('unit') }}"
+                value="{{ old('unit', $product->unit) }}"
             />
             @error('unit')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -132,7 +133,7 @@
         </div>
 
         {{-- Stock --}}
-        <div class="mb-4" x-data="{ isUnlimited: {{ old('is_stock_unlimited') ? 'true' : 'false' }} }">
+        <div class="mb-4" x-data="{ isUnlimited: {{ old('is_stock_unlimited', $product->is_unlimited) ? 'true' : 'false' }} }">
             <x-label for="stock" :isRequired="true">Stock</x-label>
             <x-input.default
                 type="number"
@@ -140,9 +141,9 @@
                 placeholder="Masukkan jumlah stock"
                 name="stock"
                 id="stock"
-                value="{{ old('stock') }}"
+                value="{{ old('stock', $product->stock) }}"
                 x-bind:disabled="isUnlimited"
-                x-bind:value="isUnlimited ? '' : '{{ old('stock') }}'"
+                x-bind:value="isUnlimited ? '' : '{{ old('stock', $product->stock) }}'"
             />
             <div class="flex gap-2 items-center mt-2">
                 <input
@@ -151,7 +152,7 @@
                     id="is_stock_unlimited"
                     value="1"
                     x-model="isUnlimited"
-                    {{ old('is_stock_unlimited') ? 'checked' : '' }}
+                    {{ old('is_stock_unlimited', $product->is_unlimited) ? 'checked' : '' }}
                 >
                 <x-label for="is_stock_unlimited" class="!mb-0 mt-1 !font-normal">Stok Unlimited</x-label>
             </div>
@@ -160,9 +161,21 @@
             @enderror
         </div>
        
+        {{-- Current Image Preview --}}
+        @if($product->image)
+            <div class="mb-4">
+                <x-label>Foto Produk Saat Ini</x-label>
+                <img 
+                    src="{{ asset('storage/' . $product->image) }}" 
+                    alt="{{ $product->name }}" 
+                    class="w-32 h-32 object-cover rounded-lg border border-gray-300"
+                >
+            </div>
+        @endif
+
         {{-- Product Image --}}
         <div class="mb-4">
-            <x-label :isRequired="true" for="image">Foto Produk</x-label>
+            <x-label for="image">Foto Produk</x-label>
             <x-input.file name="image" />
             @error('image')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -190,7 +203,7 @@
                 class="w-full"
                 type="submit"
             >
-                Simpan
+                Perbarui
             </x-button.default>
         </div>
     </form>

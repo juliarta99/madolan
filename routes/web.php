@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundingTypeController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
@@ -146,12 +147,12 @@ Route::get('/admin/dashboard/user', function () {
     return view('dashboard.user.index');
 })->name('admin.dashboard.user');
 
-Route::get('/admin/dashboard/product/katalog', function () {
-    return view('dashboard.product.katalog.index');
-})->name('admin.dashboard.product.katalog');
-Route::get('/admin/dashboard/product/katalog/create', function () {
-    return view('dashboard.product.katalog.create');
-})->name('admin.dashboard.product.katalog.create');
+// Route::get('/admin/dashboard/product/katalog', function () {
+//     return view('dashboard.product.katalog.index');
+// })->name('admin.dashboard.product.katalog');
+// Route::get('/admin/dashboard/product/katalog/create', function () {
+//     return view('dashboard.product.katalog.create');
+// })->name('admin.dashboard.product.katalog.create');
 // Route::get('/admin/dashboard/product/kategori', function () {
 //     return view('dashboard.product.kategori.index');
 // })->name('admin.dashboard.product.kategori');
@@ -181,6 +182,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->name('kategori.update');
             Route::delete('/kategori/{id}', [ProductCategoryController::class, 'destroy'])
                 ->name('kategori.destroy');
+
+            Route::get('/katalog', [ProductController::class, 'index'])
+                ->name('katalog');
+            Route::get('/katalog/create', [ProductController::class, 'create'])
+                ->name('katalog.create');
+            Route::post('/katalog', [ProductController::class, 'store'])
+                ->name('katalog.store');
+            Route::get('/katalog/{id}/edit', [ProductController::class, 'edit'])
+                ->name('katalog.edit');
+            Route::put('/katalog/{id}', [ProductController::class, 'update'])
+                ->name('katalog.update');
+            Route::put('/katalog/status/{id}', [ProductController::class, 'updateStatus'])
+                ->name('katalog.update-status');
+            Route::put('/katalog/stock/{id}', [ProductController::class, 'updateStock'])
+                ->name('katalog.update-stock');
+            Route::delete('/katalog/{id}', [ProductController::class, 'destroy'])
+                ->name('katalog.destroy');
         });
 
         Route::prefix('keuangan')->name('keuangan.')->group(function () {
