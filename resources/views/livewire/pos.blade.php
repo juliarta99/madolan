@@ -393,9 +393,9 @@
         </section>
 
         <aside x-data="{ 
-                        customerName: @entangle('customerName').defer, 
-                        typePayment: @entangle('typePayment').defer, 
-                        money: @entangle('money').defer,
+                        customerName: @entangle('customerName').live, 
+                        typePayment: @entangle('typePayment').live, 
+                        money: @entangle('money').live,
                         total: {{$total}},
                         kembalian: 0
                     }"
@@ -460,12 +460,12 @@
 
                     <!-- Tombol -->
                     <div class="flex justify-between mt-6 gap-3">
-                        <button wire:click="nextStepOne()" class="border border-accent text-accent px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
+                        <button wire:click="nextStepOne()" class="cursor-pointer border border-accent text-accent px-4 py-2 rounded-lg hover:bg-orange-100 w-[50%]">
                             Kembali
                         </button>
                         <button 
                             wire:click="nextStepTree()"
-                            type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-[50%]">
+                            type="button" class="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-[50%]">
                             Selesaikan
                         </button>
                     </div>
