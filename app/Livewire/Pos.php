@@ -9,9 +9,11 @@ use Illuminate\Support\Str;
 use GuzzleHttp\Psr7\Request;
 use App\Models\ProductCategory;
 use App\Models\TransactionItem;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use phpDocumentor\Reflection\Types\True_;
+use function PHPUnit\Framework\returnCallback;
 
 class Pos extends Component
 {
@@ -93,33 +95,6 @@ class Pos extends Component
         $umkmId = session('umkm_id');
         $this->categories = ProductCategory::where('umkm_id', $umkmId)->get();
     }
-
-
-
-    // public function tambahKeCart($namaProduk)
-    // {
-    //     $produk = collect($this->cart)->firstWhere('name', $namaProduk);
-        
-    //     if ($produk) {
-    //         if (isset($this->cart[$namaProduk])) {
-    //             if (($this->cart[$namaProduk]['qty'] < $produk['stok'] && $produk['is_unlimited'] == false) || $produk['is_unlimited'] == true) {
-    //                 $this->cart[$namaProduk]['qty'] += 1;
-    //                 $this->countTotal();
-    //             }
-    //         } else {
-    //             $this->cart[$namaProduk] = [
-    //                 'name' => $produk['name'],
-    //                 'price' => $produk['price'],
-    //                 'unit' => $produk['unit'],
-    //                 'qty' => 1,
-    //             ];
-    //             $this->countTotal();
-    //         }
-    //     } else {
-    //         $this->cart[$namaProduk]['qty'] += 1;
-    //         $this->countTotal();
-    //     }
-    // }
 
     public function tambahKeCart($namaProduk)
     {
@@ -206,159 +181,76 @@ class Pos extends Component
     }
 
     public function nextStepTree() {
-        $code = $this->generateUniqueTransactionCode();
-                $transaction = Transaction::create([
-                    'code' => $code,
-                    'umkm_id' => session('umkm_id'),
-                    'category_id' => 1,
-                    'transaction_date' => now(),
-                    'description' => 'pos transaction',
-                    'customer_name' => $this->customerName ?? null,
-                    'grand_total' => $this->total,
-                    'amount_paid' => $this->money,
-                    'payment' => $this->typePayment,
-                    'is_paid' => true,
-                    'created_by' => null
-                ]); 
-
-                foreach ($this->cart as $item) {
-                    $dataItem = [
-                        'transaction_id' => $transaction->id,
-                        'name'  => $item['name'],
-                        'unit' => $item['unit'],
-                        'price' => $item['price'],
-                        'quantity' => $item['qty'],
-                    ];
-
-                    if (isset($item['id'])) {
-                        $dataItem['id'] = $item['id'];
-                    }
-
-                    TransactionItem::create($dataItem);
+        try {
+            DB::beginTransaction();
+            if (empty($this->typePayment) || empty($this->money)) {
+                throw new Exception("Transaksi gagal");
+            }
+            
+            $code = $this->generateUniqueTransactionCode();
+            $transaction = Transaction::create([
+                'code' => $code,
+                'umkm_id' => session('umkm_id'),
+                'category_id' => 1,
+                'transaction_date' => now(),
+                'description' => 'pos transaction',
+                'customer_name' => $this->customerName ?? null,
+                'grand_total' => $this->total,
+                'amount_paid' => $this->money,
+                'payment' => $this->typePayment,
+                'is_paid' => true,
+                'created_by' => null
+            ]); 
+    
+            $tampung = [];
+    
+            foreach ($this->cart as $item) {
+                $dataItem = [
+                    'transaction_id' => $transaction->id,
+                    'name'  => $item['name'],
+                    'unit' => $item['unit'],
+                    'price' => $item['price'],
+                    'quantity' => $item['qty'],
+                ];
+    
+                if (isset($item['id'])) {
+                    $dataItem['id'] = $item['id'];
+    
+                    $cekProduk = Product::findOrFail($item['id']);
+    
+                    if (!$cekProduk->is_unlimited) {
+                        if ($cekProduk->stock - $item['qty'] < 0) {
+                            throw new Exception("stok habis",);
+                        }
+                        $tampung[] = [
+                            'id' => $item['id'],
+                            'qty' => $item['qty']
+                        ];
+                    } 
                 }
-                $this->currentTransactionId = $transaction->id;
     
-                $this->currentStep = 3;
+                TransactionItem::create($dataItem);
+            }
 
-        // try {
-        //     DB::beginTransaction();
-
-        //     if (!$this->typePayment || !$this->money ) {
-        //         session()->flash('error', 'Data Customer kosong!');
-        //         return;
-        //     } else {
-        //         $code = $this->generateUniqueTransactionCode();
-        //         $transaction = Transaction::create([
-        //             'code' => $code,
-        //             'umkm_id' => session('umkm_id'),
-        //             'category_id' => 1,
-        //             'transaction_date' => now(),
-        //             'description' => 'pos transaction',
-        //             'customer_name' => $this->customerName ?? null,
-        //             'grand_total' => $this->total,
-        //             'amount_paid' => $this->money,
-        //             'payment' => $this->typePayment,
-        //             'is_paid_of' => true,
-        //         ]); 
-
-        //         foreach ($this->cart as $item) {
-        //             $dataItem = [
-        //                 'transaction_id' => $transaction->id,
-        //                 'name'  => $item['name'],
-        //                 'unit' => $item['unit'],
-        //                 'price' => $item['price'],
-        //                 'quantity' => $item['qty'],
-        //             ];
-
-        //             if (isset($item['id'])) {
-        //                 $dataItem['id'] = $item['id'];
-        //             }
-
-        //             TransactionItem::create($dataItem);
-        //         }
-        //         $this->currentTransactionId = $transaction->id;
-    
-        //         $this->currentStep = 3;
-                
-        //     }
-        //     DB::commit();
-        // } catch (\Throwable $e) {
-        //     DB::rollBack();
-        //     $this->currentStep = 2;
-        //     // return response()->json([
-        //     //     "status" => "gagal",
-        //     //     "msg" => $e->getMessage()
-        //     // ], 400);
-        // }
+            foreach ($tampung as $item) {
+                $produk = Product::findOrFail($item['id']);
+                $produk->stock -= $item['qty'];
+                $produk->save();
+            }
+            
+            $this->currentTransactionId = $transaction->id;
+        
+            $this->currentStep = 3;
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                "status" => "gagal",
+                "msg" => $e->getMessage()
+            ], 400);
+            
+        }
     }
-
-    
-    
-//     public function nextStepTree()
-// {
-//     try {
-//         DB::beginTransaction();
-
-//         // Validasi data
-//         if (empty($this->customerName) || empty($this->typePayment) || empty($this->money)) {
-//             session()->flash('error', 'Data Customer tidak lengkap!');
-//             return;
-//         }
-
-//         // Generate kode transaksi unik
-//         $code = $this->generateUniqueTransactionCode();
-
-//         // Simpan transaksi
-//         $transaction = Transaction::create([
-//             'code' => $code,
-//             'umkm_id' => session('umkm_id'),
-//             'category_id' => 1,
-//             'transaction_date' => now(),
-//             'description' => 'pos transaction', // diperbaiki
-//             'customer_name' => $this->customerName ?? null,
-//             'grand_total' => $this->total,
-//             'amount_paid' => $this->money,
-//             'payment' => $this->typePayment,
-//             'is_paid_of' => true,
-//         ]);
-
-//         // Simpan item transaksi
-//         foreach ($this->cart as $item) {
-//             $dataItem = [
-//                 'transaction_id' => $transaction->id,
-//                 'name'  => $item['name'],
-//                 'unit' => $item['unit'],
-//                 'price' => $item['price'],
-//                 'quantity' => $item['qty'],
-//             ];
-
-//             if (isset($item['id'])) {
-//                 $dataItem['id'] = $item['id'];
-//             }
-
-//             TransactionItem::create($dataItem);
-//         }
-
-//         // Simpan ID transaksi yang baru
-//         $this->currentTransactionId = $transaction->id;
-
-//         // Pindah ke step berikutnya
-//         $this->currentStep = 3;
-
-//         DB::commit();
-
-//     } catch (\Throwable $e) {
-//         DB::rollBack();
-//         report($e); // biar tahu errornya
-//         session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
-//     }
-// }
-
-
-
-
-
-
 
     
     public function nextStepOne() {
