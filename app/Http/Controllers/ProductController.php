@@ -128,7 +128,7 @@ class ProductController extends Controller
                 'status' => $request->status
             ]);
 
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->with('success', 'Produk berhasil ditambahkan!');
 
         } catch (\Exception $e) {
@@ -216,7 +216,7 @@ class ProductController extends Controller
                 'status' => $request->status
             ]);
 
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->with('success', 'Produk berhasil diperbarui!');
 
         } catch (\Exception $e) {
@@ -236,11 +236,11 @@ class ProductController extends Controller
             ]);
 
             $statusText = $newStatus ? 'diaktifkan' : 'dinonaktifkan';
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->with('success', "Produk {$product->name} berhasil {$statusText}!");
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->withErrors(['error' => 'Terjadi kesalahan saat mengubah status produk.']);
         }
     }
@@ -261,7 +261,7 @@ class ProductController extends Controller
             
             // Don't update stock if it's unlimited
             if ($product->is_unlimited) {
-                return redirect()->route('admin.dashboard.product.katalog')
+                return redirect()->route('dashboard.product.katalog')
                                ->withErrors(['error' => 'Tidak dapat mengubah stok produk unlimited.']);
             }
 
@@ -269,11 +269,11 @@ class ProductController extends Controller
                 'stock' => $request->stock
             ]);
 
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->with('success', "Stok produk {$product->name} berhasil diperbarui menjadi {$request->stock} {$product->unit}!");
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->withErrors(['error' => 'Terjadi kesalahan saat memperbarui stok produk.']);
         }
     }
@@ -285,7 +285,7 @@ class ProductController extends Controller
             
             // Check if product is used in transactions
             if ($product->transactionItems()->exists()) {
-                return redirect()->route('admin.dashboard.product.katalog')
+                return redirect()->route('dashboard.product.katalog')
                                ->withErrors(['error' => 'Produk tidak dapat dihapus karena sudah digunakan dalam transaksi.']);
             }
             
@@ -297,11 +297,11 @@ class ProductController extends Controller
             $productName = $product->name;
             $product->delete();
 
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->with('success', "Produk {$productName} berhasil dihapus!");
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.dashboard.product.katalog')
+            return redirect()->route('dashboard.product.katalog')
                            ->withErrors(['error' => 'Terjadi kesalahan saat menghapus produk: ' . $e->getMessage()]);
         }
     }
