@@ -15,101 +15,82 @@ use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
     public function registrationUmkm(Request $request) {
-        try {
-            DB::beginTransaction();
+        $validated = $request->validate([
+            'email' => 'required|email:rfc,dns|max:255|unique:users,email',
+            'name' => 'required|string|max:100',
+            'gender'                => 'required|in:p,l',
+            // 'no_handphone'        => 'nullable|string|max:25|unique:users,no_handphone',
+            // 'picture'            => 'nullable|file|mimes:jpg,jpeg,png|max:512',
+            'password'         => 'required|string|max:255',    
+            'konfirm_password'  => 'required|string|same:password',
 
-            $validated = $request->validate([
-                'email' => 'required|email:rfc,dns|max:255|unique:users,email',
-                'name' => 'required|string|max:100',
-                'gender'                => 'required|in:p,l',
-                'no_handphone'        => 'sometimes|string|max:25|unique:users,no_handphone',
-                'picture'            => 'sometims|file|mimes:jpg,jpeg,png|max:512',
-                'password'         => 'required|string|max:255',    
-                'konfirm_password'  => 'required|string|same:password',
+            'name_umkm' => 'required|string|max:100',
+            'no_npwp' => 'nullable|string|max:50',
+            'location' => 'required|string|max:100',
+            'umkm_photo' => 'required|file|mimes:jpg,jpeg,png|max:1024',
+            'since' => 'required|integer',
 
-                'name_umkm' => 'required|string|max:100',
-                'no_npwp' => 'sometimes|string|max:50',
-                'location' => 'required|string|max:100',
-                'umkm_photo' => 'required|file|mimes:jpg,jpeg,png|max:1024',
-                'since' => 'required|integer',
+            'privaci'=> 'accepted'
+        ]);
 
-                'privaci'=> 'accepted'
-            ]);
+        $dataUser = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'gender' => $validated['gender'],
+            'password' => Hash::make($validated['password']),
+        ];
 
-            $dataUser = [
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'gender' => $validated['gender'],
-                'password' => Hash::make($validated['password']),
-            ];
-
-            if (isset($validated['no_handphone'])) {
-                $dataUser['no_handphone'] = $validated['no_handphone'];
-            }
-
-            if ($request->hasFile('picture')) {
-                $dataUser['picture'] = fileUpload($request->file('picture'), 'user/pictur');
-            }
-            
-            $dataUmkm = [
-                'name' => $validated['name_umkm'],
-                'location' => $validated['location'],
-                'since' => $validated['since'],
-            ];
-
-            $dataUmkm['umkm_photo'] = fileUpload($request->file('umkm_photo'), 'umkm/foto');
-
-            if (isset($validated['logo'])) {
-                $dataUmkm['logo'] = fileUpload($request->file('logo'), 'umkm/logo');
-            } 
-
-            if (isset($validated['no_npwp'])) {
-                $dataUmkm['no_npwp'] = $validated['no_npwp'];
-            } 
-            if (isset($validated['business_cash'])) {
-                $dataUmkm['business_cash'] = $validated['business_cash'];
-            } 
-            if (isset($validated['regency'])) {
-                $dataUmkm['regency'] = $validated['regency'];
-            } 
-            if (isset($validated['province'])) {
-                $dataUmkm['province'] = $validated['province'];
-            } 
-            
-            $newUser = User::create($dataUser);
-
-            $dataUmkm['user_id'] = $newUser->id;
-
-            $newUmkm = Umkm::create($dataUmkm);
-
-            Mail::to($newUser->email)->queue(new RegistrationEmail( $newUser->name, 'umkm'));
-
-            DB::commit();
-
-            $request->session()->regenerate();
-            $request->session()->put('umkm_id', $newUmkm->id);
-            // return redirect()->intended('dashboard');
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Data user dan umkm berhasil dibuat',
-                'user' => $newUser,
-                'umkm' => $newUmkm
-            ], 201);
-            
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal membuat data.',
-                'error' => $e->getMessage()
-            ], 500);
+        if (isset($validated['no_handphone'])) {
+            $dataUser['no_handphone'] = $validated['no_handphone'];
         }
+
+        if ($request->hasFile('picture')) {
+            $dataUser['picture'] = fileUpload($request->file('picture'), 'user/pictur');
+        }
+        
+        $dataUmkm = [
+            'name' => $validated['name_umkm'],
+            'location' => $validated['location'],
+            'since' => $validated['since'],
+        ];
+
+        $dataUmkm['umkm_photo'] = fileUpload($request->file('umkm_photo'), 'umkm/foto');
+
+        if (isset($validated['logo'])) {
+            $dataUmkm['logo'] = fileUpload($request->file('logo'), 'umkm/logo');
+        } 
+
+        if (isset($validated['no_npwp'])) {
+            $dataUmkm['no_npwp'] = $validated['no_npwp'];
+        } 
+        if (isset($validated['business_cash'])) {
+            $dataUmkm['business_cash'] = $validated['business_cash'];
+        } 
+        if (isset($validated['regency'])) {
+            $dataUmkm['regency'] = $validated['regency'];
+        } 
+        if (isset($validated['province'])) {
+            $dataUmkm['province'] = $validated['province'];
+        } 
+        
+        $newUser = User::create($dataUser);
+
+        $dataUmkm['user_id'] = $newUser->id;
+
+        $newUmkm = Umkm::create($dataUmkm);
+
+        Mail::to($newUser->email)->queue(new RegistrationEmail( $newUser->name, 'umkm'));
+
+        DB::commit();
+
+        $request->session()->regenerate();
+        $request->session()->put('umkm_id', $newUmkm->id);
+        return redirect('/pending');
     }   
 
     public function registrationMentor(Request $request) {
-        try {
-            DB::beginTransaction();
+        // try {
+            // DB::beginTransaction();
 
             $validated = $request->validate([
                 'email' => 'required|email:rfc,dns|max:255|unique:users,email',
@@ -134,11 +115,11 @@ class AuthController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'gender' => $validated['gender'],
-                'password' => $validated['password'],
+                'password' => Hash::make($validated['password']),
                 'role' => 'mentor'
             ];
 
-            if ($request->hasFile('cover')) {
+            if ($request->hasFile('picture')) {
                 $dataUser['picture'] = fileUpload($request->file('picture'), 'user/picture');
             }
             
@@ -173,65 +154,27 @@ class AuthController extends Controller
 
             DB::commit();
 
-            // $request->session()->regenerate();
-            // $request->session()->put('mentor_id', $newUmkm->id);
-            // return redirect()->intended('dashboard-mentor');
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Data user dan umkm berhasil dibuat',
-                'user' => $newUser,
-                'mentor' => $newMentor
-            ], 201);
-            
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal membuat data.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    public function login(Request $request) {
-    try {
-        $credentials = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $remember = $request->has('remember');
-    
-        if (Auth::attempt($credentials, $remember)) {
-            $user = User::where('email', $credentials['email'])->with(['umkm', 'mentor'])->first();
             $request->session()->regenerate();
-
-            if ($user->role == 'umkm' && $user->umkm) {
-                $request->session()->put('umkm_id', $user->umkm->id);
-            } elseif ($user->role == 'mentor' && $user->mentor) {
-                $request->session()->put('mentor_id', $user->mentor->id);
-            }
+            $request->session()->put('mentor_id', $newMentor->id);
+            return redirect('/pending');
             
-            return response()->json([
-                "status" => "Berhasil",
-                "message" => "Login Berhasil"
-            ], 200);
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-
-    } catch (\Throwable $e) {
-        // Log the full error message for debugging purposes
-        // Log::error($e->getMessage()); 
-        DB::rollBack();
-        return response()->json([
-            'success' => false,
-            'message' => 'Terjadi kesalahan saat login.',
-            'error' => $e->getMessage()
-        ], 500);
     }
+    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        // Menghapus session khusus user (umkm_id atau mentor_id)
+        $request->session()->forget('umkm_id');
+        $request->session()->forget('mentor_id');
+
+        // Regenerate session supaya aman
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect ke halaman login atau homepage
+        return redirect('/login');
+    }
+
 }
-}
+

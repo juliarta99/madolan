@@ -40,14 +40,28 @@
                 @csrf
                 
                 <h1 class="font-black text-lg tracking-wide">Data Mentor</h1>
-                <div class="mt-3" >
+                <div class="mt-3">
                     <x-label :isRequired="true">Email</x-label>
-                    <input type="text" id="email" name="email" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan email anda">
+                    <input type="text" 
+                        id="email" 
+                        name="email" 
+                        value="{{ old('email') }}"
+                        class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md
+                        placeholder="Masukan email anda"
+                        value="{{ old('email') }}">
+                    
+                    @error('email')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
                 
                 <div class="mt-5">
                     <x-label :isRequired="true">Nama</x-label>
                     <input type="nama" id="nama" name="name" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan nama anda">
+
+                    @error('name')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mt-5">
@@ -61,16 +75,25 @@
                         <input type="radio" class="cursor-pointer" name="gender" id="type-kelamin" value="p">
                         <x-label class="!mb-0 cursor-pointer !font-normal" for="type-kelamin">Perempuan</x-label>
                     </div>
+                    @error('gender')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
                 
                 <div class="mt-5">
                     <x-label :isRequired="true">Password</x-label>
                     <input type="password" id="password" name="password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan password anda">
+                    @error('password')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mt-5">
                     <x-label :isRequired="true">Konfirmasi Password</x-label>
                     <input type="password" id="password_konfir" name="konfirm_password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan konfirmasi password">
+                    @error('konfirm_password')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <h1 class="font-black text-lg tracking-wide mt-5">Data Portofolio</h1>
@@ -78,6 +101,9 @@
                 <div class="mt-5">
                     <x-label :isRequired="true">Portfolio</x-label>
                     <x-input.file name="portfolio" accept='application/pdf' note='.pdf  | maks. 1MB' :isPreview='false' />
+                    @error('portfolio')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 
@@ -87,42 +113,59 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- LinkedIn -->
                         <div>
-                        <label class="block font-semibold mb-1">Username Linkedin</label>
-                        <input type="text" name="linkedin_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            <label class="block font-semibold mb-1">Username Linkedin</label>
+                            <input type="text" name="linkedin_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            @error('linkedin_url')
+                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Instagram -->
                         <div>
-                        <label class="block font-semibold mb-1">Username Instagram</label>
-                        <input type="text" name="ig_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            <label class="block font-semibold mb-1">Username Instagram</label>
+                            <input type="text" name="ig_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            @error('ig_url')
+                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- TikTok -->
                         <div>
-                        <label class="block font-semibold mb-1">Username Tiktok</label>
-                        <input type="text" name="tiktok_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            <label class="block font-semibold mb-1">Username Tiktok</label>
+                            <input type="text" name="tiktok_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            @error('tiktok_url')
+                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Facebook -->
                         <div>
-                        <label class="block font-semibold mb-1">Username Facebook</label>
-                        <input type="text" name="fb_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            <label class="block font-semibold mb-1">Username Facebook</label>
+                            <input type="text" name="fb_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2" />
+                            @error('fb_url')
+                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- YouTube (dibiarkan sendiri di kiri) -->
                         <div>
-                        <label class="block font-semibold mb-1">Username Youtube</label>
-                        <input type="text" name="yt_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2"/>
+                            <label class="block font-semibold mb-1">Username Youtube</label>
+                            <input type="text" name="yt_url" placeholder="Masukkan username ..." class="w-full border rounded px-3 py-2"/>
+                            @error('yt_url')
+                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
-
 
                 
                 <div class="mt-5">
                 <div class="flex items-center">
                     <input type="checkbox" name="privaci" id="remember" class="mr-3 w-5 h-5">
                     <label for="remember">Saya menyetujui Syarat & Ketentuan Madolan, serta data saya aman dan digunakan sesuai kebijakan privasi</label>
+                    @error('privaci')
+                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
                 
                 <button type="submit"

@@ -8,7 +8,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -85,7 +88,7 @@ Route::get('/pembelajaran/show', function () {
     return view('pembelajaran.show');
 })->name('pembelajaran.show');
 
-Route::middleware(['guest'])->group(function () {
+// Route::middleware(['guest'])->group(function () {
     Route::get('/register', function () {
         return view('register.index');
     })->name('register.index');
@@ -108,7 +111,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/reject', function () {
         return view('user-validation.reject');
     });
-});
+// });
 
 // Route::middleware(['auth', 'umkm'])->group(function () {
     Route::get('/chat', [AiConsultationController::class, 'index'])->name('consultation.index');

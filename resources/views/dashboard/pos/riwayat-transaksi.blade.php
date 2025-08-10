@@ -126,11 +126,11 @@
                 </div>
                 <x-form.search 
                     name="search"
-                    placeholder="Search kategori produk"
+                    placeholder="Search transaksi"
                     class="w-full"
                 />
             </div>
-            <x-button.icon
+            {{-- <x-button.icon
                 @click="formOpen = true;
                     modalTitle='Tambah Kategori Produk';
                     editMode=false;
@@ -146,7 +146,7 @@
                     </svg>
                 </x-slot:icon>
                 Tambah
-            </x-button.icon>
+            </x-button.icon> --}}
         </div>
     
         <div class="mt-4">
@@ -169,14 +169,14 @@
     
                     <!-- Table Body -->
                     <tbody class="text-gray-700">
-                        @for ($i = 0; $i<10; $i++)
+                        @foreach ($transactions as $transaction)
                             <tr class="border-b border-b-gray-300 even:bg-gray-50">
-                                <td class="px-4 py-2">{{ Date::now() }}</td>
-                                <td class="px-4 py-2">prt999</td>
+                                <td class="px-4 py-2">{{ $transaction->created_at }}</td>
+                                <td class="px-4 py-2">{{ $transaction->code }}</td>
                                 <td class="px-4 py-2">Ready</td>
-                                <td class="px-4 py-2">Rp 120000</td>
-                                <td class="px-4 py-2">Nyoman rai</td>
-                                <td class="px-4 py-2">Cash</td>
+                                <td class="px-4 py-2">{{ $transaction->grand_total }}</td>
+                                <td class="px-4 py-2">{{ $transaction->creator->name ?? '' }}</td>
+                                <td class="px-4 py-2">{{ $transaction->payment }}</td>
                                 <td class="px-4 py-2">
                                     <div class="flex gap-3 items-center">
                                         <button 
@@ -194,10 +194,10 @@
                                             </svg>
                                         </button>
                                         <button 
-                                            @click="confirmDelete = true;
+                                            @click="
                                                 categoryId = 21;
                                                 categoryName = 'Susu';
-                                                deleteFormAction();"
+                                                "
                                             type="button" 
                                             class="cursor-pointer h-full flex items-center"
                                         >
@@ -209,7 +209,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
     
