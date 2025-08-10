@@ -20,7 +20,7 @@
                 <a href="#" class="px-5 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
                     Jelajahi Lebih Lanjut
                 </a>
-                <a href="#" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
+                <a href="{{ route('login.index')}}" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
                     Daftar Sekarang
                 </a>
             </div>
@@ -60,7 +60,7 @@
         </div>
         <!-- Gambar -->
         <div class="order-1 md:order-2">
-        <img src="{{ asset('assets/Pembukuan.png') }}" alt="dasboard analisis" class="w-full max-w-md mx-auto">
+        <img src="{{ asset('assets/laporan.png') }}" alt="dasboard analisis" class="w-full max-w-md mx-auto">
         </div>
     </div>
 
@@ -75,7 +75,7 @@
         <p class="text-blue-100 mb-6">
             Jelajahi fitur Madolan sekarang. Gabung bersama ratusan pelaku usaha lain yang tumbuh dengan Madolan
         </p>
-        <a href="#"
+        <a href="{{ route('login.index')}}"
             class="bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition">
             Daftar Sekarang
         </a>

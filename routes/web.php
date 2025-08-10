@@ -81,6 +81,7 @@ Route::get('/forum/show', function () {
 Route::get('/pembelajaran', function () {
     return view('pembelajaran.index');
 })->name('pembelajaran.index');
+
 Route::get('/pembelajaran/show', function () {
     return view('pembelajaran.show');
 })->name('pembelajaran.show');

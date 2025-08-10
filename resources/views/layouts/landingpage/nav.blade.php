@@ -12,7 +12,7 @@
 
         <ul class="hidden lg:flex items-center space-x-7 font-medium text-gray-700 transition-all duration-200">
             <li>
-                <a href="#" class="hover:text-primary @if(Route::is('landingpage')) text-primary @endif">Beranda</a>
+                <a href="{{ route('landingpage')}}" class="hover:text-primary @if(Route::is('landingpage')) text-primary @endif">Beranda</a>
             </li>
             <li class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="cursor-pointer flex items-center gap-1 hover:text-accent @if(Route::is('fitur*')) text-accent @endif">
@@ -48,7 +48,7 @@
                 <a href="{{ route('forum.index')}}" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>
             </li>
             <li>
-                <a href="login.blade.php" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
+                <a href="{{ route('pembelajaran.index')}}" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
             </li>
         </ul>
 
@@ -78,7 +78,7 @@
     
             @guest
                 <div class="flex space-x-3">
-                    <a href="{{ route('register.index')}}" class="hidden lg:block">
+                    <a href="c" class="hidden lg:block">
                         <x-button.default>
                             Register
                         </x-button.default>

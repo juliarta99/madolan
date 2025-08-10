@@ -3,30 +3,44 @@
 @section('content')
 <section class="relative bg-gradient-to-br white via-white to-white-85 pt-30 overflow-hidden">
     
-    <section class="relative bg-white py-70 flex items-center justify-center px-4">
-        <img src="{{ asset('assets/wp1.png') }}" alt="" class="w-100 absolute top-[20%] z-0 -left-20 animate-my-custom ">
-        <img src="{{ asset('assets/wp2.png') }}" alt="" class="w-70 absolute top-[2%] z-0 left-[23%] animate-my-custom ">
-        <img src="{{ asset('assets/wp4.png') }}" alt="" class="w-100 absolute top-[30%] z-0 -right-10 animate-my-custom ">
-        <img src="{{ asset('assets/wp3.png') }}" alt="" class="w-70 absolute top-[5%] z-0 right-[24%] animate-my-custom ">
-        
-        <div class="relative z-10 text-center max-w-3xl mx-auto">
-            <h1 class="text-3xl md:text-5xl font-bold leading-tight">
-            Semua <span class="text-orange-500">Usaha</span> Layak <span class="text-blue-600">Bertumbuh</span>
-            </h1>
-            <p class="mt-4 text-gray-600 text-lg">
-            Bukan sekadar alat, tapi ruang untuk usahamu naik kelas dengan teknologi, data, dan komunitas
-            </p>
+  <section class="relative bg-white md:py-70 flex flex-col items-center justify-center px-4 md:block">
+      
+      <!-- FOTO ATAS (mobile) -->
+      <div class="flex flex-col gap-4 w-full md:hidden">
+          <img src="{{ asset('assets/hm1.png') }}" alt="" class="absolute -left-20 w-80 animate-my-custom">
+          <img src="{{ asset('assets/hm2.png') }}" alt="" class="absolute -right-20 w-70 animate-my-custom">
+      </div>
 
-            <!-- CTA Buttons -->
-            <div class="mt-8 flex justify-center gap-4">
-                <a href="#" class="px-6 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition">Lihat Fitur</a>
-                <a href="#" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Daftar Sekarang</a>
-            </div>
-        </div>
-    </section>
-</section>
+      <!-- FOTO ABSOLUTE UNTUK DESKTOP -->
+      <img src="{{ asset('assets/hm1.png') }}" alt="" class="hidden md:block w-100 absolute top-[20%] z-0 -left-20 rotate-20 animate-my-custom">
+      <img src="{{ asset('assets/hm2.png') }}" alt="" class="hidden md:block w-70 absolute top-[2%] z-0 left-[23%] rotate-20 animate-my-custom">
+      <img src="{{ asset('assets/hm3.png') }}" alt="" class="hidden md:block w-100 absolute top-[30%] z-0 -right-30 -rotate-20 animate-my-custom">
+      <img src="{{ asset('assets/hm4.png') }}" alt="" class="hidden md:block w-70 absolute top-[5%] z-0 right-[24%] -rotate-20 animate-my-custom">
 
-<section class="max-w-6xl mx-auto px-6  flex flex-col md:flex-row items-center gap-35">
+      <!-- TEKS -->
+      <div class="mt-65 md:mt-0 relative z-10 text-center max-w-3xl mx-auto">
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight">
+              Semua <span class="text-orange-500">Usaha</span> Layak <span class="text-blue-600">Bertumbuh</span>
+          </h1>
+          <p class="mt-4 text-gray-600 text-lg">
+              Bukan sekadar alat, tapi ruang untuk usahamu naik kelas dengan teknologi, data, dan komunitas
+          </p>
+          <div class="mt-8 flex justify-center gap-4">
+              <a href="{{ route('fitur.ds.index')}}" class="px-6 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition">Lihat Fitur</a>
+              <a href="{{ route('login.index')}}" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Daftar Sekarang</a>
+          </div>
+      </div>
+
+      <!-- FOTO BAWAH (mobile) -->
+      <div class="flex flex-col gap-4 w-full mt-10 md:hidden">
+          <img src="{{ asset('assets/hm3.png') }}" alt="" class="absolute -left-20 w-80 animate-my-custom">
+          <img src="{{ asset('assets/hm4.png') }}" alt="" class="absolute left-60 w-80 animate-my-custom">
+      </div>
+
+  </section>
+
+
+<section class="mt-65 md:mt-0 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-35">
     <!-- Logo -->
     <div class="bg-white rounded-3xl shadow-lg p-8 flex items-center justify-center">
         <img src="{{ asset('assets/logo.svg') }}" alt="Madolan Logo" class="w-60 h-50 object-contain">
@@ -68,10 +82,10 @@
 
         <!-- Tombol -->
         <div class="flex gap-4 mt-6">
-            <a href="#" class="px-5 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
+            <a href="{{ route('fitur.ds.index')}}" class="px-5 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
                 Jelajahi Lebih Lanjut
             </a>
-            <a href="#" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
+            <a href="{{ route('login.index')}}" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
                 Daftar Sekarang
             </a>
         </div>
@@ -104,7 +118,7 @@
       <p class="text-gray-600 mb-6">
         Semua performa usaha dirangkum rapi dari omzet, pengeluaran, hingga saran cerdas berbasis AI
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.ds.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -121,7 +135,7 @@
       <p class="text-gray-600 mb-6">
         Ruang diskusi dan tanya jawab langsung dengan pelaku usaha lain dan mentor. Dapat ilmu dan siap tumbuh bersama, serta dapatkan insight melalui konsultasi dengan AI
       </p>
-      <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+      <a href="{{ route('fitur.fiturforum.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -146,7 +160,7 @@
       <p class="text-gray-600 mb-6">
         Belajar dari mentor berpengalaman, tips praktis seputar usaha dan keuangan. Dari dasar sampai strategi lanjut
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.fiturpembelajaran.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -163,7 +177,7 @@
       <p class="text-gray-600 mb-6">
         Dari transaksi harian, kamu bisa bangun bisnis yang lebih rapi, terukur, dan siap tumbuh. Semuanya berawal dari satu klik pencatatan
       </p>
-      <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+      <a href="{{ route('fitur.fiturPOS.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -188,7 +202,7 @@
       <p class="text-gray-600 mb-6">
         Semua transaksi usaha pemasukan, pengeluaran, utang, dan lainnya dapat tercatat rapi dalam sistem. Tanpa ribet hitung manual, laporan keuangan seperti arus kas, laba rugi, dan lainnya  tersusun otomatis
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.fiturlaporan.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -209,7 +223,7 @@
         Madolan bantu kamu temukan program pendanaan yang sesuai dari KUR, koperasi, hingga fintech. 
         Sistem kami membaca data usahamu, lalu menilai apakah kamu sudah memenuhi syarat.
         </p>
-        <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+        <a href="{{ route('fitur.fiturpendanaan.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
         </a>
     </div>
@@ -328,7 +342,7 @@
       <p class="text-blue-100 mb-6">
         Jelajahi fitur Madolan sekarang. Gabung bersama ratusan pelaku usaha lain yang tumbuh dengan Madolan
       </p>
-      <a href="#"
+      <a href="{{ route('login.index')}}"
          class="bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition">
         Daftar Sekarang
       </a>

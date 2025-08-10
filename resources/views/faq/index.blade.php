@@ -537,7 +537,7 @@
             <p class="text-blue-100 mb-6">
                 Jelajahi fitur Madolan sekarang. Gabung bersama ratusan pelaku usaha lain yang tumbuh dengan Madolan
             </p>
-            <a href="#"
+            <a href="{{ route('login.index')}}"
                 class="bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition">
                 Daftar Sekarang
             </a>
