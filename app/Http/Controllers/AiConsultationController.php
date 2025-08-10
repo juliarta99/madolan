@@ -29,7 +29,7 @@ class AiConsultationController extends Controller
             $selectedCategory = Category::where('slug', $categorySlug)->first();
             if ($selectedCategory) {
                 $messages = AiConsultation::forUserAndCategory(
-                    Auth::id() ?? 1,
+                    Auth::user()->id,
                     $selectedCategory->id
                 )->get();
             }
@@ -59,14 +59,14 @@ class AiConsultationController extends Controller
             // Simpan pesan user
             $userMessage = AiConsultation::create([
                 'category_id' => $category->id,
-                'user_id' => Auth::id() ?? 1,
+                'user_id' => Auth::user()->id,
                 'chat' => $request->message,
                 'role' => 'user'
             ]);
 
             // Dapatkan context chat sebelumnya (10 pesan terakhir)
             $chatContext = AiConsultation::getChatContext(
-                Auth::id() ?? 1,
+                Auth::user()->id,
                 $category->id,
                 10
             );
@@ -81,7 +81,7 @@ class AiConsultationController extends Controller
             // Simpan response AI
             $aiMessage = AiConsultation::create([
                 'category_id' => $category->id,
-                'user_id' => Auth::id() ?? 1,
+                'user_id' => Auth::user()->id,
                 'chat' => $aiResponse,
                 'role' => 'ai'
             ]);
@@ -97,7 +97,7 @@ class AiConsultationController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('AI Consultation Error: ' . $e->getMessage(), [
-                'user_id' => Auth::id() ?? 1,
+                'user_id' => Auth::user()->id,
                 'category_id' => $category->id,
                 'message' => $request->message
             ]);
@@ -116,7 +116,7 @@ class AiConsultationController extends Controller
         ]);
 
         try {
-            $deleted = AiConsultation::where('user_id', Auth::id() ?? 1)
+            $deleted = AiConsultation::where('user_id', Auth::user()->id)
                 ->where('category_id', $request->category_id)
                 ->delete();
 
@@ -127,7 +127,7 @@ class AiConsultationController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Clear Chat Error: ' . $e->getMessage(), [
-                'user_id' => Auth::id() ?? 1,
+                'user_id' => Auth::user()->id,
                 'category_id' => $request->category_id
             ]);
 

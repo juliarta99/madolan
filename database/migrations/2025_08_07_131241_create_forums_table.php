@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->foreignId('category_id')->constrained()->onDelete('restrict');
             $table->string('title');
             $table->string('slug');
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('view_count')->default(0);
             $table->string('reject_message')->nullable();
             $table->boolean('is_approve')->nullable();
-            $table->boolean('is_ai')->default(0);
             $table->boolean('status')->default(1); // ini aktif atau tidak
             $table->timestamps();
         });

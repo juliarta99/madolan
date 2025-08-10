@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('forum_chats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('restrict');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
             $table->foreignId('forum_id')->constrained()->onDelete('restrict');
             $table->text('chat');
             $table->string('image')->nullable();
+            $table->boolean('is_ai')->default(0);
             $table->timestamps();
         });
     }

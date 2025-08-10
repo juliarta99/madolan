@@ -184,6 +184,7 @@ Route::middleware(['auth', 'umkm'])->group(function () {
         return view('dashboard.keuangan.pendanaan.result');
     })->name('dashboard.keuangan.pendanaan.result');
 
+
     Route::get('/dashboard/learning/forum', function () {
         return view('dashboard.learning.forum.index');
     })->name('dashboard.learning.forum');

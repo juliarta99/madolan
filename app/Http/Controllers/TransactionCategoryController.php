@@ -14,10 +14,9 @@ class TransactionCategoryController extends Controller
         $query = TransactionCategory::with(['type', 'umkm'])
             ->withCount('transactions');
 
-        // Filter berdasarkan role
-        // if (Auth::user()->role === 'umkm') {
-            $query->where('umkm_id', 1);
-        // }
+        if (Auth::user()->role === 'umkm') {
+            $query->where('umkm_id', Auth::user()->id);
+        }
 
         // Filter berdasarkan tipe keuangan
         if ($request->filled('type_id')) {
@@ -61,9 +60,9 @@ class TransactionCategoryController extends Controller
         $exists = TransactionCategory::where('name', $request->name)
             ->where('type_id', $request->type_id);
 
-        // if (Auth::user()->role === 'umkm') {
-            $exists->where('umkm_id', 1);
-        // }
+        if (Auth::user()->role === 'umkm') {
+            $exists->where('umkm_id', Auth::user()->id);
+        }
 
         if ($exists->exists()) {
             return back()->withErrors([
@@ -77,9 +76,9 @@ class TransactionCategoryController extends Controller
         ];
 
         // Jika user adalah UMKM, tambahkan umkm_id
-        // if (Auth::user()->role === 'umkm') {
-            $data['umkm_id'] = 1;
-        // }
+        if (Auth::user()->role === 'umkm') {
+            $data['umkm_id'] = Auth::user()->id;
+        }
 
         TransactionCategory::create($data);
 
@@ -109,9 +108,9 @@ class TransactionCategoryController extends Controller
             ->where('type_id', $request->type_id)
             ->where('id', '!=', $category->id);
 
-        // if (Auth::user()->role === 'umkm') {
-            $exists->where('umkm_id', 1);
-        // }
+        if (Auth::user()->role === 'umkm') {
+            $exists->where('umkm_id', Auth::user()->id);
+        }
 
         if ($exists->exists()) {
             return back()->withErrors([
