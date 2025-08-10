@@ -20,6 +20,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'no_handphone',
+        'picture',
+        'gender',
+        'role',
         'password',
     ];
 
@@ -44,5 +48,40 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function umkm()
+    {
+        return $this->hasOne(Umkm::class, 'user_id');
+    }
+
+    public function mentor()
+    {
+        return $this->hasOne(Mentor::class, 'user_id');
+    }
+
+    public function ai_consultations()
+    {
+        return $this->hasMany(AiConsultation::class, 'user_id');
+    }
+
+    public function forums()
+    {
+        return $this->hasMany(Forum::class, 'user_id');
+    }
+
+    public function votedForums()
+    {
+        return $this->belongsToMany(Forum::class, 'forum_votes', 'user_id', 'forum_id')->withTimestamps();
+    }
+
+    public function forumChats()
+    {
+        return $this->hasMany(ForumChat::class, 'user_id', 'id');
+    }
+
+    public function forumChatLikes()
+    {
+        return $this->hasMany(ForumChatLike::class, 'user_id', 'id');
     }
 }

@@ -1,0 +1,698 @@
+@extends('layouts.dashboard')
+
+@section('content')
+    <h1 class="text-2xl lg:text-3xl font-bold mb-4">User</h1>
+    <div x-data="{ openNotification: true  }" x-transition.opacity x-cloak x-show="openNotification" class="bg-warning p-4 rounded-md mb-4 flex gap-4 justify-between items-center">
+        <p class="text-sm md:text-base">
+            Terdapat <span class="font-bold">{{ $pending }} user pending</span>!
+        </p>
+        <button 
+            @click="openNotification = false" 
+            class="text-gray-800 hover:text-dark cursor-pointer"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 md:size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    @php
+        $data = [
+            'id' => 1,
+            'name' => 'Andi Santoso',
+            'email' => 'andi@example.com',
+            'no_handphone' => '081234567890',
+            'picture' => 'profile_pictures/andi.jpg',
+            'gender' => 'l',
+            'role' => 'umkm',
+
+            'umkm' => [
+                'user_id' => 1,
+                'name' => 'Kopi Nusantara',
+                'no_npwp' => '12.345.678.9-012.345',
+                'location' => 'Jl. Merdeka No.10, Bandung',
+                'umkm_photo' => 'umkm_photos/kopi_nusantara.jpg',
+                'since' => 2018,
+                'business_cash' => 150000000.00,
+                'regency' => 'Bandung',
+                'province' => 'Jawa Barat',
+                'is_approve' => null,
+                'reject_message' => null,
+                'logo' => 'umkm_logos/kopi_nusantara_logo.png',
+            ]
+        ];
+    @endphp
+
+    <div x-data="{
+            confirmDelete: false,
+            confirmApprove: false,
+            showFormReject: false,
+            detailUser: false,
+            userId: null,
+            userName: '',
+            user: {},
+            reject_message: '',
+            approveFormAction() {
+                const formApprove = document.getElementById('form-approve');
+                formApprove.action = '/admin/dashboard/user/approve/' + this.userId;
+            },
+            rejectFormAction() {
+                const formReject = document.getElementById('form-reject');
+                formReject.action = '/admin/dashboard/user/reject/' + this.userId;
+            },
+            deleteFormAction() {
+                const formDelete = document.getElementById('form-delete');
+                formDelete.action = '/admin/dashboard/user/' + this.userId;
+            },
+        }">
+
+        <div class="flex gap-4 justify-between items-center">
+            <div class="flex gap-2 items-center">
+                <div x-data="{ openFilter: false }">
+                    <x-button.icon variant="accent" @click="openFilter = true">
+                        <x-slot:icon>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-light">
+                                <path fill-rule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clip-rule="evenodd" />
+                            </svg>
+                        </x-slot:icon>
+                        Filter
+                    </x-button.icon>
+    
+                    <!-- Modal -->
+                    <form 
+                        x-show="openFilter" 
+                        x-transition.opacity 
+                        x-cloak 
+                        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                    >
+                        <div 
+                            x-show="openFilter" 
+                            x-transition 
+                            @click.away="openFilter = false" 
+                            class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
+                        >
+                            <!-- Modal Header -->
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-xl font-semibold">Filter User</h2>
+                                <button 
+                                    @click="openFilter = false" 
+                                    class="text-gray-800 hover:text-dark cursor-pointer"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+    
+                            <div class="my-6 space-y-2">
+                                <div>
+                                    <x-label for="status">Status</x-label>
+                                    <x-input.select 
+                                        name="status"
+                                        :options="[
+                                            'semua' => 'semua',
+                                            'pending' => 'pending',
+                                            'reject' => 'reject',
+                                            'approve' => 'approve',
+                                        ]"
+                                    />
+                                </div>
+                                <div>
+                                    <x-label for="sort_by">Sorting Dari</x-label>
+                                    <x-input.select 
+                                        name="sort_by"
+                                        :options="[
+                                            'terbaru' => 'Terbaru',
+                                            'terlama' => 'Terlama',
+                                        ]"
+                                    />
+                                </div>
+                                <div>
+                                    <x-label for="type">Tipe</x-label>
+                                    <x-input.select 
+                                        name="role"
+                                        :options="[
+                                            'semua' => 'semua',
+                                            'mentor' => 'mentor',
+                                            'umkm' => 'umkm',
+                                        ]"
+                                    />
+                                </div>
+                            </div>
+    
+                            <!-- Modal Footer -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <x-button.default 
+                                    variant="danger"
+                                    @click="openFilter = false"
+                                    class="w-full"
+                                >
+                                    Batal
+                                </x-button.default>
+                                <x-button.default 
+                                    @click="openFilter = false"
+                                    class="w-full"
+                                    type="submit"
+                                >
+                                    Terapkan
+                                </x-button.default>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <x-form.search 
+                    name="search"
+                    placeholder="Search user"
+                    class="w-full"
+                />
+            </div>
+        </div>
+    
+        <div class="mt-4">
+            <div
+                class="overflow-x-auto bg-light shadow-xl rounded-lg"
+            >
+                <!-- Table Header -->
+                <table class="w-full table-auto text-sm">
+                    <thead class="bg-secondary text-light">
+                        <tr>
+                            <th class="px-4 py-2 text-left w-[50px]">No</th>
+                            <th class="px-4 py-2 text-left">Nama</th>
+                            <th class="px-4 py-2 text-left">Email</th>
+                            <th class="px-4 py-2 text-left">Role</th>
+                            <th class="px-4 py-2 text-left">Status</th>
+                            <th class="px-4 py-2 text-left">Aksi</th>
+                        </tr>
+                    </thead>
+    
+                    <!-- Table Body -->
+                    <tbody class="text-gray-700">
+                        {{--  --}}
+                        @foreach ($users as $user)
+                            <tr class="border-b border-b-gray-300 even:bg-gray-50">
+                                <td class="px-4 py-2">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
+                                <td class="px-4 py-2">{{$user->name}}</td>
+                                <td class="px-4 py-2">{{$user->email}}</td>
+                                <td class="px-4 py-2">
+                                    @if ($user->role == 'umkm')
+                                        <x-badge>{{$user->role}}</x-badge>
+                                    @elseif ($user->role == 'mentor')
+                                        <x-badge class="!bg-accent">{{$user->role}}</x-badge>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{-- @if ($user->mentor)
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                    @endif --}}
+                                    
+
+                                    @if ($user->umkm)
+                                        @if ($user->umkm->is_approve == false && empty($user->umkm->reject_message))
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                        @elseif ($user->umkm->is_approve )
+                                            <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                        @elseif ($user->umkm->is_approve == false && !empty($user->umkm->reject_message))
+                                            <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                        @endif
+                                    @elseif ($user->mentor)
+                                        @if ($user->mentor->is_approve == false && empty($user->mentor->reject_message))
+                                            <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                                        @elseif ($user->mentor->is_approve )
+                                            <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                        @elseif ($user->mentor->is_approve == false && !empty($user->mentor->reject_message))
+                                            <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                        @endif
+                                    @endif
+                                    {{-- <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge> --}}
+                                    {{-- <x-badge backgroundColor="bg-success">Approve</x-badge> --}}
+                                    {{-- <x-badge backgroundColor="bg-danger">Ditolak</x-badge> --}}
+                                </td>
+                                <td class="px-4 py-2">
+                                    <div class="flex gap-3 items-center">
+                                        {{-- Tombol Info --}}
+                                        <button 
+                                            @click="
+                                                {{-- user = @js($data);
+                                                userId = user.id;
+                                                detailUser = true; --}}
+                                                user = {{ $user }};
+                                                userId = {{ $user->id }};
+                                               
+                                                detailUser = true;
+                                            "
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/info.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+
+                                        @if ($user->umkm)
+                                            @if ($user->umkm->is_approve == false && empty($user->umkm->reject_message))
+                                                {{-- Tombol Approve --}}
+                                                <button 
+                                                    @click="
+                                                        {{-- user = @js($data);
+                                                        userId = user.id;
+                                                        confirmApprove = true; --}}
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        confirmApprove = true;
+                                                        approveFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-success">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                </button>
+                                                {{-- Tombol Reject --}}
+                                                <button 
+                                                    @click="
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        showFormReject = true;
+                                                        rejectFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            @elseif ($user->umkm->is_approve )
+                                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                                            @elseif ($user->umkm->is_approve == false && !empty($user->umkm->reject_message))
+                                                <x-badge backgroundColor="bg-danger">Ditolak</x-badge>
+                                            @endif
+                                        @elseif ($user->mentor)
+                                            @if ($user->mentor->is_approve == false && empty($user->mentor->reject_message))
+                                                {{-- Tombol Approve --}}
+                                                <button 
+                                                    @click="
+                                                        {{-- user = @js($data);
+                                                        userId = user.id;
+                                                        confirmApprove = true; --}}
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        
+                                                        confirmApprove = true;
+                                                        approveFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-success">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                </button>
+
+                                                {{-- Tombol Reject --}}
+                                                <button 
+                                                    @click="
+                                                        user = {{ $user }};
+                                                        userId = {{ $user->id }};
+                                                        showFormReject = true;
+                                                        rejectFormAction();
+                                                    "
+                                                    type="button" 
+                                                    class="cursor-pointer h-full flex items-center"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-danger">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            
+                                            @endif
+                                        @endif
+
+                                        {{-- Tombol Delete --}}
+                                        <button 
+                                            @click="
+                                                user = {{ $user }};
+                                                userId = {{ $user->id }};
+                                                {{-- user = @js($data);
+                                                userId = user.id; --}}
+                                                confirmDelete = true;
+                                            "
+                                            type="button" 
+                                            class="cursor-pointer h-full flex items-center"
+                                        >
+                                            <img src="{{ asset('assets/icons/trash.svg') }}" class="w-6 min-w-6" alt="">
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+    
+                <div class="flex justify-between items-center bg-secondary text-light px-4 py-2">
+                    <p class="text-sm">
+                        Showing 1 to 10 of 20 results
+                    </p>
+                    <div class="flex rounded-lg overflow-hidden">
+                        <button class="bg-gray-800 px-4 py-2"> &lt; </button>
+                        <button class="bg-primary px-4 py-2"> 1 </button>
+                        <button class="bg-gray-800 px-4 py-2"> 2 </button>
+                        <button class="bg-gray-800 px-4 py-2"> &gt; </button>
+                    </div>
+                </div>
+    
+                {{-- Modal Form Reject --}}
+                <div 
+                    x-show="showFormReject" 
+                    x-transition.opacity 
+                    x-cloak 
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                >
+                    <div 
+                        x-show="showFormReject" 
+                        x-transition 
+                        @click.away="showFormReject = false" 
+                        class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
+                    >
+                        <!-- Modal Header -->
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold">Tolak User</h2>
+                            <button 
+                                @click="showFormReject = false" 
+                                class="text-gray-800 hover:text-dark cursor-pointer"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+    
+                        <form action="" method="POST" id="form-reject" class="mt-6">
+                            @csrf
+                            @method("PUT")
+    
+                            <p class="text-gray-600 font-semibold my-3">Apakah kamu yakin menolak user <span class="text-danger" x-text="user.name"></span>?</p>
+                            <div class="mb-4">
+                                <x-label :isRequired="true" for="reject_message">Pesan Reject</x-label>
+                                <x-input.default placeholder="Masukkan pesan reject" x-model="reject_message" name="reject_message"></x-input.default>
+                            </div>
+    
+                            <div class="mt-6 grid grid-cols-2 gap-2">
+                                <x-button.default 
+                                    variant="danger"
+                                    @click="showFormReject = false"
+                                    type="button"
+                                    class="w-full"
+                                >
+                                    Batal
+                                </x-button.default>
+                                <x-button.default 
+                                    @click="showFormReject = false"
+                                    type="submit"
+                                    class="w-full"
+                                >
+                                    Reject
+                                </x-button.default>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{-- Modal Detail --}}
+                <div 
+                    x-show="detailUser" 
+                    x-transition.opacity 
+                    x-cloak 
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                >
+                    <div 
+                        x-show="detailUser" 
+                        x-transition 
+                        @click.away="detailUser = false" 
+                        class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen md:w-150 md:h-max max-h-screen shadow-lg overflow-auto"
+                    >
+                        <!-- Modal Header -->
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold">Detail User</h2>
+                            <button 
+                                @click="detailUser = false" 
+                                class="text-gray-800 hover:text-dark cursor-pointer"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mt-4 flex flex-col gap-1">
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == null" >
+                                <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == 1" >
+                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.is_approve == 0" >
+                                <x-badge backgroundColor="bg-warning">Ditolak</x-badge>
+                                <div class="p-2 rounded-md mt-2 bg-danger" x-text="user.umkm.reject_message"></div>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == 1" >
+                                <x-badge backgroundColor="bg-success">Approve</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == null" >
+                                <x-badge backgroundColor="bg-warning" textColor="text-dark">Pending</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.is_approve == 0" >
+                                <x-badge backgroundColor="bg-warning">Ditolak</x-badge>
+                                <div class="p-2 rounded-md mt-2 bg-danger" x-text="user.mentor.reject_message"></div>
+                            </template>
+                            <template x-if="user.role == 'umkm'" >
+                                <x-badge>UMKM</x-badge>
+                            </template>
+                            <template x-if="user.role == 'mentor'" >
+                                <x-badge backgroundColor="bg-accent">Mentor</x-badge>
+                            </template>
+                            <h1 class="text-base lg:text-lg font-semibold" x-text="user.name"></h1>
+                            <p class="text-sm lg:text-base" x-text="user.email"></p>
+                            <template x-if="user.no_handphone" >
+                                <div class="flex items-center gap-1">
+                                    <p>No Handphone:</p>
+                                    <p x-text="user.no_handphone"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.picture" >
+                                <div class="flex flex-col gap-1">
+                                    <img :src="user.picture" alt=""> 
+                                    <a :href="user.picture" class="text-primary">Lihat Foto Lebih Detail</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.gender == 'l'" >
+                                <p>Jenis Kelamin: Laki Laki</p>
+                            </template>
+                            <template x-if="user.gender == 'p'" >
+                                <p>Jenis Kelamin: Perempuan</p>
+                            </template>
+                            <template x-if="user.role == 'umkm'" >
+                                <h2 class="text-base font-semibold mt-4">Data UMKM</h2>
+                            </template>
+                             <template x-if="user.role == 'umkm' && user.umkm.name" >
+                                <div class="flex items-center gap-1">
+                                    <p>Nama UMKM: </p>
+                                    <p x-text="user.umkm.name"></p>
+                                </div>
+                             </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.no_npwp" >
+                                <div class="flex items-center gap-1">
+                                    <p>No NPWP: </p>
+                                    <p x-text="user.umkm.no_npwp"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.location" >
+                                <div class="flex items-center gap-1">
+                                    <p>Lokasi : </p>
+                                    <p x-text="user.umkm.location"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.since" >
+                                <div class="flex items-center gap-1">
+                                    <p>Berdiri Sejak : </p>
+                                    <p x-text="user.umkm.since"></p>
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.umkm_photo" >
+                                <div class="flex flex-col gap-1">
+                                    <p>Foto : </p>
+                                    <img :src="user.umkm.umkm_photo" alt="">
+                                    <a :href="user.umkm.umkm_photo" class="text-primary">Lihat Foto Lebih Detail</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.regency" >
+                                <template x-if="user.umkm.regency" >
+                                    <div class="flex items-center gap-1">
+                                        <p>Kabupaten:</p>
+                                        <p x-text="user.umkm.regency"></p>
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.province" >
+                                <template x-if="user.umkm.province" >
+                                    <div class="flex items-center gap-1">
+                                        <p>Provinsi:</p>
+                                        <p x-text="user.umkm.province"></p>
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'umkm' && user.umkm.logo" >
+                                <template x-if="user.umkm.logo" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Logo : </p>
+                                        <img :src="user.umkm.logo" alt="">
+                                        <a :href="user.umkm.logo" class="text-primary">Lihat Logo Lebih Detail</a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor'" >
+                                <h2 class="text-base font-semibold mt-4">Data Mentor</h2>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.portfolio" >
+                                <div class="flex flex-col gap-1">
+                                    <p>Portfolio : </p>
+                                    <a :href="user.mentor.portfolio" class="text-primary">Lihat Portfolio</a>
+                                    {{-- sesuaikan lagi --}}
+                                </div>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.ig_url" >
+                                <template x-if="user.mentor.ig_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Instagram : </p>
+                                        <a :href="user.mentor.ig_url" class="text-primary" x-text="user.mentor.ig_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.fb_url" >
+                                <template x-if="user.mentor.fb_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Facebook : </p>
+                                        <a :href="user.mentor.fb_url" class="text-primary" x-text="user.mentor.fb_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.tiktok_url" >
+                                <template x-if="user.mentor.tiktok_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Tiktok : </p>
+                                        <a :href="user.mentor.tiktok_url" class="text-primary" x-text="user.mentor.tiktok_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.yt_url" >
+                                <template x-if="user.mentor.yt_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Youtube : </p>
+                                        <a :href="user.mentor.yt_url" class="text-primary" x-text="user.mentor.yt_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                            <template x-if="user.role == 'mentor' && user.mentor.linkedin_url" >
+                                <template x-if="user.mentor.linkedin_url" >
+                                    <div class="flex flex-col gap-1">
+                                        <p>Linkedin : </p>
+                                        <a :href="user.mentor.linkedin_url" class="text-primary" x-text="user.mentor.linkedin_url"></a>
+                                        {{-- sesuaikan lagi --}}
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Modal Approve --}}
+                <div 
+                    x-show="confirmApprove" 
+                    x-transition.opacity 
+                    x-cloak 
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                >
+                    <div 
+                        x-show="confirmApprove" 
+                        x-transition 
+                        @click.away="confirmApprove = false" 
+                        class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
+                    >
+    
+                        <form action="" method="POST" id="form-approve" class="mt-6">
+                            @csrf
+                            @method("PUT")
+                            
+                            <h1 class="text-base md:text-lg lg:text-xl font-bold text-center">Apakah anda yakin <span class="text-success">memverifikasi user <span x-text="user.name"></span></span>?</h1>
+    
+                            <div class="mt-6 grid grid-cols-2 gap-2">
+                                <x-button.default 
+                                    variant="danger"
+                                    @click="confirmApprove = false"
+                                    type="button"
+                                    class="w-full"
+                                >
+                                    Batal
+                                </x-button.default>
+                                <x-button.default 
+                                    @click="confirmApprove = false"
+                                    type="submit"
+                                    class="w-full"
+                                >
+                                    Yakin
+                                </x-button.default>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{-- Modal Delete --}}
+                <div 
+                    x-show="confirmDelete" 
+                    x-transition.opacity 
+                    x-cloak 
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                >
+                    <div 
+                        x-show="confirmDelete" 
+                        x-transition 
+                        @click.away="confirmDelete = false" 
+                        class="bg-light p-6 rounded-none md:rounded-lg w-full h-screen  md:w-100 md:h-max shadow-lg"
+                    >
+    
+                        <form action="" method="POST" id="form-delete" class="mt-6">
+                            @csrf
+                            @method("DELETE")
+                            
+                            <h1 class="text-base md:text-lg lg:text-xl font-bold text-center">Apakah anda yakin <span class="text-danger">menghapus (delete) user <span x-text="user.name"></span></span>?</h1>
+    
+                            <div class="mt-6 grid grid-cols-2 gap-2">
+                                <x-button.default 
+                                    variant="danger"
+                                    @click="confirmDelete = false"
+                                    type="button"
+                                    class="w-full"
+                                >
+                                    Batal
+                                </x-button.default>
+                                <x-button.default 
+                                    @click="confirmDelete = false"
+                                    type="submit"
+                                    class="w-full"
+                                >
+                                    Yakin
+                                </x-button.default>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
