@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiConsultationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundingTypeController;
 use App\Http\Controllers\ProductCategoryController;
@@ -49,9 +50,13 @@ Route::get('/forum/show', function () {
     return view('forum.show');
 })->name('forum.show');
 
-Route::get('/consultation', function () {
-    return view('consultation.chat');
-})->name('consultation');
+Route::get('/chat', [AiConsultationController::class, 'index'])->name('consultation.index');
+Route::get('/chat/{categorySlug}', [AiConsultationController::class, 'index'])->name('consultation.category');
+
+// API Routes untuk AJAX
+Route::post('/consultation/send', [AiConsultationController::class, 'sendMessage'])->name('consultation.send');
+Route::post('/consultation/clear', [AiConsultationController::class, 'clearChat'])->name('consultation.clear');
+
 Route::get('/consultation/choose', function () {
     return view('consultation.choose');
 })->name('consultation.choose');
