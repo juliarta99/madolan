@@ -56,14 +56,11 @@
             </div>
 
             <div class="text-center mt-2">
-                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
+                <a href="{{ route('register.index') }}" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
             </div>
             
         </div>
     </form>
-
-    
-
   @yield('scripts')
   @livewireScripts
 </body>

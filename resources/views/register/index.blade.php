@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Madolan</title>
+    <title>Register | Madolan</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo.ico') }}">
 
     <!-- Styles / Scripts -->
@@ -33,46 +33,54 @@
                 </div>
                 <h1 class="font-black uppercase text-2xl tracking-wide">Register</h1>
             </div>
-
-            <!-- Form -->
-            <form method="POST" action="/register/role" class="space-y-8">
-                @csrf
-                                
+            
+            <div x-data="{
+                    role: null,
+                    nextStep() {
+                        if (this.role == 'umkm' || this.role == 'mentor') {
+                            window.location.href = `/register-${this.role}`;
+                        }
+                    }
+                }"  
+                class="space-y-8">
+                
                 <!-- Radio Cards -->
                 <div class="flex flex-col md:flex-row gap-6 justify-center">
                     <!-- UMKM -->
-                    <input type="radio" name="role" value="umkm" id="umkm" class="hidden peer/umkm" required>
+                    <input type="radio" name="role" value="umkm" id="umkm" class="hidden peer/umkm" x-model="role" required>
                     <label for="umkm"
-                        class="flex-1  rounded-xl shadow-lg border-2 border-transparent peer-checked/umkm:border-blue-600 cursor-pointer transition-all duration-300 flex flex-col items-center text-center p-5 space-y-3">
+                        class="flex-1 rounded-xl shadow-lg border-2 border-transparent peer-checked/umkm:border-blue-600 cursor-pointer transition-all duration-300 flex flex-col items-center text-center p-5 space-y-3"
+                        :class="{'border-blue-600': role == 'umkm'}">
                         <img src="{{ asset('assets/umkm.png') }}" alt="UMKM" class="w-32 h-32 object-cover">
                         <span class="font-semibold text-lg">UMKM</span>
                         <p class="text-sm text-gray-600">Untuk anda yang ingin memanage usaha agar naik kelas.</p>
                     </label>
-
+                    
                     <!-- Mentor -->
-                    <input type="radio" name="role" value="mentor" id="mentor" class="hidden peer/mentor" required>
+                    <input type="radio" name="role" value="mentor" id="mentor" class="hidden peer/mentor" x-model="role" required>
                     <label for="mentor"
-                        class="flex-1 rounded-xl shadow-lg border-2 border-transparent peer-checked/mentor:border-blue-600 cursor-pointer transition-all duration-300 flex flex-col items-center text-center p-5 space-y-3">
+                        class="flex-1 rounded-xl shadow-lg border-2 border-transparent peer-checked/mentor:border-blue-600 cursor-pointer transition-all duration-300 flex flex-col items-center text-center p-5 space-y-3"
+                        :class="{'border-blue-600': role == 'mentor'}">
                         <img src="{{ asset('assets/mentor.png') }}" alt="Mentor" class="w-32 h-32 object-cover">
                         <span class="font-semibold text-lg">Mentor</span>
                         <p class="text-sm text-gray-600">Untuk anda yang memiliki pengalaman di bidang bisnis dan ingin berdampak terhadap sesama.</p>
                     </label>
                 </div>
-
+                
                 <!-- Tombol Lanjutkan -->
-                <button type="submit"
-                    class="block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl w-full">
+                <button type="button"
+                    @click="nextStep()"
+                    :disabled="!role"
+                    class="block bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl w-full transition-colors">
                     Lanjutkan
                 </button>
-                
+            
                 <div class="text-center">
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
+                    <a href="{{ route('login.index') }}" class="text-blue-600 hover:text-blue-800 text-sm">Sudah punya akun?</a>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-
-    @yield('scripts')
     @livewireScripts
 </body>
 </html>

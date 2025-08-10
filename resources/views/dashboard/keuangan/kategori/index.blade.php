@@ -2,7 +2,7 @@
 
 @section('content')
 @php
-    $role = 'admin'
+    $role = 'admin';
 @endphp
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">Kategori Keuangan</h1>
     @if ($role == 'umkm')
@@ -32,7 +32,7 @@
             editFormAction() {
                 const form = document.getElementById('form');
                 if (this.editMode && this.categoryId) {
-                    form.action = '{{ route('admin.dashboard.keuangan.kategori') }}/' + this.categoryId;
+                    form.action = '{{ route('dashboard.keuangan.kategori') }}/' + this.categoryId;
                     let methodInput = form.querySelector('input[name=_method]');
                     if (!methodInput) {
                         methodInput = document.createElement('input');
@@ -42,7 +42,7 @@
                     }
                     methodInput.value = 'PUT';
                 } else {
-                    form.action = '{{ route('admin.dashboard.keuangan.kategori.store') }}';
+                    form.action = '{{ route('dashboard.keuangan.kategori.store') }}';
                     const methodInput = form.querySelector('input[name=_method]');
                     if (methodInput) {
                         methodInput.remove();
@@ -51,7 +51,7 @@
             },
             deleteFormAction() {
                 const formDelete = document.getElementById('form-delete');
-                formDelete.action = '{{ route('admin.dashboard.keuangan.kategori') }}/' + this.categoryId;
+                formDelete.action = '{{ route('dashboard.keuangan.kategori') }}/' + this.categoryId;
             },
             resetForm() {
                 this.categoryName = '';
@@ -102,7 +102,7 @@
                                 </button>
                             </div>
     
-                            <form method="GET" action="{{ route('admin.dashboard.keuangan.kategori') }}">
+                            <form method="GET" action="{{ route('dashboard.keuangan.kategori') }}">
                                 <div class="my-6 space-y-2">
                                     <div>
                                         <x-label for="type_id">Tipe Keuangan</x-label>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <form method="GET" action="{{ route('admin.dashboard.keuangan.kategori') }}" class="flex w-full">
+                <form method="GET" action="{{ route('dashboard.keuangan.kategori') }}" class="flex w-full">
                     <input type="hidden" name="type_id" value="{{ request('type_id') }}">
                     <input type="hidden" name="sort_by" value="{{ request('sort_by') }}">
                     <x-form.search 

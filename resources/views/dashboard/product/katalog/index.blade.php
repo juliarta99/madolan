@@ -34,7 +34,7 @@
     @endif
 
     {{-- Filter and Search Section --}}
-    <form method="GET" action="{{ route('admin.dashboard.product.katalog') }}">
+    <form method="GET" action="{{ route('dashboard.product.katalog') }}">
         <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
             <div class="flex gap-2 items-center">
                 <div x-data="{ openFilter: false }">
@@ -147,7 +147,7 @@
                     Cari
                 </button>
             </div>
-            <a href="{{ route('admin.dashboard.product.katalog.create') }}" class="w-full md:w-max">
+            <a href="{{ route('dashboard.product.katalog.create') }}" class="w-full md:w-max">
                 <x-button.icon class="w-full md:w-max">
                     <x-slot:icon>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
@@ -180,19 +180,19 @@
                     editStockFormAction() {
                         if(this.productId) {
                             const formEditStock = document.getElementById('form-edit-stock');
-                            formEditStock.action = '{{ url('admin/dashboard/product/katalog/stock') }}/' + this.productId;
+                            formEditStock.action = '{{ url('dashboard/product/katalog/stock') }}/' + this.productId;
                         }
                     },
                     editStatusFormAction() {
                         if(this.productId) {
                             const formEditStatus = document.getElementById('form-edit-status');
-                            formEditStatus.action = '{{ url('admin/dashboard/product/katalog/status') }}/' + this.productId;
+                            formEditStatus.action = '{{ url('dashboard/product/katalog/status') }}/' + this.productId;
                         }
                     },
                     deleteFormAction() {
                         if(this.productId) {
                             const formDelete = document.getElementById('form-delete');
-                            formDelete.action = '{{ url('admin/dashboard/product/katalog') }}/' + this.productId;
+                            formDelete.action = '{{ url('dashboard/product/katalog') }}/' + this.productId;
                         }
                     },
                     init() {
@@ -334,7 +334,7 @@
                                         </button>
 
                                         {{-- Edit Product --}}
-                                        <a href="{{ route('admin.dashboard.product.katalog.edit', $product->id) }}" class="cursor-pointer h-full flex items-center" title="Edit Produk">
+                                        <a href="{{ route('dashboard.product.katalog.edit', $product->id) }}" class="cursor-pointer h-full flex items-center" title="Edit Produk">
                                             <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                                         </a>
 
@@ -454,7 +454,7 @@
                                         </button>
                                     @endif
 
-                                    <a href="{{ route('admin.dashboard.product.katalog.edit', $product->id) }}" class="cursor-pointer h-full flex items-center">
+                                    <a href="{{ route('dashboard.product.katalog.edit', $product->id) }}" class="cursor-pointer h-full flex items-center">
                                         <img src="{{ asset('assets/icons/edit-simple.svg') }}" class="w-6 min-w-6" alt="">
                                     </a>
 

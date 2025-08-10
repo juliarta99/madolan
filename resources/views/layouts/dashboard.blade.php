@@ -59,7 +59,7 @@
       <nav class="mt-8 space-y-1 text-base flex flex-col justify-between h-full" x-data="{ openProduk: false, openKeuangan: false, openBelajarBisnis: false, openPendanaan: false }">
         @if($role == "umkm")
           <div class="space-y-6">
-              <a href="{{ route('dashboard') }}" class="flex items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('dashboard.index') }}" class="flex items-center @if(Route::is('dashboard.index')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                 <p>Dashboard</p>
               </a>
@@ -136,7 +136,7 @@
           </div>
         @elseif($role == "mentor")
           <div class="space-y-6">
-              <a href="{{ route('mentor.dashboard') }}" class="flex items-center @if(Route::is('mentor.dashboard')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('mentor.dashboard.index') }}" class="flex items-center @if(Route::is('mentor.dashboard.index')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                 <p>Dashboard</p>
               </a>
@@ -155,7 +155,7 @@
           </div>
         @elseif($role == "admin")
           <div class="space-y-6">
-              <a href="{{ route('admin.dashboard') }}" class="flex items-center @if(Route::is('admin.dashboard')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('admin.dashboard.index') }}" class="flex items-center @if(Route::is('admin.dashboard.index')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                 <p>Dashboard</p>
               </a>

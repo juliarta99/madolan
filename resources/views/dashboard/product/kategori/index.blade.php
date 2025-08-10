@@ -32,7 +32,7 @@
             editFormAction() {
                 const form = document.getElementById('form');
                 if (this.editMode && this.categoryId) {
-                    form.action = '{{ route('admin.dashboard.product.kategori') }}/' + this.categoryId;
+                    form.action = '{{ route('dashboard.product.kategori') }}/' + this.categoryId;
                     let methodInput = form.querySelector('input[name=_method]');
                     if (!methodInput) {
                         methodInput = document.createElement('input');
@@ -42,7 +42,7 @@
                     }
                     methodInput.value = 'PUT';
                 } else {
-                    form.action = '{{ route('admin.dashboard.product.kategori.store') }}';
+                    form.action = '{{ route('dashboard.product.kategori.store') }}';
                     const methodInput = form.querySelector('input[name=_method]');
                     if (methodInput) {
                         methodInput.remove();
@@ -51,7 +51,7 @@
             },
             deleteFormAction() {
                 const formDelete = document.getElementById('form-delete');
-                formDelete.action = '{{ route('admin.dashboard.product.kategori') }}/' + this.categoryId;
+                formDelete.action = '{{ route('dashboard.product.kategori') }}/' + this.categoryId;
             },
             resetForm() {
                 this.categoryName = '';
@@ -102,7 +102,7 @@
                                 </button>
                             </div>
     
-                            <form method="GET" action="{{ route('admin.dashboard.product.kategori') }}">
+                            <form method="GET" action="{{ route('dashboard.product.kategori') }}">
                                 <div class="my-6 space-y-2">
                                     <div>
                                         <x-label for="type">Tipe</x-label>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-                <form method="GET" action="{{ route('admin.dashboard.product.kategori') }}" class="flex w-full">
+                <form method="GET" action="{{ route('dashboard.product.kategori') }}" class="flex w-full">
                     <input type="hidden" name="type" value="{{ request('type') }}">
                     <input type="hidden" name="sort_by" value="{{ request('sort_by') }}">
                     <x-form.search 

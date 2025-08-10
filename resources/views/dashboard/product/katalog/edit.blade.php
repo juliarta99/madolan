@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <x-header-with-back route="{{ route('admin.dashboard.product.katalog') }}" titleInSpan="Edit Produk" />
+    <x-header-with-back route="{{ route('dashboard.product.katalog') }}" titleInSpan="Edit Produk" />
 
     @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.dashboard.product.katalog.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('dashboard.product.katalog.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -190,7 +190,7 @@
 
         {{-- Action Buttons --}}
         <div class="grid grid-cols-2 gap-2">
-            <a href="{{ route('admin.dashboard.product.katalog') }}" class="w-full">
+            <a href="{{ route('dashboard.product.katalog') }}" class="w-full">
                 <x-button.default
                     variant="danger"
                     class="w-full"
