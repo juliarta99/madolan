@@ -1,13 +1,12 @@
 @extends('layouts.landingpage.main')
 
 @section('content')
-<section class="relative bg-gradient-to-br white via-white to-white-85 pt-30 overflow-hidden">
-    
-    <section class="relative bg-white py-70 flex items-center justify-center px-4">
-        <img src="{{ asset('assets/wp1.png') }}" alt="" class="w-100 absolute top-[20%] z-0 -left-20 animate-my-custom ">
-        <img src="{{ asset('assets/wp2.png') }}" alt="" class="w-70 absolute top-[2%] z-0 left-[23%] animate-my-custom ">
-        <img src="{{ asset('assets/wp4.png') }}" alt="" class="w-100 absolute top-[30%] z-0 -right-10 animate-my-custom ">
-        <img src="{{ asset('assets/wp3.png') }}" alt="" class="w-70 absolute top-[5%] z-0 right-[24%] animate-my-custom ">
+<section class="relative pt-30 overflow-hidden">
+    <section class="relative flex items-center justify-center px-4 min-h-screen">
+        <img src="{{ asset('assets/wp1.png') }}" alt="" class="w-100 absolute top-0 z-0 -left-20 animate-my-custom ">
+        <img src="{{ asset('assets/wp2.png') }}" alt="" class="w-70 absolute -top-[5%] z-0 left-[23%] animate-my-custom ">
+        <img src="{{ asset('assets/wp4.png') }}" alt="" class="w-100 absolute top-[5%] z-0 -right-10 animate-my-custom ">
+        <img src="{{ asset('assets/wp3.png') }}" alt="" class="w-70 absolute -top-[5%] z-0 right-[24%] animate-my-custom ">
         
         <div class="relative z-10 text-center max-w-3xl mx-auto">
             <h1 class="text-3xl md:text-5xl font-bold leading-tight">
@@ -19,14 +18,14 @@
 
             <!-- CTA Buttons -->
             <div class="mt-8 flex justify-center gap-4">
-                <a href="#" class="px-6 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition">Lihat Fitur</a>
-                <a href="#" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Daftar Sekarang</a>
+                <a href="#feature" class="px-6 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition">Lihat Fitur</a>
+                <a href="{{ route('register.index') }}" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Daftar Sekarang</a>
             </div>
         </div>
     </section>
 </section>
 
-<section class="max-w-6xl mx-auto px-6  flex flex-col md:flex-row items-center gap-35">
+<section class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-35">
     <!-- Logo -->
     <div class="bg-white rounded-3xl shadow-lg p-8 flex items-center justify-center">
         <img src="{{ asset('assets/logo.svg') }}" alt="Madolan Logo" class="w-60 h-50 object-contain">
@@ -68,10 +67,10 @@
 
         <!-- Tombol -->
         <div class="flex gap-4 mt-6">
-            <a href="#" class="px-5 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
+            <a href="#feature" class="px-5 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
                 Jelajahi Lebih Lanjut
             </a>
-            <a href="#" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
+            <a href="{{ route('register.index') }}" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
                 Daftar Sekarang
             </a>
         </div>
@@ -79,7 +78,7 @@
 </section>
 
 <!-- Section Naik Kelas -->
-<section class="py-50 bg-white">
+<section class="py-50" id="feature">
   <div class="container mx-auto px-6 text-center">
     <h2 class="text-3xl md:text-4xl font-bold mb-4">
       Bantu Usahamu <span class="text-blue-600">Naik</span> <span class="text-orange-500">Kelas</span>
@@ -221,7 +220,7 @@
     </div>
 </section>
 
-<section class="py-16 bg-white">
+<section class="py-16">
   <div class="container mx-auto px-6 text-center">
     <!-- Judul -->
     <h2 class="text-2xl md:text-3xl font-bold mb-2">
@@ -317,7 +316,7 @@
   </div>
 </section>
 
-<section class="bg-gradient-to-r from-white-50 to-white pt-50">
+<section class="pt-50">
   <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
     
     <!-- Kiri: Teks -->
@@ -328,7 +327,7 @@
       <p class="text-blue-100 mb-6">
         Jelajahi fitur Madolan sekarang. Gabung bersama ratusan pelaku usaha lain yang tumbuh dengan Madolan
       </p>
-      <a href="#"
+      <a href="{{ route('register.index') }}"
          class="bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition">
         Daftar Sekarang
       </a>

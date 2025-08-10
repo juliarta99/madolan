@@ -43,20 +43,20 @@
                     </button>
                 </div>
             </form>
-            <x-button.icon class="w-full md:w-max">
+            {{-- <x-button.icon class="w-full md:w-max">
                 <x-slot:icon>
                     <svg class="size-6" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M48.6257 47.2084C48.3201 47.2084 48.0336 47.1511 47.7663 47.0365C47.4989 46.9219 47.2507 46.75 47.0215 46.5209L41.7507 41.25H18.834C17.5736 41.25 16.495 40.8016 15.5982 39.9048C14.7013 39.008 14.2522 37.9287 14.2507 36.6667V34.375H39.459C40.7194 34.375 41.7988 33.9266 42.6971 33.0298C43.5954 32.133 44.0438 31.0537 44.0423 29.7917V13.75H46.334C47.5944 13.75 48.6738 14.1992 49.5721 15.0975C50.4704 15.9959 50.9188 17.0745 50.9173 18.3334V44.8594C50.9173 45.5469 50.6882 46.1107 50.2298 46.5507C49.7715 46.9907 49.2368 47.2099 48.6257 47.2084ZM9.66732 27.9011L12.36 25.2084H34.8757V9.16671H9.66732V27.9011ZM7.37565 35.75C6.76454 35.75 6.22982 35.5308 5.77148 35.0923C5.31315 34.6539 5.08398 34.0901 5.08398 33.4011V9.16671C5.08398 7.90629 5.53315 6.82768 6.43148 5.93087C7.32982 5.03407 8.40843 4.5849 9.66732 4.58337H34.8757C36.1361 4.58337 37.2154 5.03254 38.1138 5.93087C39.0121 6.82921 39.4605 7.90782 39.459 9.16671V25.2084C39.459 26.4688 39.0106 27.5482 38.1138 28.4465C37.217 29.3448 36.1376 29.7932 34.8757 29.7917H14.2507L8.97982 35.0625C8.75065 35.2917 8.50239 35.4636 8.23503 35.5782C7.96766 35.6927 7.68121 35.75 7.37565 35.75Z" fill="white"/>
                     </svg>
                     Forum
                 </x-slot:icon>
-            </x-button.icon>
+            </x-button.icon> --}}
         </div>
     </section>
 
     {{-- content --}}
     <section class="container px-2 md:px-8 max-w-6xl mx-auto flex flex-col gap-6 mb-24 relative">
-        <div class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6 flex flex-col md:flex-row gap-6">
+        <a href="{{ route('forum.show') }}" class="w-full shadow-xl border border-gray-200 rounded-xl bg-light p-6 flex flex-col md:flex-row gap-6">
             <img src="{{ asset('assets/image-default.png') }}" class="h-40 md:h-30 aspect-square rounded-lg object-cover" alt="">
             <div>
                 <div class="flex justify-between gap-3 flex-wrap">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4">
+                {{-- <div class="mt-4">
                     <div class="flex md:justify-end gap-2 md:gap-4 flex-wrap">
                         <x-button.icon>
                             <x-slot:icon>
@@ -130,8 +130,8 @@
                             Delete
                         </x-button.icon>
                     </div>
-                </div>
+                </div> --}}
             </div>
-        </div>
+        </a>
     </section>
 @endsection

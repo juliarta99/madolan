@@ -48,7 +48,7 @@
                 <a href="{{ route('forum.index')}}" class="hover:text-accent @if(Route::is('forum*')) text-accent @endif">Forum</a>
             </li>
             <li>
-                <a href="login.blade.php" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
+                <a href="{{ route('pembelajaran.index') }}" class="hover:text-primary @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
             </li>
         </ul>
 
@@ -127,18 +127,18 @@
                         </svg>
                     </button>
                     <div x-show="open" x-transition class="ml-4 mt-2 space-y-2">
-                        <a href="#" class="block text-sm hover:text-primary">Dashboard Analisis</a>
-                        <a href="#" class="block text-sm hover:text-primary">Forum</a>
-                        <a href="#" class="block text-sm hover:text-primary">Pembelajaran</a>
-                        <a href="#" class="block text-sm hover:text-primary">Point of Sales</a>
-                        <a href="#" class="block text-sm hover:text-primary">Pembukuan</a>
-                        <a href="#" class="block text-sm hover:text-primary">Pendanaan</a>
+                        <a href="{{ route('fitur.ds.index')}}" class="block text-sm hover:text-primary">Dashboard Analisis</a>
+                        <a href="{{ route('fitur.fiturforum.index')}}" class="block text-sm hover:text-primary">Forum</a>
+                        <a href="{{ route('fitur.fiturpembelajaran.index')}}" class="block text-sm hover:text-primary">Pembelajaran</a>
+                        <a href="{{ route('fitur.fiturPOS.index')}}" class="block text-sm hover:text-primary">Point of Sales</a>
+                        <a href="{{ route('fitur.fiturlaporan.index')}}" class="block text-sm hover:text-primary">Pembukuan</a>
+                        <a href="{{ route('fitur.fiturpendanaan.index')}}" class="block text-sm hover:text-primary">Pendanaan</a>
                     </div>
                 </div>
 
-                <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('faq')) text-primary @endif">FAQ</a>
-                <a href="#" class="block hover:text-accent text-sm sm:text-base @if(Route::is('forum*')) text-accent @endif">Forum</a>
-                <a href="#" class="block hover:text-primary text-sm sm:text-base @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
+                <a href="{{ route('faq.index')}}" class="block hover:text-primary text-sm sm:text-base @if(Route::is('faq')) text-primary @endif">FAQ</a>
+                <a href="{{ route('forum.index')}}" class="block hover:text-accent text-sm sm:text-base @if(Route::is('forum*')) text-accent @endif">Forum</a>
+                <a href="{{ route('pembelajaran.index') }}" class="block hover:text-primary text-sm sm:text-base @if(Route::is('pembelajaran*')) text-primary @endif">Pembelajaran</a>
 
                 <div class="pt-4 border-t border-gray-200 mt-4">
                      @auth

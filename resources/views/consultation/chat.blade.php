@@ -89,7 +89,7 @@
                         <span class="font-semibold text-sm sm:text-base">Madolan</span>
                     </div>
                 </div>
-                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                <a href="{{ route('dashboard.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
                     <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                     <span class="hidden lg:block">Kembali ke Dashboard</span>
                 </a>
@@ -115,7 +115,7 @@
                     </div>
 
                     <!-- Chat Messages Area -->
-                    <div class="flex-1 overflow-y-auto space-y-4 py-6 pb-40" x-ref="messagesContainer">
+                    <div class="flex-1 overflow-y-auto space-y-4 py-6 pb-40" x-ref="messagesContainer" x-show="!notChoose">
                         <!-- Welcome Message -->
                         <div x-show="messages.length === 0 && !notChoose" class="text-center py-8">
                             <div class="p-6 rounded-lg">

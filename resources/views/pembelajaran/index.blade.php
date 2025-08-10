@@ -42,7 +42,7 @@
                 </div>
                 <p class="text-gray-600 text-sm md:text-base">2 hari yang lalu</p>
             </div>
-            <a href="">
+            <a href="{{ route('pembelajaran.show') }}">
                 <x-button.default>
                     Baca Selengkapnya
                 </x-button.default>

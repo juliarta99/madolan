@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landingpage');
 
-Route::middleware(['auth', 'umkm'])->group(function () {
+// Route::middleware(['auth', 'umkm'])->group(function () {
     Route::get('/pos', function () {
         return view('pos.pos');
     });
@@ -36,7 +36,7 @@ Route::middleware(['auth', 'umkm'])->group(function () {
     Route::get('/list-preorder', function () {
         return view('dashboard.pos.list-preorder');
     });
-});
+// });
 
 Route::get('/fitur', function () {
     return view('fitur.index');
@@ -110,7 +110,7 @@ Route::middleware(['guest'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'umkm'])->group(function () {
+// Route::middleware(['auth', 'umkm'])->group(function () {
     Route::get('/chat', [AiConsultationController::class, 'index'])->name('consultation.index');
     Route::get('/chat/{categorySlug}', [AiConsultationController::class, 'index'])->name('consultation.category');
     Route::post('/consultation/send', [AiConsultationController::class, 'sendMessage'])->name('consultation.send');
@@ -202,9 +202,9 @@ Route::middleware(['auth', 'umkm'])->group(function () {
         return view('dashboard.access.show');
     })->name('dashboard.access.show');
     
-});
+// });
 
-Route::middleware(['auth', 'mentor'])->group(function () {
+// Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/mentor/dashboard', function () {
         return view('dashboard.mentor.index');
     })->name('mentor.dashboard');
@@ -217,9 +217,9 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/mentor/dashboard/pembelajaran/create', function () {
         return view('dashboard.learning.pembelajaran.create');
     })->name('mentor.dashboard.pembelajaran.create');
-});
+// });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+// Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('/', function () {
@@ -284,4 +284,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
             })->name('.access');
         });
     });
-});
+// });

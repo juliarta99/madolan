@@ -174,7 +174,7 @@
                     <tbody class="text-gray-700">
                         @for ($i = 0; $i<10; $i++)
                             <tr class="border-b border-b-gray-300 even:bg-gray-50">
-                                <td class="px-4 py-2">{{ $i++ }}</td>
+                                <td class="px-4 py-2">{{ $i + 1 }}</td>
                                 <td class="px-4 py-2">KUR Bank BRI</td>
                                 <td class="px-4 py-2">Bank BRI</td>
                                 <td class="px-4 py-2">Rp 30.000.000 - Rp 40.000.000</td>

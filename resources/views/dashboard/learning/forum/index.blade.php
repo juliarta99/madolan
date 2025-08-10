@@ -7,7 +7,7 @@
         <p class="text-light mt-1 mb-3 text-sm md:text-base">
             Temukan insight baru, strategi jitu, dan obrolan hangat dari sesama pelaku usaha di komunitas Madolan
         </p>
-        <a href="">
+        <a href="{{ route('forum.index') }}">
             <x-button.default variant="light" class="!text-primary">
                 Kunjungi Halaman Forum
             </x-button.default>

@@ -13,8 +13,10 @@ class ProductCategoryController extends Controller
     {
         $query = ProductCategory::withCount('products');
         
-        if(Auth::user()->role == 'umkm') {
-            $query->where('umkm_id', Auth::user()->umkm->id);
+        if(Auth::check()) {
+            if(Auth::user()->role == 'umkm') {
+                $query->where('umkm_id', Auth::user()->umkm->id ?? 1);
+            }
         }
         
         if ($request->search) {
@@ -58,14 +60,16 @@ class ProductCategoryController extends Controller
         ]);
         
         try {
-            if(Auth::user()->role == 'admin') {
+            if(Auth::check()) {
+                if(Auth::user()->role == 'admin') {
+                    ProductCategory::create([
+                        'name' => $request->name,
+                        'type' => $request->type
+                    ]);
+                }
+            }  else {
                 ProductCategory::create([
-                    'name' => $request->name,
-                    'type' => $request->type
-                ]);
-            } else {
-                ProductCategory::create([
-                    'umkm_id' => Auth::user()->umkm->id,
+                    'umkm_id' => Auth::user()->umkm->id ?? 1,
                     'name' => $request->name,
                     'type' => $request->type
                 ]);
@@ -92,10 +96,12 @@ class ProductCategoryController extends Controller
         ]);
         
         try {
-            if(Auth::user()->role == 'admin') {
-                $category = ProductCategory::findOrFail($id); 
+            if(Auth::check()) {
+                if(Auth::user()->role == 'admin') {
+                    $category = ProductCategory::findOrFail($id); 
+                }
             } else {
-                $category = ProductCategory::where('umkm_id', Auth::user()->umkm->id)->findOrFail($id); 
+                $category = ProductCategory::where('umkm_id', Auth::user()->umkm->id ?? 1)->findOrFail($id); 
             }
             $category->update([
                 'name' => $request->name,
@@ -112,10 +118,12 @@ class ProductCategoryController extends Controller
     public function destroy($id)
     {
         try {
-            if(Auth::user()->role == 'admin') {
-                $category = ProductCategory::findOrFail($id);
-            } else {
-                $category = ProductCategory::where('umkm_id', Auth::user()->umkm->id)->findOrFail($id);
+            if(Auth::check()) {
+                if(Auth::user()->role == 'admin') {
+                    $category = ProductCategory::findOrFail($id);
+                }
+            }  else {
+                $category = ProductCategory::where('umkm_id', Auth::user()->umkm->id ?? 1)->findOrFail($id);
             }
             
             if ($category->products()->count() > 0) {

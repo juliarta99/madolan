@@ -22,7 +22,7 @@
 <body class="bg-light text-dark font-plus-jakarta-sans">
 
   @php
-      $role = 'admin'
+      $role = 'mentor'
   @endphp
   {{-- pop-up error/success --}}
   @if (session('success') || session('error'))
@@ -83,7 +83,7 @@
                   </div>
               </div>
 
-              <a href="#" class="flex items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-x-2">
+              <a href="/pos" class="flex items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/pos.svg') }}" class="inline-block w-6">
                 <p>Point of Sales</p>
               </a>
@@ -124,8 +124,8 @@
 
                   <div x-show="openBelajarBisnis" x-collapse class="ml-6 mt-1 space-y-2">
                       <a href="{{ route('dashboard.learning.forum') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.forum*')) font-bold @endif">Forum</a>
-                      <a href="{{ route('pembelajaran') }}" class="block px-2 py-1 hover:font-bold">Pembelajaran</a>
-                      <a href="" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.learning.ai*')) font-bold @endif">Konsultasi AI</a>
+                      <a href="{{ route('pembelajaran.index') }}" class="block px-2 py-1 hover:font-bold">Pembelajaran</a>
+                      <a href="{{ route('consultation.index') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('consultation*')) font-bold @endif">Konsultasi AI</a>
                   </div>
               </div>
 
@@ -136,7 +136,7 @@
           </div>
         @elseif($role == "mentor")
           <div class="space-y-6">
-              <a href="{{ route('mentor.dashboard.index') }}" class="flex items-center @if(Route::is('mentor.dashboard.index')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('mentor.dashboard') }}" class="flex items-center @if(Route::is('mentor.dashboard')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-6">
                 <p>Dashboard</p>
               </a>
@@ -160,7 +160,7 @@
                 <p>Dashboard</p>
               </a>
 
-              <a href="{{ route('admin.dashboard.user') }}" class="flex items-center @if(Route::is('admin.dashboard.user*')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('admin.dashboard.user.index') }}" class="flex items-center @if(Route::is('admin.dashboard.user*')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/users.svg') }}" class="inline-block w-6">
                 <p>User</p>
               </a>
@@ -179,14 +179,14 @@
                   </button>
 
                   <div x-show="openProduk" x-collapse class="ml-6 mt-1 space-y-2">
-                      <a href="{{ route('admin.dashboard.product.katalog') }}" class="block px-2 py-1 @if(Route::is('admin.dashboard.product.katalog*')) font-bold @endif hover:font-bold">Katalog Produk</a>
-                      <a href="{{ route('admin.dashboard.product.kategori') }}" class="block px-2 py-1 @if(Route::is('admin.dashboard.product.kategori*')) font-bold @endif hover:font-bold">Kategori</a>
+                      <a href="{{ route('dashboard.product.katalog') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.katalog*')) font-bold @endif hover:font-bold">Katalog Produk</a>
+                      <a href="{{ route('dashboard.product.kategori') }}" class="block px-2 py-1 @if(Route::is('dashboard.product.kategori*')) font-bold @endif hover:font-bold">Kategori</a>
                   </div>
               </div>
 
               <div>
                   <button @click="openKeuangan = !openKeuangan, openProduk = false, openBelajarBisnis = false"
-                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('admin.dashboard.keuangan*')) font-bold @endif hover:font-bold">
+                      class="flex items-center justify-between w-full cursor-pointer @if(Route::is('dashboard.keuangan*')) font-bold @endif hover:font-bold">
                       <div class="flex items-center space-x-2">
                           <img src="{{ asset('assets/icons/moneys.svg') }}" class="w-6">
                           <span>Keuangan</span>
@@ -199,7 +199,7 @@
 
                   <div x-show="openKeuangan" x-collapse class="ml-6 mt-1 space-y-2">
                     <a href="{{ route('admin.dashboard.keuangan.type') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('admin.dashboard.keuangan.type*')) font-bold @endif">Tipe</a>
-                    <a href="{{ route('admin.dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('admin.dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
+                    <a href="{{ route('dashboard.keuangan.kategori') }}" class="block px-2 py-1 hover:font-bold @if(Route::is('dashboard.keuangan.kategori*')) font-bold @endif">Kategori</a>
                   </div>
               </div>
 
@@ -242,7 +242,7 @@
                   </div>
               </div>
 
-              <a href="{{ route('admin.dashboard.access') }}" class="flex items-center @if(Route::is('admin.dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
+              <a href="{{ route('dashboard.access') }}" class="flex items-center @if(Route::is('admin.dashboard.access*')) font-bold @endif hover:font-bold space-x-2">
                 <img src="{{ asset('assets/icons/employee.svg') }}" class="inline-block w-6">
                 <p>Manajemen Akses</p>
               </a>
@@ -310,23 +310,23 @@
       </main>
 
       <div class="fixed md:hidden bottom-0 px-4 py-3 grid grid-cols-5 items-center justify-center bg-secondary w-full">
-        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+        <a href="{{ route('dashboard.index') }}" class="flex flex-col items-center @if(Route::is('dashboard.index')) font-bold @endif hover:font-bold space-y-1">
           <img src="{{ asset('assets/icons/dashboard.svg') }}" class="inline-block w-5 sm:w-6">
           <p class="text-sm sm:text-base text-light text-center">Dashboard</p>
         </a>
-        <a href="#" class="flex flex-col items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-y-1">
+        <a href="/pos" class="flex flex-col items-center @if(Route::is('dashboard.pos*')) font-bold @endif hover:font-bold space-y-1">
           <img src="{{ asset('assets/icons/pos.svg') }}" class="inline-block w-6">
           <p class="text-sm sm:text-base text-light text-center">POS</p>
         </a>
-        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+        <a href="{{ route('dashboard.keuangan.laporan') }}" class="flex flex-col items-center @if(Route::is('dashboard.keuangan.laporan')) font-bold @endif hover:font-bold space-y-1">
           <img src="{{ asset('assets/icons/moneys.svg') }}" class="inline-block w-5 sm:w-6">
           <p class="text-sm sm:text-base text-light text-center">Laporan</p>
         </a>
-        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+        <a href="{{ route('dashboard.learning.forum') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
           <img src="{{ asset('assets/icons/forum.svg') }}" class="inline-block w-5 sm:w-6">
           <p class="text-sm sm:text-base text-light text-center">Forum</p>
         </a>
-        <a href="{{ route('dashboard') }}" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
+        <a href="" class="flex flex-col items-center @if(Route::is('dashboard')) font-bold @endif hover:font-bold space-y-1">
           <img src="{{ asset('assets/icons/profile.svg') }}" class="inline-block w-5 sm:w-6">
           <p class="text-sm sm:text-base text-light text-center">Profil</p>
         </a>

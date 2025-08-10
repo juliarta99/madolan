@@ -4,7 +4,7 @@
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">My Pembelajaran</h1>
     <div class="bg-primary p-4 rounded-md mb-4">
         <h2 class="font-semibold text-light mb-2">Lihat pembelajaran?</h2>
-        <a href="">
+        <a href="{{ route('pembelajaran.index') }}">
             <x-button.default variant="light" class="!text-primary">
                 Kunjungi Halaman Pembelajaran
             </x-button.default>
@@ -109,7 +109,7 @@
                 placeholder="Search pembelajaran"
             />
         </div>
-        <a href="{{ route('dashboard.learning.pembelajaran.create') }}">
+        <a href="{{ route('mentor.dashboard.pembelajaran.create') }}">
             <x-button.icon>
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-light size-6">
