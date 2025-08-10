@@ -103,7 +103,7 @@
       <p class="text-gray-600 mb-6">
         Semua performa usaha dirangkum rapi dari omzet, pengeluaran, hingga saran cerdas berbasis AI
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.ds.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -120,7 +120,7 @@
       <p class="text-gray-600 mb-6">
         Ruang diskusi dan tanya jawab langsung dengan pelaku usaha lain dan mentor. Dapat ilmu dan siap tumbuh bersama, serta dapatkan insight melalui konsultasi dengan AI
       </p>
-      <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+      <a href="{{ route('fitur.fiturforum.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -145,7 +145,7 @@
       <p class="text-gray-600 mb-6">
         Belajar dari mentor berpengalaman, tips praktis seputar usaha dan keuangan. Dari dasar sampai strategi lanjut
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.fiturpembelajaran.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -162,7 +162,7 @@
       <p class="text-gray-600 mb-6">
         Dari transaksi harian, kamu bisa bangun bisnis yang lebih rapi, terukur, dan siap tumbuh. Semuanya berawal dari satu klik pencatatan
       </p>
-      <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+      <a href="{{ route('fitur.fiturPOS.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -187,7 +187,7 @@
       <p class="text-gray-600 mb-6">
         Semua transaksi usaha pemasukan, pengeluaran, utang, dan lainnya dapat tercatat rapi dalam sistem. Tanpa ribet hitung manual, laporan keuangan seperti arus kas, laba rugi, dan lainnya  tersusun otomatis
       </p>
-      <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+      <a href="{{ route('fitur.fiturlaporan.index')}}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
         Jelajahi Fitur
       </a>
     </div>
@@ -208,7 +208,7 @@
         Madolan bantu kamu temukan program pendanaan yang sesuai dari KUR, koperasi, hingga fintech. 
         Sistem kami membaca data usahamu, lalu menilai apakah kamu sudah memenuhi syarat.
         </p>
-        <a href="#" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+        <a href="{{ route('fitur.fiturpendanaan.index')}}" class="px-6 py-3 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
         Jelajahi Fitur
         </a>
     </div>
