@@ -1,6 +1,6 @@
 @props([
-    'name' => '',
-    'checked' => false,
+    'name' => 'status',
+    'checked' => true,
     'activeLabel' => 'Aktif',
     'inactiveLabel' => 'Tidak Aktif',
 ])

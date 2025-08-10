@@ -34,11 +34,17 @@
             <div class="mt-3">
                 <label for="email" class="block text-base mb-2">Email</label>
                 <input type="text" id="email" name="email" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan email anda">
+                @error('email')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
             
             <div class="mt-3">
                 <label for="password" class="block text-base mb-2">Password</label>
                 <input type="password" id="password" name="password" class="border w-full text-base px-2 py-1 focus:ring-0 focus:border-gray-600 rounded-md" placeholder="Masukan password anda">
+                @error('password')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
                 <div class="text-right mt-2">
                     <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Lupa password?</a>
                 </div>
@@ -56,13 +62,11 @@
             </div>
 
             <div class="text-center mt-2">
-                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
+                <a href="{{ route('register.index') }}" class="text-blue-600 hover:text-blue-800 text-sm">Belum punya akun?</a>
             </div>
+            
         </div>
     </form>
-
-
-
   @yield('scripts')
   @livewireScripts
 </body>

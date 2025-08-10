@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('restrict');
             $table->foreignId('user_id')->constrained()->onDelete('restrict');
-            $table->string('chat');
+            $table->text('chat');
             $table->enum('role', ['ai', 'user']);
             $table->timestamps();
         });

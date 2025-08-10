@@ -1,21 +1,27 @@
 @extends('layouts.dashboard')
 
 @section('content')
+@php
+    $role = 'admin'
+@endphp
     <h1 class="text-2xl lg:text-3xl font-bold mb-4">Manajemen Akses</h1>
-    <div class="p-4 rounded-lg w-full bg-primary mb-4">
-        <h2 class="text-lg md:text-xl font-semibold text-light">Pegawai memiliki akses sesuai dengan tipenya</h2>
-        <p class="text-sm md:text-base text-light">
-            Link login pegawai dapat diakses pada link berikut: <a href="" class="text-warning">https://madolan.com/dsada.com</a>
-        </p>
-        <div class="flex gap-2 items-center mt-2 w-full md:w-max">
-            <x-button.transparent variant="light" class="w-full md:w-max">
-                Copy Link
-            </x-button.transparent>
-            <x-button.default variant="accent" class="w-full md:w-max">
-                Akses Link
-            </x-button.default>
+    @if ($role == 'umkm')
+        <div class="p-4 rounded-lg w-full bg-primary mb-4">
+            <h2 class="text-lg md:text-xl font-semibold text-light">Pegawai memiliki akses sesuai dengan tipenya</h2>
+            <p class="text-sm md:text-base text-light">
+                Link login pegawai dapat diakses pada link berikut: <a href="" class="text-warning">https://madolan.com/dsada.com</a>
+            </p>
+            <div class="flex gap-2 items-center mt-2 w-full md:w-max">
+                <x-button.transparent variant="light" class="w-full md:w-max">
+                    Copy Link
+                </x-button.transparent>
+                <x-button.default variant="accent" class="w-full md:w-max">
+                    Akses Link
+                </x-button.default>
+            </div>
         </div>
-    </div>
+    @endif
+    
     <div x-data="{
             confirmDelete: false,
             accessId: null,
